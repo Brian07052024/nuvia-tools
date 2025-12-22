@@ -1,19 +1,17 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState } from "react";
 
 const ColorContext = createContext();
 
 
 export const ColorProvider = ({ children }) => {
-    const [colors, setColors] = useState({
-        colorGradientOne: "#ede9fe",
-        colorGradientTwo: "#ddd6fe",
-        colorGradientThree: "#d8b4fe",
-        colorGradientFour: "#a78bfa"
-    });
+    const [colors, setColors] = useState(["#e5e7eb"]);
+    const [format, setFormat] = useState("16:9");
 
     const value = {
         colors,
-        setColors
+        setColors,
+        format,
+        setFormat
     }
 
     return (
