@@ -29,3 +29,26 @@ input[type="color"]::-webkit-color-swatch {
     max-height: 100px;
   }
 }
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 8px 0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 9999px;
+  border: 3px solid white;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+  border: 3px solid white;
+  background-clip: padding-box;
+}

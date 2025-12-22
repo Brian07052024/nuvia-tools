@@ -1,15 +1,15 @@
 import { useColor } from "../../hook/useColor";
 
 function Center() {
-    const { colors, format } = useColor();
+    const { colors, format, angle } = useColor();
 
     const cantidadColores = () => {
         switch (colors.length) {
             case 1:
                 return <div
-                    className={`h-1/2 w-1/2 rounded-2xl transition-all duration-700 ease-in-out`}
+                    className={`${format === "9/16" ? "w-1/3": "w-1/2"} rounded-2xl transition-all duration-700 ease-in-out`}
                     style={{
-                        background: `linear-gradient(to bottom, ${colors[0]}, ${colors[0]}, ${colors[0]}, ${colors[0]})`,
+                        background: `linear-gradient(${angle}deg, ${colors[0]}, ${colors[0]}, ${colors[0]}, ${colors[0]})`,
                         aspectRatio: format
                     }}>
 
@@ -17,9 +17,9 @@ function Center() {
 
             case 2:
                 return <div
-                    className={`h-1/2 w-1/2 rounded-2xl transition-all duration-700 ease-in-out`}
+                    className={`${format === "9/16" ? "w-1/3": "w-1/2"} rounded-2xl transition-all duration-700 ease-in-out`}
                     style={{
-                        background: `linear-gradient(to bottom, ${colors[0]}, ${colors[1]})`,
+                        background: `linear-gradient(${angle}deg, ${colors[0]}, ${colors[1]})`,
                         aspectRatio: format
                     }}>
 
@@ -27,9 +27,9 @@ function Center() {
 
             case 3:
                 return <div
-                    className={`h-1/2 w-1/2 rounded-2xl transition-all duration-700 ease-in-out`}
+                    className={`${format === "9/16" ? "w-1/3": "w-1/2"} rounded-2xl transition-all duration-700 ease-in-out`}
                     style={{
-                        background: `linear-gradient(to bottom, ${colors[0]}, ${colors[1]}, ${colors[2]})`,
+                        background: `linear-gradient(${angle}deg, ${colors[0]}, ${colors[1]}, ${colors[2]})`,
                         aspectRatio: format
                     }}>
 
@@ -37,9 +37,9 @@ function Center() {
 
             case 4:
                 return <div
-                    className={`h-1/2 w-1/2 rounded-2xl transition-all duration-700 ease-in-out`}
+                    className={`${format === "9/16" ? "w-1/3": "w-1/2"} rounded-2xl transition-all duration-700 ease-in-out`}
                     style={{
-                        background: `linear-gradient(to bottom, ${colors[0]}, ${colors[1]}, ${colors[2]}, ${colors[3]})`,
+                        background: `linear-gradient(${angle}deg, ${colors[0]}, ${colors[1]}, ${colors[2]}, ${colors[3]})`,
                         aspectRatio: format
                     }}>
 
