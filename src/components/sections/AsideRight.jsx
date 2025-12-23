@@ -1,8 +1,11 @@
 import { useColor } from "../../hook/useColor";
 import { toPng } from 'html-to-image';
+import { useState } from 'react';
 
 function AsideRight() {
     const { colors, setColors, format, gradientRef, mode } = useColor();
+    const [isRecording, setIsRecording] = useState(false);
+    const [recordingProgress, setRecordingProgress] = useState(0);
 
     const handleColorChange = (index, newColor) => {
         setColors(prevColors => {
@@ -68,6 +71,137 @@ function AsideRight() {
         }
     };
 
+    const handleExportVideo = async () => {
+        if (!gradientRef.current) {
+            alert("No hay gradiente para exportar");
+            return;
+        }
+
+        if (mode !== "animated") {
+            alert("El modo animado debe estar activado para exportar video");
+            return;
+        }
+
+        try {
+            setIsRecording(true);
+
+            // Determinar dimensiones según el formato
+            let width, height;
+            switch (format) {
+                case "16/9":
+                    width = 1920;
+                    height = 1080;
+                    break;
+                case "9/16":
+                    width = 1080;
+                    height = 1920;
+                    break;
+                case "1/1":
+                    width = 1080;
+                    height = 1080;
+                    break;
+                case "4/3":
+                    width = 1600;
+                    height = 1200;
+                    break;
+                default:
+                    width = 1920;
+                    height = 1080;
+            }
+
+            const element = gradientRef.current;
+            
+            // Crear un canvas y configurarlo
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d', { willReadFrequently: false });
+
+            // Capturar el stream del canvas
+            const stream = canvas.captureStream(30);
+            const mediaRecorder = new MediaRecorder(stream, {
+                mimeType: 'video/webm;codecs=vp9',
+                videoBitsPerSecond: 8000000
+            });
+
+            const chunks = [];
+            mediaRecorder.ondataavailable = (e) => {
+                if (e.data.size > 0) {
+                    chunks.push(e.data);
+                }
+            };
+
+            mediaRecorder.onstop = () => {
+                const blob = new Blob(chunks, { type: 'video/webm' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.download = `gradient-animated-${format.replace('/', 'x')}-${Date.now()}.webm`;
+                link.href = url;
+                link.click();
+                URL.revokeObjectURL(url);
+                setIsRecording(false);
+                setRecordingProgress(0);
+            };
+
+            // Función para capturar frames reales del DOM
+            const renderFrame = async () => {
+                try {
+                    const dataUrl = await toPng(element, {
+                        quality: 1,
+                        pixelRatio: 1,
+                        width: element.offsetWidth,
+                        height: element.offsetHeight,
+                        cacheBust: false,
+                        style: {
+                            transform: 'none',
+                        }
+                    });
+
+                    const img = new Image();
+                    await new Promise((resolve, reject) => {
+                        img.onload = resolve;
+                        img.onerror = reject;
+                        img.src = dataUrl;
+                    });
+
+                    ctx.clearRect(0, 0, width, height);
+                    ctx.drawImage(img, 0, 0, width, height);
+                } catch (err) {
+                    console.error('Error capturing frame:', err);
+                }
+            };
+
+            // Iniciar grabación
+            mediaRecorder.start();
+
+            // Renderizar frames durante 10 segundos
+            const duration = 10000;
+            const fps = 30;
+            const frameInterval = 1000 / fps;
+            let frameCount = 0;
+            const totalFrames = (duration / 1000) * fps;
+
+            const captureInterval = setInterval(async () => {
+                await renderFrame();
+                frameCount++;
+                
+                const progress = Math.round((frameCount / totalFrames) * 100);
+                setRecordingProgress(progress);
+                
+                if (frameCount >= totalFrames) {
+                    clearInterval(captureInterval);
+                    mediaRecorder.stop();
+                }
+            }, frameInterval);
+
+        } catch (error) {
+            console.error('Error al exportar video:', error);
+            alert('Error al exportar el video. Intenta de nuevo.');
+            setIsRecording(false);
+            setRecordingProgress(0);
+        }
+    };
+
     const handleClick = () => {
         const limite = colors.filter(valor => valor !== "");
 
@@ -108,13 +242,33 @@ function AsideRight() {
 
     return (
         <div className="bg-white col-span-2 p-4 rounded-2xl gap-5 flex flex-col overflow-y-scroll border border-gray-300">
-            <button 
+            <button
                 onClick={handleExportImage}
                 className="flex gap-2 justify-center items-center cursor-pointer bg-linear-to-r from-nuviaFrom to-nuviaTo px-4 py-3 text-white rounded-2xl text-center font-medium hover:brightness-110 transition-all duration-200"
             >
                 Exportar Imagen <img src="/svg/download.svg" alt="icon" />
             </button>
-
+            {mode === "animated" && (
+                <button
+                    onClick={handleExportVideo}
+                    disabled={isRecording}
+                    className={`relative flex gap-2 justify-center items-center cursor-pointer px-4 py-3 text-white rounded-2xl text-center font-medium transition-all duration-200 overflow-hidden ${isRecording
+                            ? 'bg-gray-400 cursor-not-allowed'
+                            : 'bg-linear-to-r from-purple-600 to-pink-600 hover:brightness-110'
+                        }`}
+                >
+                    {isRecording && (
+                        <div
+                            className="absolute left-0 top-0 h-full bg-white/20 transition-all duration-300"
+                            style={{ width: `${recordingProgress}%` }}
+                        />
+                    )}
+                    <span className="relative z-10">
+                        {isRecording ? `Grabando... ${recordingProgress}%` : 'Exportar Video'}
+                    </span>
+                    <img src="/svg/download.svg" alt="icon" className="relative z-10" />
+                </button>
+            )}
             <div className="flex flex-col gap-3 transition-all duration-300 ease-in-out  ">
 
                 <span className="text-gray-800 font-medium">Paleta de colores</span>
