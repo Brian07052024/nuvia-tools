@@ -1,6 +1,7 @@
 import { toPng } from 'html-to-image';
 import { getFormatDimensions } from './formatDimensions';
 
+//area de exportar imagenes
 export const exportImage = async (gradientRef, format) => {
     if (!gradientRef.current) {
         throw new Error("No hay gradiente para exportar");
@@ -26,12 +27,14 @@ export const exportImage = async (gradientRef, format) => {
     link.click();
 };
 
+
+//funcionalidades para exportar los videos (mas complejo: )
 export const exportVideo = async (gradientRef, format, onProgress, options = {}) => {
     if (!gradientRef.current) {
         throw new Error("No hay gradiente para exportar");
     }
 
-    // Opciones configurables con valores por defecto
+    //Opciones configurables con valores por defecto
     const {
         duration = 6,
         fps = 30,
