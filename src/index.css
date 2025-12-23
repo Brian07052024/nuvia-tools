@@ -1,4 +1,12 @@
 @import "tailwindcss";
+@import "tailwindcss-animated";
+
+
+@theme{
+  --color-nuviaFrom: #9333EA;
+  --color-nuviaTo: #0891B2;
+}
+
 
 input[type="color"] {
   -webkit-appearance: none;
@@ -28,6 +36,140 @@ input[type="color"]::-webkit-color-swatch {
     transform: translateY(0);
     max-height: 100px;
   }
+}
+
+/* animaciones del gradiente ----> */
+
+@keyframes float1 {
+  0%, 100% {
+    transform: translate(0%, 0%) scale(1);
+  }
+  50% {
+    transform: translate(30%, -50%) scale(1.2);
+  }
+}
+
+@keyframes float2 {
+  0%, 100% {
+    transform: translate(0%, 0%) scale(1);
+  }
+  50% {
+    transform: translate(-40%, 45%) scale(1.3);
+  }
+}
+
+@keyframes float3 {
+  0%, 100% {
+    transform: translate(0%, 0%) scale(1);
+  }
+  50% {
+    transform: translate(50%, 35%) scale(0.9);
+  }
+}
+
+@keyframes float4 {
+  0%, 100% {
+    transform: translate(0%, 0%) scale(1);
+  }
+  50% {
+    transform: translate(-55%, -35%) scale(1.15);
+  }
+}
+
+@keyframes float5 {
+  0%, 100% {
+    transform: translate(0%, 0%) scale(1);
+  }
+  50% {
+    transform: translate(25%, 50%) scale(1.1);
+  }
+}
+
+@keyframes float6 {
+  0%, 100% {
+    transform: translate(0%, 0%) scale(1);
+  }
+  50% {
+    transform: translate(-30%, -45%) scale(0.85);
+  }
+}
+
+.gradient-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.8;
+  mix-blend-mode: multiply;
+}
+
+.gradient-blob:nth-child(1) {
+  width: 70%;
+  height: 70%;
+  top: -10%;
+  left: -5%;
+  animation: float1 6s ease-in-out infinite;
+}
+
+.gradient-blob:nth-child(2) {
+  width: 65%;
+  height: 65%;
+  top: 15%;
+  right: -10%;
+  animation: float2 7s ease-in-out infinite;
+  animation-delay: -1s;
+}
+
+.gradient-blob:nth-child(3) {
+  width: 80%;
+  height: 80%;
+  bottom: -15%;
+  left: 10%;
+  animation: float3 5.5s ease-in-out infinite;
+  animation-delay: -2s;
+}
+
+.gradient-blob:nth-child(4) {
+  width: 60%;
+  height: 60%;
+  bottom: 10%;
+  right: 15%;
+  animation: float4 8s ease-in-out infinite;
+  animation-delay: -3s;
+}
+
+.gradient-blob:nth-child(5) {
+  width: 55%;
+  height: 55%;
+  top: 40%;
+  left: 40%;
+  animation: float5 6.5s ease-in-out infinite;
+  animation-delay: -1.5s;
+}
+
+.gradient-blob:nth-child(6) {
+  width: 75%;
+  height: 75%;
+  top: 20%;
+  left: 20%;
+  animation: float6 7.5s ease-in-out infinite;
+  animation-delay: -4s;
+}
+
+.gradient-animated-container {
+  position: relative;
+  overflow: hidden;
+  background: white;
+}
+
+.gradient-animated {
+  background-size: 200% 200% !important;
+  animation: gradient-animation 5s ease infinite;
+}
+
+/* Range gradient */
+input[type="range"].gradient-range {
+  background: linear-gradient(to right, #9333EA, #0891B2);
+  height: 2px;
 }
 
 /* Scrollbar personalizado */

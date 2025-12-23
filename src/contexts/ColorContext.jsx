@@ -1,12 +1,21 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useRef, useState } from "react";
 
 const ColorContext = createContext();
 
 
 export const ColorProvider = ({ children }) => {
-    const [colors, setColors] = useState(["#e5e7eb"]);
+    const coloresEnLocalStorage = window.localStorage.getItem("paletaActual");
+
+    const [colors, setColors] = useState(coloresEnLocalStorage ? JSON.parse(coloresEnLocalStorage) : ["#e5e7eb"]);
     const [format, setFormat] = useState("16/9");
     const [angle, setAngle] = useState(180);
+    const [mode, setMode] = useState("static");
+    const gradientRef = useRef(null);
+
+    //guardar colores en localStorage cuando cambien
+    useEffect(() => {
+        window.localStorage.setItem("paletaActual", JSON.stringify(colors));
+    }, [colors])
 
     const value = {
         colors,
@@ -14,7 +23,10 @@ export const ColorProvider = ({ children }) => {
         format,
         setFormat,
         angle,
-        setAngle
+        setAngle,
+        gradientRef,
+        mode,
+        setMode
     }
 
     return (
