@@ -10,6 +10,17 @@ export const ColorProvider = ({ children }) => {
     const [format, setFormat] = useState("16/9");
     const [angle, setAngle] = useState(180);
     const [mode, setMode] = useState("static");
+    
+    // Opciones de gradiente estático
+    const [gradientType, setGradientType] = useState("linear"); // linear, radial, conic
+    const [gradientBlur, setGradientBlur] = useState(0); // 0-20px
+    const [gradientOpacity, setGradientOpacity] = useState(100); // 0-100%
+    
+    // Opciones de video
+    const [videoDuration, setVideoDuration] = useState(6); // segundos
+    const [videoFps, setVideoFps] = useState(30); // frames por segundo
+    const [videoBitrate, setVideoBitrate] = useState(8); // Mbps
+    
     const gradientRef = useRef(null);
 
     //guardar colores en localStorage cuando cambien
@@ -26,7 +37,19 @@ export const ColorProvider = ({ children }) => {
         setAngle,
         gradientRef,
         mode,
-        setMode
+        setMode,
+        gradientType,
+        setGradientType,
+        gradientBlur,
+        setGradientBlur,
+        gradientOpacity,
+        setGradientOpacity,
+        videoDuration,
+        setVideoDuration,
+        videoFps,
+        setVideoFps,
+        videoBitrate,
+        setVideoBitrate
     }
 
     return (
