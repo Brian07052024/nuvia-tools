@@ -1,4 +1,4 @@
-import { useColor } from "../../hook/useColor";
+﻿import { useColor } from "../../hook/useColor";
 import { useExport } from "../../hook/useExport";
 import { defaultPalettes } from "../../constants/palettes";
 
@@ -16,6 +16,7 @@ function AsideRight() {
     
     const { handleExportImage, handleExportVideo, isRecording, recordingProgress } = useExport(gradientRef, format, mode, videoOptions);
 
+    // Handlers de colores
     const handleColorChange = (index, newColor) => {
         setColors(prevColors => {
             const newColors = [...prevColors];
@@ -51,15 +52,18 @@ function AsideRight() {
     return (
         <div className="bg-white col-span-2 p-4 rounded-2xl gap-5 flex flex-col overflow-y-scroll border border-gray-300">
 
+            {/* Botón exportar imagen */}
             {mode === "static" && (
                 <button
                     onClick={handleExportImage}
                     className="flex gap-2 justify-center items-center cursor-pointer bg-linear-to-r from-nuviaFrom to-nuviaTo px-4 py-3 text-white rounded-2xl text-center font-medium hover:brightness-110 transition-all duration-200"
                 >
-                    Exportar Imagen <img src="/svg/download.svg" alt="icon" />
+                    Exportar Imagen 
+                    <img src="/svg/download.svg" alt="icon" />
                 </button>
             )}
 
+            {/* Botón exportar video */}
             {mode === "animated" && (
                 <button
                     onClick={handleExportVideo}
@@ -72,16 +76,16 @@ function AsideRight() {
                             style={{ width: `${recordingProgress}%` }}
                         />
                     )}
-                    {isRecording ? `Grabando... ${recordingProgress}%` : 'Exportar Video'} <img src="/svg/download.svg" alt="icon" />
+                    {isRecording ? `Grabando... ${recordingProgress}%` : 'Exportar Video'} 
+                    <img src="/svg/download.svg" alt="icon" />
                 </button>
             )}
-            <div className="flex flex-col gap-3 transition-all duration-300 ease-in-out  ">
 
-                <span className="text-gray-800 font-medium">Paleta de colores</span>
-
-                {/* colores elegidos por el usuario */}
-                <div className="flex flex-col gap-2 transition-all duration-300 ease-in-out ">
-
+            {/* Paleta de colores */}
+            <div className="flex flex-col gap-3">
+                <h2 className="text-gray-800 font-medium">Paleta de colores</h2>
+                
+                <div className="flex flex-col gap-2">
                     {colors.map((colorValue, index) => (
                         <div
                             key={index}
@@ -98,35 +102,35 @@ function AsideRight() {
                             />
                             <button
                                 onClick={() => handleDelete(index)}
-                                className=" rounded-full w-8 h-8 flex justify-center items-center p-1 hover:bg-red-200 transition-colors cursor-pointer"
+                                className="rounded-full w-8 h-8 flex justify-center items-center p-1 hover:bg-red-200 transition-colors cursor-pointer"
                             >
                                 <img src="/svg/x.svg" alt="delete" />
                             </button>
                         </div>
                     ))}
 
-
-
+                    <button 
+                        onClick={handleClick} 
+                        className="w-full shadow border-gray-400 h-8 rounded-full cursor-pointer border-2 flex items-center justify-center hover:bg-gray-100 transition-colors"
+                    >
+                        <img src="/svg/plus.svg" alt="icon" />
+                    </button>
                 </div>
-                {/* fin colores del usuario */}
-
-                <button onClick={handleClick} className="w-full shadow border-gray-400 h-8 rounded-full cursor-pointer border-2 flex items-center justify-center hover:bg-gray-100 transition-colors">
-                    <img src="/svg/plus.svg" alt="icon" />
-                </button>
-
             </div>
 
-            {/* colores default */}
-            <div className="flex flex-col gap-3 transition-all duration-300 ease-in-out ">
-
-                <span className="text-gray-800 font-medium">Paletas pre-cargadas</span>
-
+            {/* Paletas pre-cargadas */}
+            <div className="flex flex-col gap-3">
+                <h2 className="text-gray-800 font-medium">Paletas pre-cargadas</h2>
+                
                 <div className="flex flex-col gap-2">
-
                     {defaultPalettes.map((paleta, idx) => (
                         <div key={idx} className="flex flex-col gap-1">
-                            <span className="text-xs text-gray-400 px-2">{paleta.name}</span>
-                            <div className="flex shadow rounded-2xl max-h-14 overflow-hidden cursor-pointer hover:opacity-80 transition-opacity" onClick={() => handleSetPalette(paleta)}>
+                            <h3 className="text-xs text-gray-400">{paleta.name}</h3>
+                            
+                            <div 
+                                className="flex shadow rounded-2xl max-h-14 overflow-hidden cursor-pointer hover:opacity-80 transition-opacity" 
+                                onClick={() => handleSetPalette(paleta)}
+                            >
                                 <span className="w-full h-16" style={{ backgroundColor: paleta.colors[0] }}></span>
                                 <span className="w-full h-16" style={{ backgroundColor: paleta.colors[1] }}></span>
                                 <span className="w-full h-16" style={{ backgroundColor: paleta.colors[2] }}></span>
@@ -134,11 +138,8 @@ function AsideRight() {
                             </div>
                         </div>
                     ))}
-
                 </div>
-
             </div>
-            {/* fin colores default */}
 
         </div>
     );

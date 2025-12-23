@@ -11,12 +11,12 @@ export const ColorProvider = ({ children }) => {
     const [angle, setAngle] = useState(180);
     const [mode, setMode] = useState("static");
     
-    // Opciones de gradiente estático
+    //opciones de gradiente estático
     const [gradientType, setGradientType] = useState("linear"); // linear, radial, conic
     const [gradientBlur, setGradientBlur] = useState(0); // 0-20px
     const [gradientOpacity, setGradientOpacity] = useState(100); // 0-100%
     
-    // Opciones de video
+    //opciones de video
     const [videoDuration, setVideoDuration] = useState(6); // segundos
     const [videoFps, setVideoFps] = useState(30); // frames por segundo
     const [videoBitrate, setVideoBitrate] = useState(8); // Mbps
