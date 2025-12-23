@@ -97,7 +97,7 @@ input[type="color"]::-webkit-color-swatch {
 .gradient-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(70px);
+  filter: blur(100px);
   opacity: 0.8;
   mix-blend-mode: multiply;
 }
@@ -107,7 +107,7 @@ input[type="color"]::-webkit-color-swatch {
   height: 70%;
   top: -10%;
   left: -5%;
-  animation: float1 6s ease-in-out infinite;
+  animation: float1 3s ease-in-out infinite;
 }
 
 .gradient-blob:nth-child(2) {
@@ -115,7 +115,7 @@ input[type="color"]::-webkit-color-swatch {
   height: 65%;
   top: 15%;
   right: -10%;
-  animation: float2 7s ease-in-out infinite;
+  animation: float2 3s ease-in-out infinite;
   animation-delay: -1s;
 }
 
@@ -124,7 +124,7 @@ input[type="color"]::-webkit-color-swatch {
   height: 80%;
   bottom: -15%;
   left: 10%;
-  animation: float3 5.5s ease-in-out infinite;
+  animation: float3 5.3s ease-in-out infinite;
   animation-delay: -2s;
 }
 
@@ -133,7 +133,7 @@ input[type="color"]::-webkit-color-swatch {
   height: 60%;
   bottom: 10%;
   right: 15%;
-  animation: float4 8s ease-in-out infinite;
+  animation: float4 3s ease-in-out infinite;
   animation-delay: -3s;
 }
 
@@ -142,7 +142,7 @@ input[type="color"]::-webkit-color-swatch {
   height: 55%;
   top: 40%;
   left: 40%;
-  animation: float5 6.5s ease-in-out infinite;
+  animation: float5 6.3s ease-in-out infinite;
   animation-delay: -1.5s;
 }
 
@@ -151,7 +151,7 @@ input[type="color"]::-webkit-color-swatch {
   height: 75%;
   top: 20%;
   left: 20%;
-  animation: float6 7.5s ease-in-out infinite;
+  animation: float6 7.3s ease-in-out infinite;
   animation-delay: -4s;
 }
 
