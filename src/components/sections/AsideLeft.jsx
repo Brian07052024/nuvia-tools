@@ -60,8 +60,9 @@ function AsideLeft() {
                 <div className="flex gap-2">
                     <button
                         onClick={() => handleMode("static")}
-                        className={`w-full flex items-center justify-center gap-1 rounded-full border-2 py-2 cursor-pointer ${mode === "static" ? "text-gray-800 border-gray-400 bg-gray-200" : "text-gray-500 border-gray-300 hover:bg-gray-100"}`}
+                        className={`shadow transition-colors w-full flex items-center justify-center gap-1 rounded-full border-2 py-2 cursor-pointer ${mode === "static" ? "text-gray-800 border-gray-400 bg-gray-200" : "text-gray-500 border-gray-300 hover:bg-gray-100"}`}
                     >
+
                         <svg width="16" height="16" viewBox="0 0 16 16" fill={mode === "static" ? "#1f2937" : "#6b7280"} xmlns="http://www.w3.org/2000/svg">
                             <g clipPath="url(#clip0_176_7)">
                                 <path d="M0.00195312 3C0.00195312 2.46957 0.212667 1.96086 0.58774 1.58579C0.962812 1.21071 1.47152 1 2.00195 1H14.002C14.5324 1 15.0411 1.21071 15.4162 1.58579C15.7912 1.96086 16.002 2.46957 16.002 3V13C16.002 13.5304 15.7912 14.0391 15.4162 14.4142C15.0411 14.7893 14.5324 15 14.002 15H2.00195C1.47152 15 0.962812 14.7893 0.58774 14.4142C0.212667 14.0391 0.00195313 13.5304 0.00195312 13V3ZM1.00195 12V13C1.00195 13.2652 1.10731 13.5196 1.29485 13.7071C1.48238 13.8946 1.73674 14 2.00195 14H14.002C14.2672 14 14.5215 13.8946 14.7091 13.7071C14.8966 13.5196 15.002 13.2652 15.002 13V9.5L11.225 7.553C11.1312 7.50602 11.025 7.48973 10.9215 7.50642C10.8179 7.52311 10.7222 7.57194 10.648 7.646L6.93795 11.356L4.27795 9.584C4.18191 9.52006 4.06672 9.4913 3.95189 9.5026C3.83707 9.5139 3.72969 9.56456 3.64795 9.646L1.00195 12ZM6.00195 5.5C6.00195 5.10218 5.84392 4.72064 5.56261 4.43934C5.28131 4.15804 4.89978 4 4.50195 4C4.10413 4 3.7226 4.15804 3.44129 4.43934C3.15999 4.72064 3.00195 5.10218 3.00195 5.5C3.00195 5.89782 3.15999 6.27936 3.44129 6.56066C3.7226 6.84196 4.10413 7 4.50195 7C4.89978 7 5.28131 6.84196 5.56261 6.56066C5.84392 6.27936 6.00195 5.89782 6.00195 5.5Z" />
@@ -72,12 +73,13 @@ function AsideLeft() {
                                 </clipPath>
                             </defs>
                         </svg>
+
                         Estatico
                     </button>
 
                     <button
                         onClick={() => handleMode("animated")}
-                        className={`w-full flex items-center justify-center gap-1 rounded-full border-2 py-2 cursor-pointer ${mode === "animated" ? "text-gray-800 border-gray-400 bg-gray-200" : "text-gray-500 border-gray-300 hover:bg-gray-100"}`}
+                        className={`shadow transition-colors w-full flex items-center justify-center gap-1 rounded-full border-2 py-2 cursor-pointer ${mode === "animated" ? "text-gray-800 border-gray-400 bg-gray-200" : "text-gray-500 border-gray-300 hover:bg-gray-100"}`}
                     >
                         <svg width="16" height="16" viewBox="0 0 16 16" fill={mode === "animated" ? "#1f2937" : "#6b7280"} xmlns="http://www.w3.org/2000/svg">
                             <path d="M1.55553 10.5645C1.14095 11.1277 0.948021 11.8237 1.01349 12.52C1.07897 13.2163 1.39826 13.8641 1.91057 14.3402C2.42287 14.8163 3.09239 15.0873 3.7916 15.1016C4.4908 15.1159 5.17084 14.8725 5.70219 14.4178C4.71158 14.2473 3.792 13.7922 3.05566 13.1079C2.31933 12.4237 1.79808 11.5399 1.55553 10.5645Z" />
@@ -102,7 +104,7 @@ function AsideLeft() {
                             <div
                                 key={idx}
                                 onClick={() => handleClick(formato.aspect)}
-                                className={`cursor-pointer transition-all w-full h-auto p-2 rounded-2xl border-2 text-center flex flex-col gap-1 items-center justify-center hover:bg-gray-100 ${isSelected ? "text-gray-800 border-gray-400 bg-gray-200" : "text-gray-500 border-gray-300"}`}
+                                className={`shadow cursor-pointer transition-all w-full h-auto p-2 rounded-2xl border-2 text-center flex flex-col gap-1 items-center justify-center hover:bg-gray-100 ${isSelected ? "text-gray-800 border-gray-400 bg-gray-200" : "text-gray-500 border-gray-300"}`}
                             >
                                 {formato.aspect === "16/9" && (
 
@@ -155,7 +157,7 @@ function AsideLeft() {
                         <div className="grid grid-cols-3 gap-2">
                             <button
                                 onClick={() => handleGradientTypeChange("linear")}
-                                className={`py-1 cursor-pointer rounded-full w-full border-2 transition-all ${gradientType === "linear"
+                                className={`shadow py-1 cursor-pointer rounded-full w-full border-2 transition-all ${gradientType === "linear"
                                     ? "text-gray-800 border-gray-400 bg-gray-200"
                                     : "text-gray-500 border-gray-300 hover:bg-gray-100"
                                     }`}
@@ -164,7 +166,7 @@ function AsideLeft() {
                             </button>
                             <button
                                 onClick={() => handleGradientTypeChange("radial")}
-                                className={`py-1 cursor-pointer rounded-full w-full border-2 transition-all ${gradientType === "radial"
+                                className={`shadow py-1 cursor-pointer rounded-full w-full border-2 transition-all ${gradientType === "radial"
                                     ? "text-gray-800 border-gray-400 bg-gray-200"
                                     : "text-gray-500 border-gray-300 hover:bg-gray-100"
                                     }`}
@@ -173,7 +175,7 @@ function AsideLeft() {
                             </button>
                             <button
                                 onClick={() => handleGradientTypeChange("conic")}
-                                className={`py-1 cursor-pointer rounded-full w-full border-2 transition-all ${gradientType === "conic"
+                                className={`shadow py-1 cursor-pointer rounded-full w-full border-2 transition-all ${gradientType === "conic"
                                     ? "text-gray-800 border-gray-400 bg-gray-200"
                                     : "text-gray-500 border-gray-300 hover:bg-gray-100"
                                     }`}

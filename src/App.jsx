@@ -10,7 +10,7 @@ function App() {
   return (
     <ColorProvider>
       <div className="h-lvh w-full bg-gray-200 flex flex-col overflow-hidden">
-        <Header />
+        {/* <Header /> */}
         <div className="grid grid-cols-10 gap-4 flex-1 w-full p-4 overflow-hidden">
           <AsideLeft />
           <Center />
