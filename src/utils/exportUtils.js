@@ -3,6 +3,8 @@ import { getFormatDimensions } from './formatDimensions';
 
 //area de exportar imagenes
 export const exportImage = async (gradientRef, format) => {
+    console.log(format);
+    
     if (!gradientRef.current) {
         throw new Error("No hay gradiente para exportar");
     }
@@ -15,7 +17,7 @@ export const exportImage = async (gradientRef, format) => {
         width: width,
         height: height,
         style: {
-            borderRadius: '0',
+            borderRadius: `${format === "circle" ? '50%' : '0'}`,
             boxShadow: 'none',
             transform: 'none',
         }

@@ -8,6 +8,8 @@ export const getFormatDimensions = (format) => {
             return { width: 1080, height: 1080 };
         case "4/3":
             return { width: 1600, height: 1200 };
+        case "circle":
+            return { width: 1080, height: 1080 };
         default:
             return { width: 1920, height: 1080 };
     }

@@ -51,7 +51,8 @@ function AsideLeft() {
     }
 
     return (
-        <div className="bg-white col-span-2 p-4 rounded-2xl gap-5 flex flex-col overflow-y-scroll border border-gray-300">
+        // el abuelito->
+        <div className="bg-white animate-fade-right col-span-2 p-4 rounded-2xl gap-5 flex flex-col overflow-y-scroll border border-gray-300">
 
             {/* Tipo de gradiente */}
             <div className="flex flex-col gap-3">
@@ -74,7 +75,7 @@ function AsideLeft() {
                             </defs>
                         </svg>
 
-                        Estatico
+                        Imagen
                     </button>
 
                     <button
@@ -104,7 +105,14 @@ function AsideLeft() {
                             <div
                                 key={idx}
                                 onClick={() => handleClick(formato.aspect)}
-                                className={`shadow cursor-pointer transition-all w-full h-auto p-2 rounded-2xl border-2 text-center flex flex-col gap-1 items-center justify-center hover:bg-gray-100 ${isSelected ? "text-gray-800 border-gray-400 bg-gray-200" : "text-gray-500 border-gray-300"}`}
+                                className=
+                                {
+                                    `
+                                        shadow cursor-pointer transition-all w-full h-auto p-2 rounded-2xl border-2 text-center flex flex-col gap-1 items-center justify-center hover:bg-gray-100 
+                                        ${formato.aspect === "16/9" ? "col-span-2" : ""}
+                                        ${isSelected ? "text-gray-800 border-gray-400 bg-gray-200" : "text-gray-500 border-gray-300"}
+                                    `
+                                }
                             >
                                 {formato.aspect === "16/9" && (
 
@@ -140,6 +148,13 @@ function AsideLeft() {
                                     </svg>
 
                                 )}
+                                {formato.aspect === "circle" && (
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill={fillColor} className="bi bi-circle" viewBox="0 0 16 16">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                                    </svg>
+
+                                )}
                                 <p className="text-xs">{formato.nombre}</p>
                             </div>
                         );
@@ -162,7 +177,7 @@ function AsideLeft() {
                                     : "text-gray-500 border-gray-300 hover:bg-gray-100"
                                     }`}
                             >
-                                Linear
+                                Lineal
                             </button>
                             <button
                                 onClick={() => handleGradientTypeChange("radial")}
@@ -180,7 +195,7 @@ function AsideLeft() {
                                     : "text-gray-500 border-gray-300 hover:bg-gray-100"
                                     }`}
                             >
-                                Conic
+                                Cónico
                             </button>
                         </div>
                     </div>

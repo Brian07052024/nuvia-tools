@@ -50,7 +50,9 @@ function AsideRight() {
     }
 
     return (
-        <div className="bg-white col-span-2 p-4 rounded-2xl gap-5 flex flex-col overflow-y-scroll border border-gray-300">
+
+        // el abuelito -> 
+        <div className="bg-white animate-fade-left col-span-2 p-4 rounded-2xl gap-5 flex flex-col overflow-y-scroll border border-gray-300">
 
             {/* Botón exportar imagen */}
             {mode === "static" && (

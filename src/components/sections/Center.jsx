@@ -1,10 +1,13 @@
+import { useState } from "react";
 import { useColor } from "../../hook/useColor";
 
 function Center() {
-    const { 
+    const {
         colors, format, angle, gradientRef, mode,
         gradientType, gradientBlur, gradientOpacity
     } = useColor();
+
+
 
     const renderAnimatedGradient = () => {
         return (
@@ -26,8 +29,8 @@ function Center() {
         }
 
         const gradientColors = colors.join(', ');
-        
-        switch(gradientType) {
+
+        switch (gradientType) {
             case "radial":
                 return `radial-gradient(circle, ${gradientColors})`;
             case "conic":
@@ -40,20 +43,22 @@ function Center() {
 
     const getContainerClassName = () => {
         const widthClass = format === "9/16" ? "w-1/3" : "w-1/2";
-        const baseClasses = "rounded-2xl transition-all duration-400 ease-in-out shadow-lg hover:scale-105";
+        const baseClasses = `${format === "circle" ? "rounded-[50%]" : "rounded-2xl"} transition-all duration-400 ease-in-out shadow-lg hover:scale-105`;
         const modeClass = mode === "animated" ? "gradient-animated-container" : "";
-        
+
         return `${widthClass} ${baseClasses} ${modeClass}`;
     };
 
     return (
-        <div className="bg-white col-span-6 p-4 rounded-2xl flex justify-center items-center border border-gray-300">
+
+        // el abuelito ->
+        <div className="bg-white border-gray-300 animate-fade col-span-6 p-4 rounded-2xl flex justify-center items-center border ">
             <div
                 ref={gradientRef}
                 className={getContainerClassName()}
                 style={{
                     background: getGradientBackground(),
-                    aspectRatio: format,
+                    aspectRatio: `${format === "circle" ? "1/1" : format}`,
                     filter: mode === "static" ? `blur(${gradientBlur}px)` : 'none',
                     opacity: mode === "static" ? gradientOpacity / 100 : 1
                 }}

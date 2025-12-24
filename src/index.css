@@ -107,7 +107,7 @@ input[type="range"]:focus::-moz-range-thumb {
 
 /* Scrollbar personalizado */
 ::-webkit-scrollbar {
-  width: 12px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
