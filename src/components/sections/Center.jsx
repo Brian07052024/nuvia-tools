@@ -43,7 +43,7 @@ function Center() {
 
     const getContainerClassName = () => {
         const widthClass = format === "9/16" ? "w-1/3" : "w-1/2";
-        const baseClasses = `${format === "circle" ? "rounded-[50%]" : "rounded-2xl"} transition-all duration-400 ease-in-out shadow-lg hover:scale-105`;
+        const baseClasses = `${format === "circle" ? "rounded-[50%]" : "rounded-2xl"} transition-all  duration-400 ease-in-out shadow-lg hover:scale-105`;
         const modeClass = mode === "animated" ? "gradient-animated-container" : "";
 
         return `${widthClass} ${baseClasses} ${modeClass}`;
@@ -52,7 +52,7 @@ function Center() {
     return (
 
         // el abuelito ->
-        <div className="bg-white border-gray-300 animate-fade col-span-6 p-4 rounded-2xl flex justify-center items-center border ">
+        <div className="bg-white  border-gray-300 animate-fade col-span-6 p-4 rounded-2xl flex justify-center items-center border ">
             <div
                 ref={gradientRef}
                 className={getContainerClassName()}
@@ -66,6 +66,7 @@ function Center() {
                 {mode === "animated" && renderAnimatedGradient()}
             </div>
         </div>
+        
     );
 }
 

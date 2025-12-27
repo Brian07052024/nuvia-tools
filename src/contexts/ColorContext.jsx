@@ -15,6 +15,7 @@ export const ColorProvider = ({ children }) => {
         }
         
     })();
+ 
 
     const formatoEnLocalStorage = (() => {
         try {
@@ -132,6 +133,8 @@ export const ColorProvider = ({ children }) => {
             console.error("Error al guardar en localStorage:", error);
         }
     }, [colors])
+
+    
 
     useEffect(() => {
         try {

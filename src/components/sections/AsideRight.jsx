@@ -1,20 +1,37 @@
-﻿import { useColor } from "../../hook/useColor";
+﻿import { useState, useEffect } from "react";
+import { useColor } from "../../hook/useColor";
 import { useExport } from "../../hook/useExport";
 import { defaultPalettes } from "../../constants/palettes";
 
 function AsideRight() {
-    const { 
+    const {
         colors, setColors, format, gradientRef, mode,
         videoDuration, videoFps, videoBitrate
     } = useColor();
-    
+
     const videoOptions = {
         duration: videoDuration,
         fps: videoFps,
         bitrate: videoBitrate
     };
-    
+
     const { handleExportImage, handleExportVideo, isRecording, recordingProgress } = useExport(gradientRef, format, mode, videoOptions);
+
+    // Estado para paletas guardadas
+    const [savedPalettes, setSavedPalettes] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    // Cargar paletas guardadas al iniciar
+    useEffect(() => {
+        try {
+            const stored = window.localStorage.getItem("paletasUsuario");
+            if (stored) {
+                setSavedPalettes(JSON.parse(stored));
+            }
+        } catch (error) {
+            console.error("Error al cargar paletas guardadas:", error);
+        }
+    }, []);
 
     // Handlers de colores
     const handleColorChange = (index, newColor) => {
@@ -47,7 +64,49 @@ function AsideRight() {
 
     const handleSetPalette = (paleta) => {
         setColors(paleta.colors);
+        setIsModalOpen(false);
     }
+
+    const handleSave = () => {
+        try {
+            // Obtener paletas existentes
+            const stored = window.localStorage.getItem("paletasUsuario");
+            const existingPalettes = stored ? JSON.parse(stored) : [];
+
+            // Crear nueva paleta con metadatos
+            const newPalette = {
+                id: Date.now(),
+                name: `Paleta ${existingPalettes.length + 1}`,
+                colors: [...colors],
+                createdAt: new Date().toISOString()
+            };
+
+            // Agregar nueva paleta al array
+            const updatedPalettes = [...existingPalettes, newPalette];
+
+            // Guardar todas las paletas
+            window.localStorage.setItem("paletasUsuario", JSON.stringify(updatedPalettes));
+            setSavedPalettes(updatedPalettes);
+
+            alert("Paleta guardada exitosamente");
+        } catch (error) {
+            console.error("Error al guardar en localStorage:", error);
+            alert("Error al guardar la paleta");
+        }
+    }
+
+    const handleDeleteSavedPalette = (paletaId) => {
+        try {
+            const updatedPalettes = savedPalettes.filter(p => p.id !== paletaId);
+            window.localStorage.setItem("paletasUsuario", JSON.stringify(updatedPalettes));
+            setSavedPalettes(updatedPalettes);
+        } catch (error) {
+            console.error("Error al eliminar paleta:", error);
+            alert("Error al eliminar la paleta");
+        }
+    }
+
+
 
     return (
 
@@ -60,7 +119,7 @@ function AsideRight() {
                     onClick={handleExportImage}
                     className="flex gap-2 justify-center items-center cursor-pointer bg-linear-to-r from-nuviaFrom to-nuviaTo px-4 py-3 text-white rounded-2xl text-center font-medium hover:brightness-110 transition-all duration-200"
                 >
-                    Exportar Imagen 
+                    Exportar Imagen
                     <img src="/svg/download.svg" alt="icon" />
                 </button>
             )}
@@ -78,15 +137,32 @@ function AsideRight() {
                             style={{ width: `${recordingProgress}%` }}
                         />
                     )}
-                    {isRecording ? `Grabando... ${recordingProgress}%` : 'Exportar Video'} 
+                    {isRecording ? `Grabando... ${recordingProgress}%` : 'Exportar Video'}
                     <img src="/svg/download.svg" alt="icon" />
                 </button>
             )}
 
             {/* Paleta de colores */}
             <div className="flex flex-col gap-3">
-                <h2 className="text-gray-800 font-medium">Paleta de colores</h2>
-                
+                <div className="flex gap-2 items-center">
+                    <h2 className="text-gray-800 font-medium whitespace-nowrap">Paleta de colores</h2>
+                    <button
+                        onClick={() => handleSave()}
+                        className="cursor-pointer gap-1.5 text-gray-500 border-gray-300 hover:bg-gray-100 hover:border-gray-400 border-2 flex items-center px-3 py-1.5 justify-center rounded-full transition-all shadow-sm hover:shadow flex-1"
+                    >
+                        <svg
+                            width="14"
+                            height="14"
+                            viewBox="0 0 16 16"
+                            fill="#6b7280"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1z" />
+                        </svg>
+                        <span className="text-xs font-medium">Guardar</span>
+                    </button>
+                </div>
+
                 <div className="flex flex-col gap-2">
                     {colors.map((colorValue, index) => (
                         <div
@@ -111,26 +187,119 @@ function AsideRight() {
                         </div>
                     ))}
 
-                    <button 
-                        onClick={handleClick} 
-                        className="w-full shadow border-gray-400 h-8 rounded-full cursor-pointer border-2 flex items-center justify-center hover:bg-gray-100 transition-colors"
+                    <button
+                        onClick={handleClick}
+                        className="shadow transition-colors w-full flex items-center justify-center gap-2 rounded-2xl border-2 py-2 cursor-pointer text-gray-500 border-gray-300 hover:bg-gray-100"
                     >
-                        <img src="/svg/plus.svg" alt="icon" />
+                        <img src="/svg/plus.svg" alt="" />
+                        <span className="text-sm font-medium">Agregar color</span>
                     </button>
                 </div>
             </div>
 
+            {/* Botón para abrir modal de paletas guardadas */}
+            {savedPalettes.length > 0 && (
+                <div className="relative">
+                    <button
+                        onClick={() => setIsModalOpen(!isModalOpen)}
+                        className={`shadow transition-colors w-full flex items-center justify-center gap-2 rounded-2xl border-2 py-2 px-4 cursor-pointer relative ${isModalOpen ? "text-gray-800 border-gray-400 bg-gray-200" : "text-gray-500 border-gray-300 hover:bg-gray-100"}`}
+                    >
+                        <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            fill="#6b7280"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path d="M0 1.5A1.5 1.5 0 0 1 1.5 0h13A1.5 1.5 0 0 1 16 1.5v13a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5zM1.5 1a.5.5 0 0 0-.5.5V5h4V1zM5 6H1v4h4zm1 4h4V6H6zm-1 1H1v3.5a.5.5 0 0 0 .5.5H5zm1 0v4h4v-4zm5 0v4h3.5a.5.5 0 0 0 .5-.5V11zm0-1h4V6h-4zm0-5h4V1.5a.5.5 0 0 0-.5-.5H11zm-1 0V1H6v4z" />
+                        </svg>
+                        <span className="text-sm font-medium">Mis Paletas ({savedPalettes.length})</span>
+                        <svg
+                            className={`w-4 h-4 transition-transform duration-200 absolute right-4 ${isModalOpen ? 'rotate-180' : ''}`}
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+
+                    {/* Modal de paletas guardadas */}
+                    {isModalOpen && (
+                        <>
+                            {/* Overlay para cerrar modal al hacer clic afuera */}
+                            <div
+                                className="fixed inset-0 z-40 animate-fade-down"
+                                onClick={() => setIsModalOpen(false)}
+                            />
+
+                            {/* Panel modal */}
+                            <div className="absolute animate-duration-400 animate-fade-down left-0 top-full mt-2 w-full bg-white rounded-2xl shadow-2xl border border-gray-200 z-50 max-h-96 overflow-y-auto ">
+                                <div className="p-4">
+                                    <div className="flex justify-between items-center mb-4 sticky top-0 bg-white pb-2 border-b border-gray-200">
+                                        <h3 className="text-gray-800 font-semibold">Mis Paletas</h3>
+                                        <button
+                                            onClick={() => setIsModalOpen(false)}
+                                            className="text-gray-400 hover:text-gray-600 transition-colors"
+                                        >
+                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </button>
+                                    </div>
+
+                                    <div className="flex flex-col gap-3">
+                                        {savedPalettes.map((paleta) => (
+                                            <div key={paleta.id} className="group">
+                                                <div className="flex justify-between items-center mb-1">
+                                                    <h4 className="text-xs text-gray-500 font-medium">{paleta.name}</h4>
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            if (confirm('¿Eliminar esta paleta?')) {
+                                                                handleDeleteSavedPalette(paleta.id);
+                                                            }
+                                                        }}
+                                                        className="opacity-0 group-hover:opacity-100 text-red-500 hover:text-red-700 text-xs px-2 py-1 hover:bg-red-50 rounded transition-all"
+                                                        title="Eliminar paleta"
+                                                    >
+                                                        🗑️
+                                                    </button>
+                                                </div>
+
+                                                <div
+                                                    className="flex shadow-md rounded-xl overflow-hidden cursor-pointer hover:shadow-lg hover:scale-105 transition-all duration-200 h-14"
+                                                    onClick={() => handleSetPalette(paleta)}
+                                                >
+                                                    {paleta.colors.map((color, idx) => (
+                                                        <span
+                                                            key={idx}
+                                                            className="w-full h-full"
+                                                            style={{ backgroundColor: color }}
+                                                        />
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </>
+                    )}
+                </div>
+            )}
+
             {/* Paletas pre-cargadas */}
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3 ">
                 <h2 className="text-gray-800 font-medium">Paletas pre-cargadas</h2>
-                
+
                 <div className="flex flex-col gap-2">
                     {defaultPalettes.map((paleta, idx) => (
                         <div key={idx} className="flex flex-col gap-1">
                             <h3 className="text-xs text-gray-400">{paleta.name}</h3>
-                            
-                            <div 
-                                className="flex shadow rounded-2xl max-h-14 overflow-hidden cursor-pointer hover:opacity-80 transition-opacity" 
+
+                            <div
+                                className="flex shadow rounded-2xl max-h-14 overflow-hidden cursor-pointer hover:opacity-80 transition-opacity"
                                 onClick={() => handleSetPalette(paleta)}
                             >
                                 <span className="w-full h-16" style={{ backgroundColor: paleta.colors[0] }}></span>
@@ -142,6 +311,8 @@ function AsideRight() {
                     ))}
                 </div>
             </div>
+
+
 
         </div>
     );
