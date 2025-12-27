@@ -90,6 +90,8 @@ export const exportVideo = async (gradientRef, format, onProgress, options = {})
                     height: element.offsetHeight,
                     cacheBust: false,
                     style: {
+                        borderRadius: '0',
+                        boxShadow: 'none',
                         transform: 'none',
                     }
                 });

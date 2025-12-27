@@ -2,29 +2,37 @@ import { useState } from "react";
 import { useColor } from "../../hook/useColor";
 
 function Footer() {
+    
     const {
-        colors,
-        format,
-        angle,
-        mode,
-        gradientType,
-        gradientBlur,
-        gradientOpacity,
-        setColors,
-        setFormat,
-        setAngle,
-        setMode,
-        setGradientType,
-        setGradientBlur,
-        setGradientOpacity,
-        setVideoDuration,
-        setVideoFps,
-        setVideoBitrate
+        setColors, colors,
+        setFormat, format,
+        setAngle, angle,
+        setMode, mode,
+        setGradientType, gradientType, gradientBlur, gradientOpacity, setGradientBlur, setGradientOpacity,
+        setVideoDuration, setVideoFps, setVideoBitrate
+
     } = useColor();
 
     const [inView, setInView] = useState(false);
     const [copied, setCopied] = useState(false);
     const [codeMode, setCodeMode] = useState("css"); // "css" o "tailwind"
+
+    // Generar color aleatorio
+    const generateRandomColor = () => {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    };
+
+    // Randomizar colores
+    const handleRandomColors = () => {
+        const numColors = Math.floor(Math.random() * 3) + 2; // Entre 2 y 4 colores
+        const newColors = Array.from({ length: numColors }, () => generateRandomColor());
+        setColors(newColors);
+    };
 
     // Convertir hex a rgb
     const hexToRgb = (hex) => {
@@ -224,7 +232,7 @@ ${colors.map((_, index) => `  <div class="gradient-blob-${index + 1}"></div>`).j
     const renderColoredCode = () => {
         const code = codeMode === "css" ? generateCSSCode() : generateTailwindCode();
         const lines = code.split('\n');
-        
+
         return lines.map((line, index) => {
             // Comentarios
             if (line.trim().startsWith('/*') || line.trim().startsWith('<!--') || line.trim().includes('*/') || line.trim().includes('-->')) {
@@ -321,7 +329,7 @@ ${colors.map((_, index) => `  <div class="gradient-blob-${index + 1}"></div>`).j
             <div className="w-lvw absolute bottom-1 animate-fade-up z-50">
                 <div className="bg-neutral-800 flex gap-2 w-fit px-3 py-2  shadow-2xl rounded-full mx-auto ">
 
-                    <div className="flex flex-col justify-center items-center px-5 py-0.5 cursor-pointer rounded-full transition-colors hover:bg-white/15">
+                    <div onClick={handleRandomColors} className="flex flex-col justify-center items-center px-5 py-0.5 cursor-pointer rounded-full transition-colors hover:bg-white/15">
                         <img src="/svg/random.svg" alt="icon" className="size-6 object-contain" />
                         <p className="text-xs text-white/50 m-0 p-0">Random</p>
                     </div>
@@ -349,11 +357,10 @@ ${colors.map((_, index) => `  <div class="gradient-blob-${index + 1}"></div>`).j
                                     {codeMode === "css" ? "CSS Code" : "Tailwind Classes"}
                                 </h3>
                                 {/* Badge de modo */}
-                                <span className={`px-2 py-0.5 text-xs rounded-full font-medium ${
-                                    mode === "animated" 
-                                    ? "bg-purple-500/20 text-purple-300 border border-purple-500/30" 
-                                    : "bg-blue-500/20 text-blue-300 border border-blue-500/30"
-                                }`}>
+                                <span className={`px-2 py-0.5 text-xs rounded-full font-medium ${mode === "animated"
+                                        ? "bg-purple-500/20 text-purple-300 border border-purple-500/30"
+                                        : "bg-blue-500/20 text-blue-300 border border-blue-500/30"
+                                    }`}>
                                     {mode === "animated" ? "Animado" : "Estático"}
                                 </span>
                             </div>
