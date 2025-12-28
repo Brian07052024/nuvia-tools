@@ -3,8 +3,6 @@ import { getFormatDimensions } from './formatDimensions';
 
 //area de exportar imagenes
 export const exportImage = async (gradientRef, format) => {
-    console.log(format);
-    
     if (!gradientRef.current) {
         throw new Error("No hay gradiente para exportar");
     }

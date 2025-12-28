@@ -35,7 +35,6 @@ function Footer() {
     const handleRandomColors = () => {
         const newColors = generateRandomColors();
         setColors(newColors);
-        showSuccess("🎨 Colores aleatorios generados");
     };
 
     // Copiar código al portapapeles
@@ -71,7 +70,7 @@ function Footer() {
         // Limpiar localStorage
         clearLocalStorage();
         setShowResetModal(false);
-        showSuccess("♻️ Configuración restablecida");
+        showSuccess("Configuración restablecida");
     };
 
     // Generar código actual

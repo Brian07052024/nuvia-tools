@@ -22,7 +22,7 @@ function CodeViewer({
     return (
         <div className={`${
             isVisible ? "max-h-[70vh] animate-fade-up animate-duration-300" : "h-0 opacity-0"
-        } transition-all z-0 max-w-2xl w-[90vw] bg-neutral-800 absolute left-1/2 -translate-x-1/2 bottom-24 rounded-lg ${
+        } transition-all z-0 max-w-2xl w-[90vw] bg-neutral-800 absolute left-1/2 -translate-x-1/2 bottom-44 md:bottom-24 rounded-lg ${
             isVisible ? "overflow-y-auto" : "overflow-hidden"
         }`}>
             <CodeHeader

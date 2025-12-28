@@ -25,7 +25,7 @@ export const useExport = (gradientRef, format, mode, videoOptions) => {
                 setRecordingProgress(progress);
             }, videoOptions);
 
-            showSuccess("¡Video exportado exitosamente! 🎥");
+            showSuccess("Video exportado exitosamente");
 
         } catch (error) {
 
@@ -45,7 +45,7 @@ export const useExport = (gradientRef, format, mode, videoOptions) => {
         try {
             showInfo("Generando imagen...", 2000);
             await exportImage(gradientRef, format);
-            showSuccess("¡Imagen exportada exitosamente! 🖼️");
+            showSuccess("Imagen exportada exitosamente");
         } catch (error) {
             console.error('Error al exportar imagen:', error);
             showError('Error al exportar la imagen. Intenta de nuevo.');

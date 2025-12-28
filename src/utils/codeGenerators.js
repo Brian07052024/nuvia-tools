@@ -63,6 +63,7 @@ ${colors.map((_, index) => `  <div class="gradient-blob blob-${index + 1}"></div
   filter: blur(64px);
   opacity: 0.8;
   mix-blend-mode: multiply;
+  aspect-ratio: 1 / 1; /* Mantiene círculos perfectos */
   pointer-events: none; /* No interfiere con clics o interacciones */
   z-index: -1; /* Mantiene las blobs detrás del contenido */
 }
@@ -72,12 +73,12 @@ ${colors.map((_, index) => `  <div class="gradient-blob blob-${index + 1}"></div
     colors.forEach((color, index) => {
         const blobNum = index + 1;
         const positions = [
-            { width: '100%', height: '100%', top: '-10%', left: '-5%', animation: 'float1' },
-            { width: '100%', height: '100%', top: '15%', right: '-10%', animation: 'float2', delay: '-1s' },
-            { width: '100%', height: '100%', bottom: '-15%', left: '10%', animation: 'float3', delay: '-2s' },
-            { width: '100%', height: '60%', bottom: '10%', right: '15%', animation: 'float4', delay: '-3s' },
-            { width: '100%', height: '100%', top: '40%', left: '40%', animation: 'float5', delay: '-1.5s' },
-            { width: '100%', height: '100%', top: '20%', left: '20%', animation: 'float6', delay: '-4s' }
+            { width: '100%', top: '-10%', left: '-5%', animation: 'float1' },
+            { width: '100%', top: '15%', right: '-10%', animation: 'float2', delay: '-1s' },
+            { width: '100%', bottom: '-15%', left: '10%', animation: 'float3', delay: '-2s' },
+            { width: '60%', bottom: '10%', right: '15%', animation: 'float4', delay: '-3s' },
+            { width: '55%', top: '40%', left: '40%', animation: 'float5', delay: '-1.5s' },
+            { width: '75%', top: '20%', left: '20%', animation: 'float6', delay: '-4s' }
         ];
 
         if (positions[index]) {
@@ -86,7 +87,6 @@ ${colors.map((_, index) => `  <div class="gradient-blob blob-${index + 1}"></div
 .blob-${blobNum} {
   background-color: ${color};
   ${pos.width ? `width: ${pos.width};` : ''}
-  ${pos.height ? `height: ${pos.height};` : ''}
   ${pos.top ? `top: ${pos.top};` : ''}
   ${pos.bottom ? `bottom: ${pos.bottom};` : ''}
   ${pos.left ? `left: ${pos.left};` : ''}

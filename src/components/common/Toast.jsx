@@ -13,7 +13,7 @@ function Toast({ message, type = "success", onClose, duration = 3000 }) {
     const icon = type === "success" ? "✓" : type === "error" ? "✕" : "ℹ";
 
     return (
-        <div className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 ${bgColor} text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 animate-fade-down animate-duration-300 min-w-75`}>
+        <div className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 ${bgColor} text-white px-6 py-4 rounded-2xl shadow-sm flex items-center gap-3 animate-fade-down animate-duration-300 min-w-75`}>
             <span className="text-2xl font-bold">{icon}</span>
             <p className="flex-1 font-medium">{message}</p>
             <button
