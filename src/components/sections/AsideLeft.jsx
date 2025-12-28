@@ -88,7 +88,7 @@ function AsideLeft() {
                             <path d="M9.67965 0.888916C10.7445 0.888919 11.7854 1.20451 12.6709 1.79582C13.5565 2.38712 14.2469 3.22762 14.655 4.21113C15.0631 5.19463 15.1705 6.27703 14.9638 7.32157C14.757 8.36612 14.2453 9.32595 13.4933 10.0798C12.7413 10.8337 11.7827 11.3478 10.7387 11.5571C9.69466 11.7665 8.612 11.6617 7.62749 11.256C6.64297 10.8504 5.80077 10.162 5.20728 9.27795C4.61378 8.39387 4.29562 7.35373 4.29299 6.28892C4.29123 5.58041 4.42927 4.87851 4.69919 4.22343C4.96911 3.56835 5.36561 2.97296 5.86598 2.47135C6.36635 1.96973 6.96077 1.57176 7.61518 1.30022C8.26959 1.02868 8.97114 0.888914 9.67965 0.888916Z" />
                         </svg>
                     )}
-                    <span className="text-xs mt-1 text-gray-600 font-medium">Modo</span>
+                    <span className="text-[10px] mt-1 text-gray-600 font-medium leading-tight">Modo</span>
                 </button>
 
                 {/* Botón Formato */}
@@ -100,7 +100,7 @@ function AsideLeft() {
                     <svg width="20" height="20" viewBox="0 0 16 16" fill="#6b7280" xmlns="http://www.w3.org/2000/svg">
                         <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
                     </svg>
-                    <span className="text-xs mt-1 text-gray-600 font-medium">Formato</span>
+                    <span className="text-[10px] mt-1 text-gray-600 font-medium leading-tight">Formato</span>
                 </button>
 
                 {/* Botón Ajustes */}
@@ -113,7 +113,7 @@ function AsideLeft() {
                         <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0" />
                         <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z" />
                     </svg>
-                    <span className="text-xs mt-1 text-gray-600 font-medium">Ajustes</span>
+                    <span className="text-[10px] mt-1 text-gray-600 font-medium leading-tight">Ajustes</span>
                 </button>
             </div>
 
@@ -122,7 +122,7 @@ function AsideLeft() {
 
                 {/* Tipo de gradiente */}
                 <div className="flex flex-col gap-3">
-                    <h2 className="text-gray-800 font-medium">Tipo de gradiente</h2>
+                    <h2 className="text-sm lg:text-base text-gray-800 font-medium">Tipo de gradiente</h2>
 
                     <div className="flex gap-2">
                         <button
@@ -142,7 +142,7 @@ function AsideLeft() {
                                 </defs>
                             </svg>
 
-                            <p className="hidden lg:visible">Imagen</p>
+                            <p className="invisible lg:visible text-xs xl:text-base">Imagen</p>
                         </button>
 
                         <button
@@ -155,14 +155,14 @@ function AsideLeft() {
                                 <path d="M3.41311 6.45776C2.68468 7.26355 2.291 8.31683 2.31235 9.40286C2.33369 10.4889 2.76845 11.5259 3.52799 12.3024C4.28753 13.079 5.31464 13.5366 6.39993 13.582C7.48522 13.6273 8.54696 13.2571 9.36867 12.5467C7.79177 12.4678 6.30264 11.7971 5.19864 10.6684C4.09464 9.53963 3.45702 8.03602 3.41311 6.45776Z" />
                                 <path d="M9.67965 0.888916C10.7445 0.888919 11.7854 1.20451 12.6709 1.79582C13.5565 2.38712 14.2469 3.22762 14.655 4.21113C15.0631 5.19463 15.1705 6.27703 14.9638 7.32157C14.757 8.36612 14.2453 9.32595 13.4933 10.0798C12.7413 10.8337 11.7827 11.3478 10.7387 11.5571C9.69466 11.7665 8.612 11.6617 7.62749 11.256C6.64297 10.8504 5.80077 10.162 5.20728 9.27795C4.61378 8.39387 4.29562 7.35373 4.29299 6.28892C4.29123 5.58041 4.42927 4.87851 4.69919 4.22343C4.96911 3.56835 5.36561 2.97296 5.86598 2.47135C6.36635 1.96973 6.96077 1.57176 7.61518 1.30022C8.26959 1.02868 8.97114 0.888914 9.67965 0.888916Z" />
                             </svg>
-                            <p className="hidden lg:visible">Animado</p>
+                            <p className="invisible lg:visible text-xs xl:text-base">Animado</p>
                         </button>
                     </div>
                 </div>
 
                 {/* Formatos disponibles */}
                 <div className="flex flex-col gap-3">
-                    <h2 className="text-gray-800 font-medium">Formato</h2>
+                    <h2 className="text-sm lg:text-base text-gray-800 font-medium">Formato</h2>
 
                     {/* Vista móvil - Dropdown */}
                     <div className="lg:hidden relative">
@@ -232,7 +232,7 @@ function AsideLeft() {
                                                     </svg>
                                                 )}
                                             </div>
-                                            <span className="text-sm">{formato.nombre}</span>
+                                            <span className="text-xs lg:text-sm">{formato.nombre}</span>
                                         </div>
                                     );
                                 })}
@@ -300,7 +300,7 @@ function AsideLeft() {
                                         </svg>
 
                                     )}
-                                    <p className="text-xs">{formato.nombre}</p>
+                                    <p className="text-[10px] lg:text-xs">{formato.nombre}</p>
                                 </div>
                             );
                         })}
@@ -312,7 +312,7 @@ function AsideLeft() {
                     <div className="flex flex-col gap-3">
                         {/* Header con toggle para móvil */}
                         <div className="flex items-center justify-between">
-                            <h2 className="text-gray-800 font-medium">Ajustes del gradiente</h2>
+                            <h2 className="text-sm lg:text-base text-gray-800 font-medium">Ajustes del gradiente</h2>
                             <button
                                 onClick={() => setIsGradientSettingsOpen(!isGradientSettingsOpen)}
                                 className="lg:hidden p-1 text-gray-600 hover:text-gray-800 transition-colors"
@@ -430,7 +430,7 @@ function AsideLeft() {
                     <div className="flex flex-col gap-3">
                         {/* Header con toggle para móvil */}
                         <div className="flex items-center justify-between">
-                            <h2 className="text-gray-800 font-medium">Ajustes del video</h2>
+                            <h2 className="text-sm lg:text-base text-gray-800 font-medium">Ajustes del video</h2>
                             <button
                                 onClick={() => setIsVideoSettingsOpen(!isVideoSettingsOpen)}
                                 className="lg:hidden p-1 text-gray-600 hover:text-gray-800 transition-colors"

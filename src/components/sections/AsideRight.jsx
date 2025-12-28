@@ -139,7 +139,7 @@ function AsideRight() {
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#6b7280" class="bi bi-palette-fill" viewBox="0 0 16 16">
                             <path d="M12.433 10.07C14.133 10.585 16 11.15 16 8a8 8 0 1 0-8 8c1.996 0 1.826-1.504 1.649-3.08-.124-1.101-.252-2.237.351-2.92.465-.527 1.42-.237 2.433.07M8 5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m4.5 3a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3M5 6.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m.5 6.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3" />
                         </svg>
-                        <span className="text-xs mt-1 text-gray-600 font-medium">Colores</span>
+                        <span className="text-[10px] mt-1 text-gray-600 font-medium leading-tight">Colores</span>
                     </button>
 
                     {/* Bot�n Mis Paletas */}
@@ -154,7 +154,7 @@ function AsideRight() {
                                 <path d="M1 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zM1 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zM1 12a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1z" />
                             </svg>
                             <span className="absolute -top-1 -right-1 bg-nuviaFrom text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">{savedPalettes.length}</span>
-                            <span className="text-xs mt-1 text-gray-600 font-medium">Guardadas</span>
+                            <span className="text-[10px] mt-1 text-gray-600 font-medium leading-tight">Guardadas</span>
                         </button>
                     )}
 
@@ -168,7 +168,7 @@ function AsideRight() {
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#6b7280" class="bi bi-bookmark-star-fill" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5M8.16 4.1a.178.178 0 0 0-.32 0l-.634 1.285a.18.18 0 0 1-.134.098l-1.42.206a.178.178 0 0 0-.098.303L6.58 6.993c.042.041.061.1.051.158L6.39 8.565a.178.178 0 0 0 .258.187l1.27-.668a.18.18 0 0 1 .165 0l1.27.668a.178.178 0 0 0 .257-.187L9.368 7.15a.18.18 0 0 1 .05-.158l1.028-1.001a.178.178 0 0 0-.098-.303l-1.42-.206a.18.18 0 0 1-.134-.098z" />
                         </svg>
-                        <span className="text-xs mt-1 text-gray-600 font-medium">Presets</span>
+                        <span className="text-[10px] mt-1 text-gray-600 font-medium leading-tight">Presets</span>
                     </button>
 
                     {/* Bot�n Exportar */}
@@ -239,7 +239,7 @@ function AsideRight() {
                     {/* Paleta de colores */}
                     <div className="flex flex-col gap-3 lg:flex">
                         <div className="flex gap-2 items-center justify-between">
-                            <h2 className="text-gray-800 font-medium whitespace-nowrap">Paleta de colores</h2>
+                            <h2 className="text-sm lg:text-base text-gray-800 font-medium whitespace-nowrap">Paleta de colores</h2>
                             <button
                                 onClick={() => setIsColorPaletteOpen(!isColorPaletteOpen)}
                                 className="lg:hidden p-1 text-gray-600 hover:text-gray-800 transition-colors"
@@ -269,7 +269,7 @@ function AsideRight() {
                                 >
                                     <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1z" />
                                 </svg>
-                                <span className="text-xs font-medium">Guardar</span>
+                                <span className="text-[11px] lg:text-xs font-medium">Guardar</span>
                             </button>
                         </div>
 
@@ -305,7 +305,7 @@ function AsideRight() {
                                 className="shadow transition-colors w-full flex items-center justify-center gap-2 rounded-2xl border-2 py-2 cursor-pointer text-gray-500 border-gray-300 hover:bg-gray-100"
                             >
                                 <img src="/svg/plus.svg" alt="" />
-                                <span className="text-sm font-medium">Agregar color</span>
+                                <span className="text-xs lg:text-sm font-medium">Agregar color</span>
                             </button>
                         </div>
                     </div>
