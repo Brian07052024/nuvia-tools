@@ -114,7 +114,7 @@ export const ColorProvider = ({ children }) => {
     const [mode, setMode] = useState(modoEnLocalStorage);
 
     //opciones de gradiente estático
-    const [gradientType, setGradientType] = useState(tipoGradienteEnLocalStorage); // linear, radial, conic
+    const [gradientType, setGradientType] = useState(tipoGradienteEnLocalStorage); // linear, radial
     const [gradientBlur, setGradientBlur] = useState(desenfoquenEnLocalStorage); // 0-20px
     const [gradientOpacity, setGradientOpacity] = useState(opacidadEnLocalStorage); // 0-100%
 
@@ -240,6 +240,8 @@ export const ColorProvider = ({ children }) => {
 };
 
 export default ColorContext;
+
+
 
 
 

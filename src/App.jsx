@@ -28,7 +28,7 @@ function App() {
         <ColorProvider>
           <div className="h-lvh w-full bg-gray-200 flex flex-col overflow-hidden">
            
-            <div className="md:grid md:grid-cols-10 md:gap-2 md:flex-1 w-full h-full p-2 overflow-hidden relative">
+            <div className="lg:grid lg:grid-cols-10 lg:gap-2 lg:flex-1 w-full h-full p-2 overflow-hidden relative">
 
               <AsideLeft />
               <Center />
@@ -45,3 +45,5 @@ function App() {
 }
 
 export default App
+
+

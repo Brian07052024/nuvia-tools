@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useColor } from "../../hook/useColor";
 import { useExport } from "../../hook/useExport";
 import { useToast } from "../../contexts/ToastContext";
@@ -26,12 +26,12 @@ function AsideRight() {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [paletteToDelete, setPaletteToDelete] = useState(null);
 
-    // Estados para secciones colapsables en móvil
+    // Estados para secciones colapsables en m�vil
     const [isColorPaletteOpen, setIsColorPaletteOpen] = useState(true);
     const [isSavedPalettesOpen, setIsSavedPalettesOpen] = useState(false);
     const [isPreloadedPalettesOpen, setIsPreloadedPalettesOpen] = useState(false);
 
-    // Estado para controlar qué modal está abierto en móviles
+    // Estado para controlar qu� modal est� abierto en m�viles
     const [mobileModalOpen, setMobileModalOpen] = useState(null); // 'colors', 'saved', 'preloaded', null
 
     // Cargar paletas guardadas al iniciar
@@ -126,11 +126,11 @@ function AsideRight() {
 
         // el abuelito -> 
         <>
-            <div className="bg-white absolute top-0 left-0 right-0 flex flex-row justify-between gap-2 px-4 py-3 w-full border border-gray-300 rounded-b-2xl animate-fade-down z-10 md:relative md:z-auto md:col-span-2 md:p-4 md:gap-5 md:w-auto md:flex-col md:rounded-2xl md:overflow-y-scroll md:animate-fade-left">
+            <div className="bg-white absolute top-0 left-0 right-0 flex flex-row justify-between gap-2 px-4 py-3 w-full border border-gray-300 rounded-b-2xl animate-fade-down z-10 lg:relative lg:z-auto lg:col-span-2 lg:p-4 lg:gap-5 lg:w-auto lg:flex-col lg:rounded-2xl lg:overflow-y-scroll lg:animate-fade-left">
 
-                {/* Barra horizontal compacta para móviles */}
-                <div className="flex gap-2 w-full md:hidden">
-                    {/* Botón Paleta de colores */}
+                {/* Barra horizontal compacta para m�viles */}
+                <div className="flex gap-2 w-full lg:hidden">
+                    {/* Bot�n Paleta de colores */}
                     <button
                         onClick={() => setMobileModalOpen('colors')}
                         className="flex flex-1 flex-col justify-center items-center cursor-pointer border-2 border-gray-300 bg-white px-2 py-2 rounded-xl hover:bg-gray-100 transition-all"
@@ -142,7 +142,7 @@ function AsideRight() {
                         <span className="text-xs mt-1 text-gray-600 font-medium">Colores</span>
                     </button>
 
-                    {/* Botón Mis Paletas */}
+                    {/* Bot�n Mis Paletas */}
                     {savedPalettes.length > 0 && (
                         <button
                             onClick={() => setMobileModalOpen('saved')}
@@ -158,7 +158,7 @@ function AsideRight() {
                         </button>
                     )}
 
-                    {/* Botón Paletas pre-cargadas */}
+                    {/* Bot�n Paletas pre-cargadas */}
                     <button
                         onClick={() => setMobileModalOpen('preloaded')}
                         className="flex flex-1 flex-col justify-center items-center cursor-pointer border-2 border-gray-300 bg-white px-2 py-2 rounded-xl hover:bg-gray-100 transition-all"
@@ -171,7 +171,7 @@ function AsideRight() {
                         <span className="text-xs mt-1 text-gray-600 font-medium">Presets</span>
                     </button>
 
-                    {/* Botón Exportar */}
+                    {/* Bot�n Exportar */}
                     {mode === "static" && (
                         <button
                             onClick={handleExportImage}
@@ -201,28 +201,28 @@ function AsideRight() {
                 </div>
 
                 {/* Contenido completo para desktop */}
-                <div className="hidden md:flex md:flex-col md:gap-5 md:w-full">
+                <div className="hidden lg:flex lg:flex-col lg:gap-5 lg:w-full">
 
-                    {/* Botón exportar imagen */}
+                    {/* Bot�n exportar imagen */}
                     {mode === "static" && (
                         <button
                             onClick={handleExportImage}
                             aria-label="Exportar imagen PNG"
-                            className="flex gap-2 justify-center items-center cursor-pointer bg-linear-to-r from-nuviaFrom to-nuviaTo px-4 py-2 md:py-3 text-white rounded-2xl text-center font-medium hover:brightness-110 transition-all duration-200 text-sm md:text-base"
+                            className="flex gap-2 justify-center items-center cursor-pointer bg-linear-to-r from-nuviaFrom to-nuviaTo px-4 py-2 lg:py-3 text-white rounded-2xl text-center font-medium hover:brightness-110 transition-all duration-200 text-sm lg:text-base"
                         >
-                            <span className="hidden md:inline">Exportar Imagen</span>
-                            <span className="md:hidden">Exportar</span>
+                            <span className="hidden lg:inline">Exportar Imagen</span>
+                            <span className="lg:hidden">Exportar</span>
                             <img src="/svg/download.svg" alt="icon" />
                         </button>
                     )}
 
-                    {/* Botón exportar video */}
+                    {/* Bot�n exportar video */}
                     {mode === "animated" && (
                         <button
                             onClick={handleExportVideo}
                             disabled={isRecording}
                             aria-label="Exportar video WebM"
-                            className={`relative flex gap-2 justify-center items-center cursor-pointer bg-linear-to-r from-nuviaFrom to-nuviaTo px-4 py-2 md:py-3 text-white rounded-2xl text-center font-medium hover:brightness-110 transition-all duration-200 text-sm md:text-base ${isRecording ? 'bg-gray-400! cursor-not-allowed' : ''}`}
+                            className={`relative flex gap-2 justify-center items-center cursor-pointer bg-linear-to-r from-nuviaFrom to-nuviaTo px-4 py-2 lg:py-3 text-white rounded-2xl text-center font-medium hover:brightness-110 transition-all duration-200 text-sm lg:text-base ${isRecording ? 'bg-gray-400! cursor-not-allowed' : ''}`}
                         >
                             {isRecording && (
                                 <div
@@ -230,19 +230,19 @@ function AsideRight() {
                                     style={{ width: `${recordingProgress}%` }}
                                 />
                             )}
-                            <span className="hidden md:inline">{isRecording ? `Grabando... ${recordingProgress}%` : 'Exportar Video'}</span>
-                            <span className="md:hidden">{isRecording ? `${recordingProgress}%` : 'Exportar'}</span>
-                            <img src="/svg/download.svg" alt="icon" className="hidden md:inline" />
+                            <span className="hidden lg:inline">{isRecording ? `Grabando... ${recordingProgress}%` : 'Exportar Video'}</span>
+                            <span className="lg:hidden">{isRecording ? `${recordingProgress}%` : 'Exportar'}</span>
+                            <img src="/svg/download.svg" alt="icon" className="hidden lg:inline" />
                         </button>
                     )}
 
                     {/* Paleta de colores */}
-                    <div className="flex flex-col gap-3 md:flex">
+                    <div className="flex flex-col gap-3 lg:flex">
                         <div className="flex gap-2 items-center justify-between">
                             <h2 className="text-gray-800 font-medium whitespace-nowrap">Paleta de colores</h2>
                             <button
                                 onClick={() => setIsColorPaletteOpen(!isColorPaletteOpen)}
-                                className="md:hidden p-1 text-gray-600 hover:text-gray-800 transition-colors"
+                                className="lg:hidden p-1 text-gray-600 hover:text-gray-800 transition-colors"
                             >
                                 <svg
                                     className={`w-5 h-5 transition-transform ${isColorPaletteOpen ? 'rotate-180' : ''}`}
@@ -255,7 +255,7 @@ function AsideRight() {
                             </button>
                         </div>
                         <div className="flex gap-2 items-center">
-                            <div className="md:hidden w-full h-px bg-gray-200"></div>
+                            <div className="lg:hidden w-full h-px bg-gray-200"></div>
                             <button
                                 onClick={() => handleSave()}
                                 className="cursor-pointer gap-1.5 text-gray-500 border-gray-300 hover:bg-gray-100 hover:border-gray-400 border-2 flex items-center px-3 py-1.5 justify-center rounded-full transition-all shadow-sm hover:shadow flex-1"
@@ -273,7 +273,7 @@ function AsideRight() {
                             </button>
                         </div>
 
-                        <div className={`${isColorPaletteOpen ? 'flex' : 'hidden'} md:flex flex-col gap-2`}>
+                        <div className={`${isColorPaletteOpen ? 'flex' : 'hidden'} lg:flex flex-col gap-2`}>
                             {colors.map((colorValue, index) => (
                                 <div
                                     key={index}
@@ -310,11 +310,11 @@ function AsideRight() {
                         </div>
                     </div>
 
-                    {/* Botón para abrir modal de paletas guardadas */}
+                    {/* Bot�n para abrir modal de paletas guardadas */}
                     {savedPalettes.length > 0 && (
                         <div className="relative">
-                            {/* Header con toggle para móvil */}
-                            <div className="flex items-center justify-between md:hidden mb-2">
+                            {/* Header con toggle para m�vil */}
+                            <div className="flex items-center justify-between lg:hidden mb-2">
                                 <h2 className="text-gray-800 font-medium">Mis Paletas ({savedPalettes.length})</h2>
                                 <button
                                     onClick={() => setIsSavedPalettesOpen(!isSavedPalettesOpen)}
@@ -331,10 +331,10 @@ function AsideRight() {
                                 </button>
                             </div>
 
-                            {/* Botón para desktop */}
+                            {/* Bot�n para desktop */}
                             <button
                                 onClick={() => setIsModalOpen(!isModalOpen)}
-                                className={`shadow transition-colors w-full items-center justify-center gap-2 rounded-2xl border-2 py-2 px-4 cursor-pointer relative hidden md:flex ${isModalOpen ? "text-gray-800 border-gray-400 bg-gray-200" : "text-gray-500 border-gray-300 hover:bg-gray-100"}`}
+                                className={`shadow transition-colors w-full items-center justify-center gap-2 rounded-2xl border-2 py-2 px-4 cursor-pointer relative hidden lg:flex ${isModalOpen ? "text-gray-800 border-gray-400 bg-gray-200" : "text-gray-500 border-gray-300 hover:bg-gray-100"}`}
                             >
                                 <svg
                                     width="16"
@@ -356,9 +356,9 @@ function AsideRight() {
                                 </svg>
                             </button>
 
-                            {/* Vista colapsable móvil */}
+                            {/* Vista colapsable m�vil */}
                             {isSavedPalettesOpen && (
-                                <div className="md:hidden flex flex-col gap-3 animate-fade-down">
+                                <div className="lg:hidden flex flex-col gap-3 animate-fade-down">
                                     {savedPalettes.map((paleta) => (
                                         <div key={paleta.id} className="group">
                                             <div className="flex justify-between items-center mb-1">
@@ -369,10 +369,13 @@ function AsideRight() {
                                                         setPaletteToDelete(paleta.id);
                                                         setShowDeleteModal(true);
                                                     }}
-                                                    className="text-red-500 hover:text-red-700 text-xs px-2 py-1 hover:bg-red-50 rounded transition-all"
+                                                    className="text-red-500 hover:text-red-700 text-xs p-1 hover:bg-red-50 rounded transition-all"
                                                     title="Eliminar paleta"
                                                 >
-                                                    🗑️
+                                                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 16 16">
+                                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                                                    </svg>
                                                 </button>
                                             </div>
 
@@ -403,7 +406,7 @@ function AsideRight() {
                                     />
 
                                     {/* Panel modal */}
-                                    <div className="absolute animate-duration-400 animate-fade-down left-0 top-full mt-2 w-full bg-white rounded-2xl shadow-2xl border border-gray-200 z-50 max-h-96 overflow-y-auto hidden md:block">
+                                    <div className="absolute animate-duration-400 animate-fade-down left-0 top-full mt-2 w-full bg-white rounded-2xl shadow-2xl border border-gray-200 z-50 max-h-96 overflow-y-auto hidden lg:block">
                                         <div className="p-4">
                                             <div className="flex justify-between items-center mb-4 sticky top-0 bg-white pb-2 border-b border-gray-200">
                                                 <h3 className="text-gray-800 font-semibold">Mis Paletas</h3>
@@ -428,10 +431,13 @@ function AsideRight() {
                                                                     setPaletteToDelete(paleta.id);
                                                                     setShowDeleteModal(true);
                                                                 }}
-                                                                className="opacity-0 group-hover:opacity-100 text-red-500 hover:text-red-700 text-xs px-2 py-1 hover:bg-red-50 rounded transition-all"
+                                                                className="opacity-0 group-hover:opacity-100 text-red-500 hover:text-red-700 text-xs p-1 hover:bg-red-50 rounded transition-all"
                                                                 title="Eliminar paleta"
                                                             >
-                                                                🗑️
+                                                                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 16 16">
+                                                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                                                                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                                                                </svg>
                                                             </button>
                                                         </div>
 
@@ -463,7 +469,7 @@ function AsideRight() {
                             <h2 className="text-gray-800 font-medium">Paletas pre-cargadas</h2>
                             <button
                                 onClick={() => setIsPreloadedPalettesOpen(!isPreloadedPalettesOpen)}
-                                className="md:hidden p-1 text-gray-600 hover:text-gray-800 transition-colors"
+                                className="lg:hidden p-1 text-gray-600 hover:text-gray-800 transition-colors"
                             >
                                 <svg
                                     className={`w-5 h-5 transition-transform ${isPreloadedPalettesOpen ? 'rotate-180' : ''}`}
@@ -476,7 +482,7 @@ function AsideRight() {
                             </button>
                         </div>
 
-                        <div className={`${isPreloadedPalettesOpen ? 'flex' : 'hidden'} md:flex flex-col gap-2`}>
+                        <div className={`${isPreloadedPalettesOpen ? 'flex' : 'hidden'} lg:flex flex-col gap-2`}>
                             {defaultPalettes.map((paleta, idx) => (
                                 <div key={idx} className="flex flex-col gap-1">
                                     <h3 className="text-xs text-gray-400">{paleta.name}</h3>
@@ -496,11 +502,11 @@ function AsideRight() {
                     </div>
                 </div>
 
-                {/* Modal móvil - Paleta de colores */}
+                {/* Modal m�vil - Paleta de colores */}
                 {mobileModalOpen === 'colors' && (
                     <>
                         <div
-                            className="fixed inset-0 bg-black/30 z-50 md:hidden"
+                            className="fixed inset-0 bg-black/30 z-50 lg:hidden"
                             onClick={() => setMobileModalOpen(null)}
                             aria-hidden="true"
                         />
@@ -508,7 +514,7 @@ function AsideRight() {
                             role="dialog"
                             aria-labelledby="modal-colors-title"
                             aria-modal="true"
-                            className="fixed inset-x-4 top-20 max-h-[70vh] bg-white rounded-2xl shadow-2xl z-60 flex flex-col md:hidden animate-fade-down animate-duration-300"
+                            className="fixed inset-x-4 top-20 max-h-[70vh] bg-white rounded-2xl shadow-2xl z-60 flex flex-col lg:hidden animate-fade-down animate-duration-300"
                             onKeyDown={(e) => e.key === 'Escape' && setMobileModalOpen(null)}
                         >
                             <div className="flex items-center justify-between p-4 border-b border-gray-200">
@@ -568,11 +574,11 @@ function AsideRight() {
                     </>
                 )}
 
-                {/* Modal móvil - Mis Paletas */}
+                {/* Modal m�vil - Mis Paletas */}
                 {mobileModalOpen === 'saved' && savedPalettes.length > 0 && (
                     <>
                         <div
-                            className="fixed inset-0 bg-black/30 z-50 md:hidden"
+                            className="fixed inset-0 bg-black/30 z-50 lg:hidden"
                             onClick={() => setMobileModalOpen(null)}
                             aria-hidden="true"
                         />
@@ -580,7 +586,7 @@ function AsideRight() {
                             role="dialog"
                             aria-labelledby="modal-saved-title"
                             aria-modal="true"
-                            className="fixed inset-x-4 top-20 max-h-[70vh] bg-white rounded-2xl shadow-2xl z-60 flex flex-col md:hidden animate-fade-down animate-duration-300"
+                            className="fixed inset-x-4 top-20 max-h-[70vh] bg-white rounded-2xl shadow-2xl z-60 flex flex-col lg:hidden animate-fade-down animate-duration-300"
                             onKeyDown={(e) => e.key === 'Escape' && setMobileModalOpen(null)}
                         >
                             <div className="flex items-center justify-between p-4 border-b border-gray-200">
@@ -609,7 +615,7 @@ function AsideRight() {
                                                     }}
                                                     className="text-red-500 hover:text-red-700 text-sm px-2 py-1 hover:bg-red-50 rounded transition-all"
                                                 >
-                                                    🗑️
+                                                    ???
                                                 </button>
                                             </div>
                                             <div
@@ -635,11 +641,11 @@ function AsideRight() {
                     </>
                 )}
 
-                {/* Modal móvil - Paletas pre-cargadas */}
+                {/* Modal m�vil - Paletas pre-cargadas */}
                 {mobileModalOpen === 'preloaded' && (
                     <>
                         <div
-                            className="fixed inset-0 bg-black/30 z-50 md:hidden"
+                            className="fixed inset-0 bg-black/30 z-50 lg:hidden"
                             onClick={() => setMobileModalOpen(null)}
                             aria-hidden="true"
                         />
@@ -647,7 +653,7 @@ function AsideRight() {
                             role="dialog"
                             aria-labelledby="modal-preloaded-title"
                             aria-modal="true"
-                            className="fixed inset-x-4 top-20 max-h-[70vh] bg-white rounded-2xl shadow-2xl z-60 flex flex-col md:hidden animate-fade-down animate-duration-300"
+                            className="fixed inset-x-4 top-20 max-h-[70vh] bg-white rounded-2xl shadow-2xl z-60 flex flex-col lg:hidden animate-fade-down animate-duration-300"
                             onKeyDown={(e) => e.key === 'Escape' && setMobileModalOpen(null)}
                         >
                             <div className="flex items-center justify-between p-4 border-b border-gray-200">
@@ -692,9 +698,9 @@ function AsideRight() {
 
             <ConfirmModal
                 isOpen={showDeleteModal}
-                title="¿Eliminar paleta?"
-                message="Esta paleta será eliminada permanentemente. Esta acción no se puede deshacer."
-                confirmText="Sí, eliminar"
+                title="�Eliminar paleta?"
+                message="Esta paleta ser� eliminada permanentemente. Esta acci�n no se puede deshacer."
+                confirmText="S�, eliminar"
                 cancelText="Cancelar"
                 type="danger"
                 onConfirm={() => {
@@ -712,3 +718,5 @@ function AsideRight() {
 }
 
 export default AsideRight;
+
+

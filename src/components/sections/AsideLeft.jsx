@@ -65,10 +65,10 @@ function AsideLeft() {
 
     return (
         // el abuelito->
-        <div className="bg-white absolute bottom-0 left-0 right-0 flex flex-row justify-between gap-2 px-4 py-3 w-full border border-gray-300 rounded-t-2xl animate-fade-up z-10 md:relative md:z-auto md:col-span-2 md:p-4 md:gap-5 md:w-auto md:flex-col md:rounded-2xl md:overflow-y-scroll md:animate-fade-right">
+        <div className="bg-white absolute bottom-0 left-0 right-0 flex flex-row justify-between gap-2 px-4 py-3 w-full border border-gray-300 rounded-t-2xl animate-fade-up z-10 lg:relative lg:z-auto lg:col-span-2 lg:p-4 lg:gap-5 lg:w-auto lg:flex-col lg:rounded-2xl lg:overflow-y-scroll lg:animate-fade-right">
 
             {/* Barra horizontal compacta para móviles */}
-            <div className="flex gap-2 w-full md:hidden">
+            <div className="flex gap-2 w-full lg:hidden">
                 {/* Botón Tipo de gradiente */}
                 <button
                     onClick={() => setMobileModalOpen('mode')}
@@ -118,7 +118,7 @@ function AsideLeft() {
             </div>
 
             {/* Contenido completo para desktop */}
-            <div className="hidden md:flex md:flex-col md:gap-5 md:w-full">
+            <div className="hidden lg:flex lg:flex-col lg:gap-5 lg:w-full">
 
                 {/* Tipo de gradiente */}
                 <div className="flex flex-col gap-3">
@@ -142,7 +142,7 @@ function AsideLeft() {
                                 </defs>
                             </svg>
 
-                            <p className="hidden md:visible">Imagen</p>
+                            <p className="hidden lg:visible">Imagen</p>
                         </button>
 
                         <button
@@ -155,7 +155,7 @@ function AsideLeft() {
                                 <path d="M3.41311 6.45776C2.68468 7.26355 2.291 8.31683 2.31235 9.40286C2.33369 10.4889 2.76845 11.5259 3.52799 12.3024C4.28753 13.079 5.31464 13.5366 6.39993 13.582C7.48522 13.6273 8.54696 13.2571 9.36867 12.5467C7.79177 12.4678 6.30264 11.7971 5.19864 10.6684C4.09464 9.53963 3.45702 8.03602 3.41311 6.45776Z" />
                                 <path d="M9.67965 0.888916C10.7445 0.888919 11.7854 1.20451 12.6709 1.79582C13.5565 2.38712 14.2469 3.22762 14.655 4.21113C15.0631 5.19463 15.1705 6.27703 14.9638 7.32157C14.757 8.36612 14.2453 9.32595 13.4933 10.0798C12.7413 10.8337 11.7827 11.3478 10.7387 11.5571C9.69466 11.7665 8.612 11.6617 7.62749 11.256C6.64297 10.8504 5.80077 10.162 5.20728 9.27795C4.61378 8.39387 4.29562 7.35373 4.29299 6.28892C4.29123 5.58041 4.42927 4.87851 4.69919 4.22343C4.96911 3.56835 5.36561 2.97296 5.86598 2.47135C6.36635 1.96973 6.96077 1.57176 7.61518 1.30022C8.26959 1.02868 8.97114 0.888914 9.67965 0.888916Z" />
                             </svg>
-                            <p className="hidden md:visible">Animado</p>
+                            <p className="hidden lg:visible">Animado</p>
                         </button>
                     </div>
                 </div>
@@ -165,7 +165,7 @@ function AsideLeft() {
                     <h2 className="text-gray-800 font-medium">Formato</h2>
 
                     {/* Vista móvil - Dropdown */}
-                    <div className="md:hidden relative">
+                    <div className="lg:hidden relative">
                         <button
                             onClick={() => setIsFormatDropdownOpen(!isFormatDropdownOpen)}
                             className="shadow w-full flex items-center justify-between p-3 rounded-2xl border-2 border-gray-300 text-gray-800 hover:bg-gray-50 transition-colors"
@@ -241,7 +241,7 @@ function AsideLeft() {
                     </div>
 
                     {/* Vista desktop - Grid original */}
-                    <div className="hidden md:grid grid-cols-2 gap-2">
+                    <div className="hidden lg:grid grid-cols-2 gap-2">
                         {formats.map((formato, idx) => {
                             const isSelected = formato.aspect === format;
                             const fillColor = isSelected ? "#1f2937" : "#6b7280";
@@ -315,7 +315,7 @@ function AsideLeft() {
                             <h2 className="text-gray-800 font-medium">Ajustes del gradiente</h2>
                             <button
                                 onClick={() => setIsGradientSettingsOpen(!isGradientSettingsOpen)}
-                                className="md:hidden p-1 text-gray-600 hover:text-gray-800 transition-colors"
+                                className="lg:hidden p-1 text-gray-600 hover:text-gray-800 transition-colors"
                             >
                                 <svg
                                     className={`w-5 h-5 transition-transform ${isGradientSettingsOpen ? 'rotate-180' : ''}`}
@@ -329,11 +329,11 @@ function AsideLeft() {
                         </div>
 
                         {/* Contenido colapsable en móvil, siempre visible en desktop */}
-                        <div className={`${isGradientSettingsOpen ? 'flex' : 'hidden'} md:flex flex-col gap-3`}>
+                        <div className={`${isGradientSettingsOpen ? 'flex' : 'hidden'} lg:flex flex-col gap-3`}>
 
                             <div className="flex flex-col gap-2">
                                 <h3 className="text-xs text-gray-400">Tipo de gradiente</h3>
-                                <div className="grid grid-cols-3 gap-2">
+                                <div className="grid grid-cols-2 gap-2">
                                     <button
                                         onClick={() => handleGradientTypeChange("linear")}
                                         className={`shadow py-1 cursor-pointer rounded-full w-full border-2 transition-all ${gradientType === "linear"
@@ -352,19 +352,10 @@ function AsideLeft() {
                                     >
                                         Radial
                                     </button>
-                                    <button
-                                        onClick={() => handleGradientTypeChange("conic")}
-                                        className={`shadow py-1 cursor-pointer rounded-full w-full border-2 transition-all ${gradientType === "conic"
-                                            ? "text-gray-800 border-gray-400 bg-gray-200"
-                                            : "text-gray-500 border-gray-300 hover:bg-gray-100"
-                                            }`}
-                                    >
-                                        Cónico
-                                    </button>
                                 </div>
                             </div>
 
-                            {(gradientType === "linear" || gradientType === "conic") && (
+                            {gradientType === "linear" && (
                                 <div className="flex flex-col gap-2">
                                     <label className="text-xs text-gray-400">
                                         Ángulo: <span className="font-medium">{angle}°</span>
@@ -442,7 +433,7 @@ function AsideLeft() {
                             <h2 className="text-gray-800 font-medium">Ajustes del video</h2>
                             <button
                                 onClick={() => setIsVideoSettingsOpen(!isVideoSettingsOpen)}
-                                className="md:hidden p-1 text-gray-600 hover:text-gray-800 transition-colors"
+                                className="lg:hidden p-1 text-gray-600 hover:text-gray-800 transition-colors"
                             >
                                 <svg
                                     className={`w-5 h-5 transition-transform ${isVideoSettingsOpen ? 'rotate-180' : ''}`}
@@ -456,7 +447,7 @@ function AsideLeft() {
                         </div>
 
                         {/* Contenido colapsable en móvil, siempre visible en desktop */}
-                        <div className={`${isVideoSettingsOpen ? 'flex' : 'hidden'} md:flex flex-col gap-3`}>
+                        <div className={`${isVideoSettingsOpen ? 'flex' : 'hidden'} lg:flex flex-col gap-3`}>
 
                             <div className="flex flex-col gap-2">
                                 <label className="text-xs text-gray-400">
@@ -529,7 +520,7 @@ function AsideLeft() {
             {mobileModalOpen === 'mode' && (
                 <>
                     <div
-                        className="fixed inset-0 bg-black/30 z-50 md:hidden"
+                        className="fixed inset-0 bg-black/30 z-50 lg:hidden"
                         onClick={() => setMobileModalOpen(null)}
                         aria-hidden="true"
                     />
@@ -537,7 +528,7 @@ function AsideLeft() {
                         role="dialog"
                         aria-labelledby="modal-mode-title"
                         aria-modal="true"
-                        className="fixed inset-x-4 bottom-20 max-h-[50vh] bg-white rounded-2xl shadow-2xl z-60 flex flex-col md:hidden animate-fade-up animate-duration-300"
+                        className="fixed inset-x-4 bottom-20 max-h-[50vh] bg-white rounded-2xl shadow-2xl z-60 flex flex-col lg:hidden animate-fade-up animate-duration-300"
                         onKeyDown={(e) => e.key === 'Escape' && setMobileModalOpen(null)}
                     >
                         <div className="flex items-center justify-between p-4 border-b border-gray-200">
@@ -593,7 +584,7 @@ function AsideLeft() {
             {mobileModalOpen === 'format' && (
                 <>
                     <div
-                        className="fixed inset-0 bg-black/30 z-50 md:hidden"
+                        className="fixed inset-0 bg-black/30 z-50 lg:hidden"
                         onClick={() => setMobileModalOpen(null)}
                         aria-hidden="true"
                     />
@@ -601,7 +592,7 @@ function AsideLeft() {
                         role="dialog"
                         aria-labelledby="modal-format-title"
                         aria-modal="true"
-                        className="fixed inset-x-4 bottom-20 max-h-[60vh] bg-white rounded-2xl shadow-2xl z-60 flex flex-col md:hidden animate-fade-up animate-duration-300"
+                        className="fixed inset-x-4 bottom-20 max-h-[60vh] bg-white rounded-2xl shadow-2xl z-60 flex flex-col lg:hidden animate-fade-up animate-duration-300"
                         onKeyDown={(e) => e.key === 'Escape' && setMobileModalOpen(null)}
                     >
                         <div className="flex items-center justify-between p-4 border-b border-gray-200">
@@ -677,7 +668,7 @@ function AsideLeft() {
             {mobileModalOpen === 'settings' && (
                 <>
                     <div
-                        className="fixed inset-0 bg-black/30 z-50 md:hidden"
+                        className="fixed inset-0 bg-black/30 z-50 lg:hidden"
                         onClick={() => setMobileModalOpen(null)}
                         aria-hidden="true"
                     />
@@ -685,7 +676,7 @@ function AsideLeft() {
                         role="dialog"
                         aria-labelledby="modal-settings-title"
                         aria-modal="true"
-                        className="fixed inset-x-4 bottom-20 max-h-[65vh] bg-white rounded-2xl shadow-2xl z-60 flex flex-col md:hidden animate-fade-up animate-duration-300"
+                        className="fixed inset-x-4 bottom-20 max-h-[65vh] bg-white rounded-2xl shadow-2xl z-60 flex flex-col lg:hidden animate-fade-up animate-duration-300"
                         onKeyDown={(e) => e.key === 'Escape' && setMobileModalOpen(null)}
                     >
                         <div className="flex items-center justify-between p-4 border-b border-gray-200">
@@ -706,30 +697,24 @@ function AsideLeft() {
                                     {/* Tipo de gradiente */}
                                     <div>
                                         <h3 className="text-sm text-gray-500 mb-2">Tipo de gradiente</h3>
-                                        <div className="grid grid-cols-3 gap-2">
+                                        <div className="grid grid-cols-2 gap-2">
                                             <button
                                                 onClick={() => handleGradientTypeChange("linear")}
                                                 className={`py-2 rounded-xl border-2 transition-all text-sm ${gradientType === "linear" ? "text-gray-800 border-gray-400 bg-gray-200" : "text-gray-500 border-gray-300 hover:bg-gray-100"}`}
                                             >
-                                                Lineal
+                                                <p className="">Lineal</p>
                                             </button>
                                             <button
                                                 onClick={() => handleGradientTypeChange("radial")}
                                                 className={`py-2 rounded-xl border-2 transition-all text-sm ${gradientType === "radial" ? "text-gray-800 border-gray-400 bg-gray-200" : "text-gray-500 border-gray-300 hover:bg-gray-100"}`}
                                             >
-                                                Radial
-                                            </button>
-                                            <button
-                                                onClick={() => handleGradientTypeChange("conic")}
-                                                className={`py-2 rounded-xl border-2 transition-all text-sm ${gradientType === "conic" ? "text-gray-800 border-gray-400 bg-gray-200" : "text-gray-500 border-gray-300 hover:bg-gray-100"}`}
-                                            >
-                                                Cónico
+                                                <p className="">Radial</p>
                                             </button>
                                         </div>
                                     </div>
 
                                     {/* Ángulo */}
-                                    {(gradientType === "linear" || gradientType === "conic") && (
+                                    {gradientType === "linear" && (
                                         <div>
                                             <label className="text-sm text-gray-500 mb-2 block">
                                                 Ángulo: <span className="font-semibold text-gray-800">{angle}°</span>
@@ -861,3 +846,5 @@ function AsideLeft() {
 }
 
 export default AsideLeft;
+
+

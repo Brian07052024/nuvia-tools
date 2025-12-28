@@ -14,3 +14,5 @@ function CodeInfo({ colors, gradientType, angle, gradientBlur, gradientOpacity }
 }
 
 export default CodeInfo;
+
+
