@@ -108,6 +108,16 @@ export const ColorProvider = ({ children }) => {
         }
     })();
 
+    const granuladoEnLocalStorage = (() => {
+        try {
+            const item = window.localStorage.getItem("granulado");
+            return item ? JSON.parse(item) : 0;
+        } catch (error) {
+            console.error("Error al leer localStorage:", error);
+            return 0;
+        }
+    })();
+
     const [colors, setColors] = useState(coloresEnLocalStorage);
     const [format, setFormat] = useState(formatoEnLocalStorage);
     const [angle, setAngle] = useState(anguloEnLocalStorage);
@@ -117,6 +127,7 @@ export const ColorProvider = ({ children }) => {
     const [gradientType, setGradientType] = useState(tipoGradienteEnLocalStorage); // linear, radial
     const [gradientBlur, setGradientBlur] = useState(desenfoquenEnLocalStorage); // 0-20px
     const [gradientOpacity, setGradientOpacity] = useState(opacidadEnLocalStorage); // 0-100%
+    const [grainIntensity, setGrainIntensity] = useState(granuladoEnLocalStorage); // 0-50%
 
     //opciones de video
     const [videoDuration, setVideoDuration] = useState(duracionVideoEnLocalStorage); // segundos
@@ -208,6 +219,14 @@ export const ColorProvider = ({ children }) => {
         }
     }, [videoBitrate])
 
+    useEffect(() => {
+        try {
+            window.localStorage.setItem("granulado", JSON.stringify(grainIntensity));
+        } catch (error) {
+            console.error("Error al guardar en localStorage:", error);
+        }
+    }, [grainIntensity])
+
     const value = {
         colors,
         setColors,
@@ -229,7 +248,9 @@ export const ColorProvider = ({ children }) => {
         videoFps,
         setVideoFps,
         videoBitrate,
-        setVideoBitrate
+        setVideoBitrate,
+        grainIntensity,
+        setGrainIntensity
     }
 
     return (

@@ -15,15 +15,16 @@ function CodeViewer({
     angle, 
     gradientBlur, 
     gradientOpacity,
+    grainIntensity,
     onCodeModeChange, 
     onCopy, 
     copied 
 }) {
     return (
         <div className={`${
-            isVisible ? "max-h-[70vh] animate-fade-up animate-duration-300" : "h-0 opacity-0"
-        } transition-all z-0 max-w-2xl w-[90vw] bg-neutral-800 absolute left-1/2 -translate-x-1/2 bottom-44 lg:bottom-24 rounded-lg ${
-            isVisible ? "overflow-y-auto" : "overflow-hidden"
+            isVisible ? "max-h-[60vh] animate-fade-up animate-duration-300" : "h-0 opacity-0"
+        } transition-all z-0 max-w-2xl w-[calc(100vw-2rem)] sm:w-[90vw] bg-neutral-800 absolute left-1/2 -translate-x-1/2 bottom-44 lg:bottom-24 rounded-lg flex flex-col ${
+            isVisible ? "overflow-hidden" : "overflow-hidden"
         }`}>
             <CodeHeader
                 mode={mode}
@@ -33,7 +34,7 @@ function CodeViewer({
                 copied={copied}
             />
 
-            <div className="p-4">
+            <div className="flex-1 overflow-y-auto p-4">
                 <CodeRenderer code={code} codeMode={codeMode} />
                 
                 <CodeInfo
@@ -42,6 +43,7 @@ function CodeViewer({
                     angle={angle}
                     gradientBlur={gradientBlur}
                     gradientOpacity={gradientOpacity}
+                    grainIntensity={grainIntensity}
                 />
             </div>
         </div>

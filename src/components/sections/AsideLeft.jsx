@@ -8,7 +8,8 @@ function AsideLeft() {
         angle, setAngle,
         mode, setMode,
         gradientType, setGradientType, gradientBlur, setGradientBlur, gradientOpacity, setGradientOpacity,
-        videoDuration, setVideoDuration, videoFps, setVideoFps, videoBitrate, setVideoBitrate
+        videoDuration, setVideoDuration, videoFps, setVideoFps, videoBitrate, setVideoBitrate,
+        grainIntensity, setGrainIntensity
     } = useColor();
 
     // Estado para el dropdown de formatos (móvil)
@@ -61,6 +62,10 @@ function AsideLeft() {
 
     const handleBitrateChange = (e) => {
         setVideoBitrate(Number(e.target.value));
+    }
+
+    const handleGrainChange = (e) => {
+        setGrainIntensity(Number(e.target.value));
     }
 
     return (
@@ -195,8 +200,8 @@ function AsideLeft() {
                                             key={idx}
                                             onClick={() => handleClick(formato.aspect)}
                                             className={`flex items-center gap-3 p-3 cursor-pointer transition-all border-b border-gray-200 last:border-b-0 ${isSelected
-                                                    ? "bg-gray-200 text-gray-800"
-                                                    : "text-gray-500 hover:bg-gray-100"
+                                                ? "bg-gray-200 text-gray-800"
+                                                : "text-gray-500 hover:bg-gray-100"
                                                 }`}
                                         >
                                             <div className="shrink-0">
@@ -402,6 +407,28 @@ function AsideLeft() {
 
                             <div className="flex flex-col gap-2 pb-4">
                                 <label className="text-xs text-gray-400">
+                                    Granulado: <span className="font-medium">{grainIntensity}%</span>
+                                </label>
+
+                                <input
+                                    type="range"
+                                    min="0"
+                                    max="50"
+                                    step="5"
+                                    value={grainIntensity}
+                                    onChange={handleGrainChange}
+                                    aria-label="Controlar intensidad del granulado"
+                                    className="w-full h-2 rounded-lg appearance-none cursor-pointer gradient-range"
+                                />
+
+                                <div className="flex justify-between items-center pointer-events-none">
+                                    <span className="text-xs text-gray-500">0%</span>
+                                    <span className="text-xs text-gray-500">50%</span>
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col gap-2">
+                                <label className="text-xs text-gray-400">
                                     Opacidad: <span className="font-medium">{gradientOpacity}%</span>
                                 </label>
 
@@ -421,6 +448,8 @@ function AsideLeft() {
                                     <span className="text-xs text-gray-500">100%</span>
                                 </div>
                             </div>
+
+
                         </div>
                     </div>
                 )}
@@ -511,6 +540,28 @@ function AsideLeft() {
                                     <span className="text-xs text-gray-500">20 Mbps</span>
                                 </div>
                             </div>
+
+                            <div className="flex flex-col gap-2 pb-4">
+                                <label className="text-xs text-gray-400">
+                                    Granulado: <span className="font-medium">{grainIntensity}%</span>
+                                </label>
+
+                                <input
+                                    type="range"
+                                    min="0"
+                                    max="50"
+                                    step="5"
+                                    value={grainIntensity}
+                                    onChange={handleGrainChange}
+                                    aria-label="Controlar intensidad del granulado"
+                                    className="w-full h-2 rounded-lg appearance-none cursor-pointer gradient-range"
+                                />
+
+                                <div className="flex justify-between items-center pointer-events-none">
+                                    <span className="text-xs text-gray-500">0%</span>
+                                    <span className="text-xs text-gray-500">50%</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 )}
@@ -524,7 +575,7 @@ function AsideLeft() {
                         onClick={() => setMobileModalOpen(null)}
                         aria-hidden="true"
                     />
-                    <div 
+                    <div
                         role="dialog"
                         aria-labelledby="modal-mode-title"
                         aria-modal="true"
@@ -588,7 +639,7 @@ function AsideLeft() {
                         onClick={() => setMobileModalOpen(null)}
                         aria-hidden="true"
                     />
-                    <div 
+                    <div
                         role="dialog"
                         aria-labelledby="modal-format-title"
                         aria-modal="true"
@@ -672,7 +723,7 @@ function AsideLeft() {
                         onClick={() => setMobileModalOpen(null)}
                         aria-hidden="true"
                     />
-                    <div 
+                    <div
                         role="dialog"
                         aria-labelledby="modal-settings-title"
                         aria-modal="true"

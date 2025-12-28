@@ -1,33 +1,91 @@
 /**
  * Genera código CSS para un gradiente estático
  */
-export const generateStaticCSSCode = (colors, gradientType, angle, gradientOpacity, gradientBlur) => {
+export const generateStaticCSSCode = (colors, gradientType, angle, gradientOpacity, gradientBlur, grainIntensity) => {
     let cssCode = [];
 
-    cssCode.push("/* Aplica estos estilos al elemento que quieres usar como fondo */");
+    if (grainIntensity > 0) {
+        cssCode.push("/* PASO 1: Estructura HTML */");
+        cssCode.push("/* Copia este HTML en tu proyecto: */");
+        cssCode.push("");
+        cssCode.push('<div class="gradient-container">');
+        cssCode.push('  <!-- Efecto de granulado (textura) -->');
+        cssCode.push('  <div class="gradient-grain"></div>');
+        cssCode.push('  ');
+        cssCode.push('  <!-- Tu contenido aquí -->');
+        cssCode.push('  <div style="position: relative; z-index: 1;">');
+        cssCode.push('    <h1>Tu contenido</h1>');
+        cssCode.push('  </div>');
+        cssCode.push('</div>');
+        cssCode.push("");
+        cssCode.push("/* -------------------------------------------- */");
+        cssCode.push("");
+    } else {
+        cssCode.push("/* Aplica la clase .gradient-container a tu elemento */");
+        cssCode.push("");
+    }
+
+    cssCode.push("/* PASO 2: Estilos CSS */");
+    cssCode.push("/* Copia estos estilos a tu archivo CSS: */");
     cssCode.push("");
+    cssCode.push(".gradient-container {");
+    
+    if (grainIntensity > 0) {
+        cssCode.push("  /* Necesario para el efecto de granulado: */");
+        cssCode.push("  position: relative;");
+        cssCode.push("  overflow: hidden;");
+        cssCode.push("");
+    }
 
     // Background gradient
     if (colors.length === 1) {
-        cssCode.push(`background: ${colors[0]};`);
+        cssCode.push(`  background: ${colors[0]};`);
     } else {
         const colorStops = colors.join(", ");
 
         if (gradientType === "linear") {
-            cssCode.push(`background: linear-gradient(${angle}deg, ${colorStops});`);
+            cssCode.push(`  background: linear-gradient(${angle}deg, ${colorStops});`);
         } else if (gradientType === "radial") {
-            cssCode.push(`background: radial-gradient(circle, ${colorStops});`);
+            cssCode.push(`  background: radial-gradient(circle, ${colorStops});`);
         }
+    }
+
+    // Dimensions
+    if (grainIntensity === 0) {
+        cssCode.push("");
+        cssCode.push("  /* Ajusta el tamaño según necesites: */");
+        cssCode.push("  width: 100%;");
+        cssCode.push("  height: 400px; /* o 100vh para pantalla completa */");
     }
 
     // Opacity
     if (gradientOpacity < 100) {
-        cssCode.push(`opacity: ${gradientOpacity / 100};`);
+        cssCode.push(`  opacity: ${gradientOpacity / 100};`);
     }
 
     // Blur/Filter
     if (gradientBlur > 0) {
-        cssCode.push(`filter: blur(${gradientBlur}px);`);
+        cssCode.push(`  filter: blur(${gradientBlur}px);`);
+    }
+
+    cssCode.push("}");
+
+    // Grain effect
+    if (grainIntensity > 0) {
+        cssCode.push("");
+        cssCode.push("/* -------------------------------------------- */");
+        cssCode.push("/* EFECTO DE GRANULADO (Textura de ruido) */");
+        cssCode.push("/* Este div se superpone sobre el gradiente */");
+        cssCode.push("");
+        cssCode.push(".gradient-grain {");
+        cssCode.push("  position: absolute;");
+        cssCode.push("  inset: 0; /* Cubre todo el contenedor */");
+        cssCode.push("  pointer-events: none; /* No bloquea clics */");
+        cssCode.push(`  opacity: ${grainIntensity / 100}; /* Intensidad del efecto */`);
+        cssCode.push('  background-image: url("data:image/svg+xml,%3Csvg viewBox=\'0 0 400 400\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E");');
+        cssCode.push("  mix-blend-mode: overlay; /* Mezcla con el gradiente */");
+        cssCode.push("  z-index: 0; /* Debajo del contenido */");
+        cssCode.push("}");
     }
 
     return cssCode.join('\n');
@@ -36,25 +94,19 @@ export const generateStaticCSSCode = (colors, gradientType, angle, gradientOpaci
 /**
  * Genera código CSS para un gradiente animado
  */
-export const generateAnimatedCSSCode = (colors) => {
-    let css = `/* HTML Structure:
+export const generateAnimatedCSSCode = (colors, grainIntensity) => {
+    let css = `/* HTML: */
 <div class="gradient-animated-container">
-${colors.map((_, index) => `  <div class="gradient-blob blob-${index + 1}"></div>`).join('\n')}
-  <!-- Tu contenido aquí (estará por encima de las blobs) -->
-  <div style="position: relative; z-index: 1;">
-    <!-- Contenido -->
-  </div>
+${colors.map((_, index) => `  <div class="gradient-blob blob-${index + 1}"></div>`).join('\n')}${grainIntensity > 0 ? '\n  <div class="gradient-grain"></div>' : ''}
 </div>
-*/
 
-/* CSS Styles: */
+/* CSS: */
 .gradient-animated-container {
   position: relative;
   overflow: hidden;
   background: white;
   width: 100%;
-  height: 100vh; /* o 100% si está dentro de un contenedor con altura definida */
-  /* Opcional: border-radius: 1rem; */
+  height: 100vh;
 }
 
 .gradient-blob {
@@ -63,11 +115,25 @@ ${colors.map((_, index) => `  <div class="gradient-blob blob-${index + 1}"></div
   filter: blur(64px);
   opacity: 0.8;
   mix-blend-mode: multiply;
-  aspect-ratio: 1 / 1; /* Mantiene círculos perfectos */
-  pointer-events: none; /* No interfiere con clics o interacciones */
-  z-index: -1; /* Mantiene las blobs detrás del contenido */
+  aspect-ratio: 1 / 1;
+  pointer-events: none;
+  z-index: -1;
 }
 `;
+
+    if (grainIntensity > 0) {
+        css += `
+.gradient-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: ${grainIntensity / 100};
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+  z-index: 0;
+}
+`;
+    }
 
     // Agregar keyframes y estilos para cada blob
     colors.forEach((color, index) => {
@@ -109,8 +175,27 @@ ${colors.map((_, index) => `  <div class="gradient-blob blob-${index + 1}"></div
 /**
  * Genera código Tailwind para un gradiente estático
  */
-export const generateStaticTailwindCode = (colors, gradientType, angle, gradientOpacity, gradientBlur) => {
+export const generateStaticTailwindCode = (colors, gradientType, angle, gradientOpacity, gradientBlur, grainIntensity) => {
+    let code = "";
+    
+    if (grainIntensity > 0) {
+        code += "/* CSS: */\n";
+        code += ".gradient-grain {\n";
+        code += "  position: absolute;\n";
+        code += "  inset: 0;\n";
+        code += "  pointer-events: none;\n";
+        code += `  opacity: ${grainIntensity / 100};\n`;
+        code += '  background-image: url("data:image/svg+xml,%3Csvg viewBox=\'0 0 400 400\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E");\n';
+        code += "  mix-blend-mode: overlay;\n";
+        code += "}\n\n";
+    }
+    
     let tailwindClasses = [];
+
+    if (grainIntensity > 0) {
+        tailwindClasses.push("relative");
+        tailwindClasses.push("overflow-hidden");
+    }
 
     if (colors.length === 1) {
         // Color sólido - usar color arbitrario
@@ -167,38 +252,32 @@ export const generateStaticTailwindCode = (colors, gradientType, angle, gradient
         else tailwindClasses.push('blur-3xl');
     }
 
-    return tailwindClasses.join(' ');
+    return code + tailwindClasses.join(' ');
 };
 
 /**
  * Genera código Tailwind para un gradiente animado
  */
-export const generateAnimatedTailwindCode = (colors) => {
+export const generateAnimatedTailwindCode = (colors, grainIntensity) => {
     return `/* Modo animado requiere CSS personalizado */
-/* HTML: */
+/* Ver el modo CSS para el código completo */
+
 <div class="relative overflow-hidden bg-white w-full h-screen">
-  <!-- o usa h-full si está dentro de un contenedor con altura definida -->
-${colors.map((_, index) => `  <div class="gradient-blob-${index + 1}"></div>`).join('\n')}
-</div>
-
-/* CSS necesario: */
-/* Ver modo CSS para las animaciones completas */
-
-/* Nota: Tailwind no tiene soporte nativo para animaciones */
-/* de blobs complejas. Usar CSS personalizado. */`;
+${colors.map((_, index) => `  <div class="gradient-blob-${index + 1}"></div>`).join('\n')}${grainIntensity > 0 ? '\n  <div class="gradient-grain"></div>' : ''}
+</div>`;
 };
 
 /**
  * Genera el código completo según el modo y el formato
  */
-export const generateCode = (mode, codeMode, colors, gradientType, angle, gradientOpacity, gradientBlur) => {
+export const generateCode = (mode, codeMode, colors, gradientType, angle, gradientOpacity, gradientBlur, grainIntensity = 0) => {
     if (mode === "animated") {
         return codeMode === "css"
-            ? generateAnimatedCSSCode(colors)
-            : generateAnimatedTailwindCode(colors);
+            ? generateAnimatedCSSCode(colors, grainIntensity)
+            : generateAnimatedTailwindCode(colors, grainIntensity);
     } else {
         return codeMode === "css"
-            ? generateStaticCSSCode(colors, gradientType, angle, gradientOpacity, gradientBlur)
-            : generateStaticTailwindCode(colors, gradientType, angle, gradientOpacity, gradientBlur);
+            ? generateStaticCSSCode(colors, gradientType, angle, gradientOpacity, gradientBlur, grainIntensity)
+            : generateStaticTailwindCode(colors, gradientType, angle, gradientOpacity, gradientBlur, grainIntensity);
     }
 };

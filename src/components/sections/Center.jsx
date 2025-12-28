@@ -4,7 +4,7 @@ import { useColor } from "../../hook/useColor";
 function Center() {
     const {
         colors, format, angle, gradientRef, mode,
-        gradientType, gradientBlur, gradientOpacity
+        gradientType, gradientBlur, gradientOpacity, grainIntensity
     } = useColor();
 
     const [showTip, setShowTip] = useState(true);
@@ -41,7 +41,7 @@ function Center() {
 
     const getContainerClassName = () => {
         const widthClass = format === "9/16" ? "w-2/3 lg:w-1/3" : "w-3/4 lg:w-1/2";
-        const baseClasses = `${format === "circle" ? "rounded-[50%]" : "rounded-2xl"} transition-all  duration-400 ease-in-out shadow-lg hover:scale-105`;
+        const baseClasses = `relative overflow-hidden ${format === "circle" ? "rounded-[50%]" : "rounded-2xl"} transition-all  duration-400 ease-in-out shadow-lg hover:scale-105`;
         const modeClass = mode === "animated" ? "gradient-animated-container" : "";
 
         return `${widthClass} ${baseClasses} ${modeClass}`;
@@ -83,7 +83,24 @@ function Center() {
                     opacity: mode === "static" ? gradientOpacity / 100 : 1
                 }}
             >
-                {mode === "animated" && renderAnimatedGradient()}
+                {mode === "animated" ? (
+                    <>
+                        {renderAnimatedGradient()}
+                        {grainIntensity > 0 && (
+                            <div 
+                                className="gradient-grain" 
+                                style={{ opacity: grainIntensity / 100 }}
+                            />
+                        )}
+                    </>
+                ) : (
+                    grainIntensity > 0 && (
+                        <div 
+                            className="gradient-grain" 
+                            style={{ opacity: grainIntensity / 100 }}
+                        />
+                    )
+                )}
             </div>
         </div>
         
