@@ -1,7 +1,9 @@
 ﻿import { useState, useEffect } from "react";
 import { useColor } from "../../hook/useColor";
 import { useExport } from "../../hook/useExport";
+import { useToast } from "../../contexts/ToastContext";
 import { defaultPalettes } from "../../constants/palettes";
+import ConfirmModal from "../common/ConfirmModal";
 
 function AsideRight() {
     const {
@@ -16,10 +18,13 @@ function AsideRight() {
     };
 
     const { handleExportImage, handleExportVideo, isRecording, recordingProgress } = useExport(gradientRef, format, mode, videoOptions);
+    const { showSuccess, showError, showInfo } = useToast();
 
     // Estado para paletas guardadas
     const [savedPalettes, setSavedPalettes] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [paletteToDelete, setPaletteToDelete] = useState(null);
 
     // Cargar paletas guardadas al iniciar
     useEffect(() => {
@@ -46,7 +51,7 @@ function AsideRight() {
         const limite = colors.filter(valor => valor !== "");
 
         if (limite.length >= 4) {
-            alert("Solo puedes agregar 4 colores al gradiente");
+            showError("Solo puedes agregar 4 colores al gradiente");
             return;
         }
 
@@ -58,7 +63,7 @@ function AsideRight() {
             setColors(prevColors => prevColors.filter((_, i) => i !== index));
         }
         else {
-            alert("Necesita haber almenos un color en pantalla...")
+            showError("Necesita haber al menos un color en pantalla");
         }
     }
 
@@ -88,10 +93,10 @@ function AsideRight() {
             window.localStorage.setItem("paletasUsuario", JSON.stringify(updatedPalettes));
             setSavedPalettes(updatedPalettes);
 
-            alert("Paleta guardada exitosamente");
+            showSuccess("✨ Paleta guardada exitosamente");
         } catch (error) {
             console.error("Error al guardar en localStorage:", error);
-            alert("Error al guardar la paleta");
+            showError("Error al guardar la paleta");
         }
     }
 
@@ -100,9 +105,10 @@ function AsideRight() {
             const updatedPalettes = savedPalettes.filter(p => p.id !== paletaId);
             window.localStorage.setItem("paletasUsuario", JSON.stringify(updatedPalettes));
             setSavedPalettes(updatedPalettes);
+            showSuccess("🗑️ Paleta eliminada");
         } catch (error) {
             console.error("Error al eliminar paleta:", error);
-            alert("Error al eliminar la paleta");
+            showError("Error al eliminar la paleta");
         }
     }
 
@@ -111,12 +117,14 @@ function AsideRight() {
     return (
 
         // el abuelito -> 
+        <>
         <div className="bg-white animate-fade-left col-span-2 p-4 rounded-2xl gap-5 flex flex-col overflow-y-scroll border border-gray-300">
 
             {/* Botón exportar imagen */}
             {mode === "static" && (
                 <button
                     onClick={handleExportImage}
+                    aria-label="Exportar imagen PNG"
                     className="flex gap-2 justify-center items-center cursor-pointer bg-linear-to-r from-nuviaFrom to-nuviaTo px-4 py-3 text-white rounded-2xl text-center font-medium hover:brightness-110 transition-all duration-200"
                 >
                     Exportar Imagen
@@ -129,6 +137,7 @@ function AsideRight() {
                 <button
                     onClick={handleExportVideo}
                     disabled={isRecording}
+                    aria-label="Exportar video WebM"
                     className={`relative flex gap-2 justify-center items-center cursor-pointer bg-linear-to-r from-nuviaFrom to-nuviaTo px-4 py-3 text-white rounded-2xl text-center font-medium hover:brightness-110 transition-all duration-200 ${isRecording ? 'bg-gray-400! cursor-not-allowed' : ''}`}
                 >
                     {isRecording && (
@@ -176,10 +185,12 @@ function AsideRight() {
                                 type="color"
                                 value={colorValue}
                                 onChange={(e) => handleColorChange(index, e.target.value)}
+                                aria-label={`Selector de color ${index + 1}`}
                                 className="w-full h-8 rounded-full cursor-pointer transition-all duration-200 shadow"
                             />
                             <button
                                 onClick={() => handleDelete(index)}
+                                aria-label={`Eliminar color ${index + 1}`}
                                 className="rounded-full w-8 h-8 flex justify-center items-center p-1 hover:bg-red-200 transition-colors cursor-pointer"
                             >
                                 <img src="/svg/x.svg" alt="delete" />
@@ -189,6 +200,7 @@ function AsideRight() {
 
                     <button
                         onClick={handleClick}
+                        aria-label="Agregar nuevo color"
                         className="shadow transition-colors w-full flex items-center justify-center gap-2 rounded-2xl border-2 py-2 cursor-pointer text-gray-500 border-gray-300 hover:bg-gray-100"
                     >
                         <img src="/svg/plus.svg" alt="" />
@@ -256,9 +268,8 @@ function AsideRight() {
                                                     <button
                                                         onClick={(e) => {
                                                             e.stopPropagation();
-                                                            if (confirm('¿Eliminar esta paleta?')) {
-                                                                handleDeleteSavedPalette(paleta.id);
-                                                            }
+                                                            setPaletteToDelete(paleta.id);
+                                                            setShowDeleteModal(true);
                                                         }}
                                                         className="opacity-0 group-hover:opacity-100 text-red-500 hover:text-red-700 text-xs px-2 py-1 hover:bg-red-50 rounded transition-all"
                                                         title="Eliminar paleta"
@@ -315,6 +326,25 @@ function AsideRight() {
 
 
         </div>
+
+        <ConfirmModal
+            isOpen={showDeleteModal}
+            title="¿Eliminar paleta?"
+            message="Esta paleta será eliminada permanentemente. Esta acción no se puede deshacer."
+            confirmText="Sí, eliminar"
+            cancelText="Cancelar"
+            type="danger"
+            onConfirm={() => {
+                handleDeleteSavedPalette(paletteToDelete);
+                setShowDeleteModal(false);
+                setPaletteToDelete(null);
+            }}
+            onCancel={() => {
+                setShowDeleteModal(false);
+                setPaletteToDelete(null);
+            }}
+        />
+        </>
     );
 }
 

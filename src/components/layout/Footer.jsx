@@ -1,14 +1,18 @@
 import { useState } from "react";
 import { useColor } from "../../hook/useColor";
+import { useToast } from "../../contexts/ToastContext";
 import { generateRandomColors } from "../../utils/colorUtils";
 import { generateCode } from "../../utils/codeGenerators";
 import { clearLocalStorage } from "../../utils/storageUtils";
 import FooterActions from "../sections/FooterActions";
 import CodeViewer from "../sections/CodeViewer";
+import ConfirmModal from "../common/ConfirmModal";
 
 /**
  * Componente Footer - Maneja la barra de acciones y el visor de código
  */
+import { memo } from "react";
+
 function Footer() {
     const {
         setColors, colors,
@@ -24,11 +28,14 @@ function Footer() {
     const [inView, setInView] = useState(false);
     const [copied, setCopied] = useState(false);
     const [codeMode, setCodeMode] = useState("css");
+    const [showResetModal, setShowResetModal] = useState(false);
+    const { showSuccess } = useToast();
 
     // Randomizar colores
     const handleRandomColors = () => {
         const newColors = generateRandomColors();
         setColors(newColors);
+        showSuccess("🎨 Colores aleatorios generados");
     };
 
     // Copiar código al portapapeles
@@ -45,26 +52,26 @@ function Footer() {
 
     // Resetear todas las configuraciones
     const handleReset = () => {
-        const confirmar = confirm(
-            "Se perderán todas las configuraciones y cambios actuales. ¿Desea continuar?"
-        );
+        setShowResetModal(true);
+    };
 
-        if (confirmar) {
-            // Resetear valores
-            setColors(["#e5e7eb"]);
-            setFormat("16/9");
-            setAngle(180);
-            setMode("static");
-            setGradientType("linear");
-            setGradientBlur(0);
-            setGradientOpacity(100);
-            setVideoDuration(6);
-            setVideoFps(30);
-            setVideoBitrate(8);
+    const confirmReset = () => {
+        // Resetear valores
+        setColors(["#e5e7eb"]);
+        setFormat("16/9");
+        setAngle(180);
+        setMode("static");
+        setGradientType("linear");
+        setGradientBlur(0);
+        setGradientOpacity(100);
+        setVideoDuration(6);
+        setVideoFps(30);
+        setVideoBitrate(8);
 
-            // Limpiar localStorage
-            clearLocalStorage();
-        }
+        // Limpiar localStorage
+        clearLocalStorage();
+        setShowResetModal(false);
+        showSuccess("♻️ Configuración restablecida");
     };
 
     // Generar código actual
@@ -92,8 +99,19 @@ function Footer() {
                 onCopy={handleCopyCode}
                 copied={copied}
             />
+
+            <ConfirmModal
+                isOpen={showResetModal}
+                title="¿Restablecer configuración?"
+                message="Se perderán todas las configuraciones y cambios actuales. Esta acción no se puede deshacer."
+                confirmText="Sí, restablecer"
+                cancelText="Cancelar"
+                type="danger"
+                onConfirm={confirmReset}
+                onCancel={() => setShowResetModal(false)}
+            />
         </>
     );
 }
 
-export default Footer;
+export default memo(Footer);

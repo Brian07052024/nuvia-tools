@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 /**
  * Componente para el encabezado del visor de código
  */
@@ -55,4 +57,4 @@ function CodeHeader({ mode, codeMode, onCodeModeChange, onCopy, copied }) {
     );
 }
 
-export default CodeHeader;
+export default memo(CodeHeader);

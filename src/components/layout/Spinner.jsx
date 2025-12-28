@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 function Spinner() {
     return (
         <div className="h-lvh w-lvw animate-fade flex justify-center items-center">
@@ -6,4 +8,4 @@ function Spinner() {
     );
 }
 
-export default Spinner;
+export default memo(Spinner);

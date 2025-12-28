@@ -3,8 +3,8 @@
  */
 function FooterActions({ onRandomize, onReset, onToggleCode }) {
     return (
-        <div className="w-lvw absolute bottom-1 animate-fade-up z-50">
-            <div className="bg-neutral-800 flex gap-2 w-fit px-3 py-2 shadow-2xl rounded-full mx-auto">
+        <div className="w-full flex justify-center items-center absolute bottom-6 left-0 right-0 animate-fade-up z-50 pointer-events-none">
+            <div className="bg-neutral-800 flex gap-2 w-fit px-3 py-2 shadow-2xl rounded-full pointer-events-auto">
                 <div
                     onClick={onRandomize}
                     className="flex flex-col justify-center items-center px-5 py-0.5 cursor-pointer rounded-full transition-colors hover:bg-white/15"

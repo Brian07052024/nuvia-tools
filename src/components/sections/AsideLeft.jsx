@@ -61,6 +61,7 @@ function AsideLeft() {
                 <div className="flex gap-2">
                     <button
                         onClick={() => handleMode("static")}
+                        aria-label="Modo estático - Exportar como imagen"
                         className={`shadow transition-colors w-full flex items-center justify-center gap-1 rounded-full border-2 py-2 cursor-pointer ${mode === "static" ? "text-gray-800 border-gray-400 bg-gray-200" : "text-gray-500 border-gray-300 hover:bg-gray-100"}`}
                     >
 
@@ -80,6 +81,7 @@ function AsideLeft() {
 
                     <button
                         onClick={() => handleMode("animated")}
+                        aria-label="Modo animado - Exportar como video"
                         className={`shadow transition-colors w-full flex items-center justify-center gap-1 rounded-full border-2 py-2 cursor-pointer ${mode === "animated" ? "text-gray-800 border-gray-400 bg-gray-200" : "text-gray-500 border-gray-300 hover:bg-gray-100"}`}
                     >
                         <svg width="16" height="16" viewBox="0 0 16 16" fill={mode === "animated" ? "#1f2937" : "#6b7280"} xmlns="http://www.w3.org/2000/svg">
@@ -212,10 +214,11 @@ function AsideLeft() {
                                 max="360"
                                 value={angle}
                                 onChange={handleAngleChange}
+                                aria-label="Controlar ángulo del gradiente"
                                 className="w-full h-2 rounded-lg appearance-none cursor-pointer gradient-range"
                             />
 
-                            <div className="flex justify-between items-center">
+                            <div className="flex justify-between items-center pointer-events-none">
                                 <span className="text-xs text-gray-500">0°</span>
                                 <span className="text-xs text-gray-500">360°</span>
                             </div>
@@ -234,16 +237,17 @@ function AsideLeft() {
                             step="1"
                             value={gradientBlur}
                             onChange={handleBlurChange}
+                            aria-label="Controlar desenfoque del gradiente"
                             className="w-full h-2 rounded-lg appearance-none cursor-pointer gradient-range"
                         />
 
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center pointer-events-none">
                             <span className="text-xs text-gray-500">0px</span>
                             <span className="text-xs text-gray-500">20px</span>
                         </div>
                     </div>
 
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-2 pb-4">
                         <label className="text-xs text-gray-400">
                             Opacidad: <span className="font-medium">{gradientOpacity}%</span>
                         </label>
@@ -255,10 +259,11 @@ function AsideLeft() {
                             step="5"
                             value={gradientOpacity}
                             onChange={handleOpacityChange}
+                            aria-label="Controlar opacidad del gradiente"
                             className="w-full h-2 rounded-lg appearance-none cursor-pointer gradient-range"
                         />
 
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center pointer-events-none">
                             <span className="text-xs text-gray-500">0%</span>
                             <span className="text-xs text-gray-500">100%</span>
                         </div>
@@ -286,7 +291,7 @@ function AsideLeft() {
                             className="w-full h-2 rounded-lg appearance-none cursor-pointer gradient-range"
                         />
 
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center pointer-events-none">
                             <span className="text-xs text-gray-500">3s</span>
                             <span className="text-xs text-gray-500">30s</span>
                         </div>
@@ -307,7 +312,7 @@ function AsideLeft() {
                             className="w-full h-2 rounded-lg appearance-none cursor-pointer gradient-range"
                         />
 
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center pointer-events-none">
                             <span className="text-xs text-gray-500">24</span>
                             <span className="text-xs text-gray-500">60</span>
                         </div>
@@ -328,7 +333,7 @@ function AsideLeft() {
                             className="w-full h-2 rounded-lg appearance-none cursor-pointer gradient-range"
                         />
 
-                        <div className="flex justify-between items-center">
+                        <div className="flex justify-between items-center pointer-events-none">
                             <span className="text-xs text-gray-500">2 Mbps</span>
                             <span className="text-xs text-gray-500">20 Mbps</span>
                         </div>
