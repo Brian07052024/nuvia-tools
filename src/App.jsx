@@ -6,10 +6,12 @@ import { ToastProvider } from "./contexts/ToastContext"
 import { useEffect, useState } from "react"
 import Spinner from "./components/layout/Spinner"
 import Footer from "./components/layout/Footer"
+import InstallPrompt from "./components/common/InstallPrompt"
 
 function App() {
 
   const [isLoading, setIsLoading] = useState(true);
+  const [showInstallPrompt, setShowInstallPrompt] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -18,6 +20,24 @@ function App() {
 
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    // Detectar si es un dispositivo móvil
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    // Verificar si ya está instalado como PWA
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || 
+                         window.navigator.standalone === true;
+    
+    // Mostrar el prompt siempre que sea móvil y no esté instalado
+    if (isMobile && !isStandalone) {
+      setShowInstallPrompt(true);
+    }
+  }, []);
+
+  const handleDismissPrompt = () => {
+    setShowInstallPrompt(false);
+  };
 
   return (
     <ToastProvider>
@@ -37,6 +57,9 @@ function App() {
             </div>
 
           </div>
+          
+          {/* Prompt de instalación para móviles */}
+          {showInstallPrompt && <InstallPrompt onDismiss={handleDismissPrompt} />}
         </ColorProvider>
       )}
     </ToastProvider>

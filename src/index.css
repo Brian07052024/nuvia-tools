@@ -103,6 +103,15 @@ input[type="range"]:focus::-moz-range-thumb {
   outline-offset: 0.125rem;
 }
 
+@keyframes gradient-xy {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
 @keyframes slideIn {
   from {
     opacity: 0;
@@ -304,4 +313,10 @@ input[type="range"]:focus::-moz-range-thumb {
   background-position: center;
   background-repeat: no-repeat;
   opacity: 1;
+}
+
+/* Animación de gradiente para el mockup del install prompt */
+.animate-gradient-xy {
+  background-size: 200% 200%;
+  animation: gradient-xy 5s ease infinite;
 }
