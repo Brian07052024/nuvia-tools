@@ -13,7 +13,7 @@ function CodeHeader({ mode, codeMode, onCodeModeChange, onCopy, copied }) {
                             {codeMode === "css" ? "CSS Code" : "Tailwind Classes"}
                         </h3>
                         {/* Badge de modo */}
-                        <span className={`px-2 py-0.5 text-xs rounded-full font-medium ${
+                        <span className={`px-2 py-0.5 text-xs rounded-full hidden md:block font-medium ${
                             mode === "animated"
                                 ? "bg-purple-500/20 text-purple-300 border border-purple-500/30"
                                 : "bg-blue-500/20 text-blue-300 border border-blue-500/30"

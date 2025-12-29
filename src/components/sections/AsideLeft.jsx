@@ -70,7 +70,8 @@ function AsideLeft() {
 
     return (
         // el abuelito->
-        <div className="bg-white absolute bottom-0 left-0 right-0 flex flex-row justify-between gap-2 px-4 py-3 w-full border border-gray-300 rounded-t-2xl animate-fade-up z-10 lg:relative lg:z-auto lg:col-span-2 lg:p-4 lg:gap-5 lg:w-auto lg:flex-col lg:rounded-2xl lg:overflow-y-scroll lg:animate-fade-right">
+        <>
+            <div className="bg-white absolute bottom-0 left-0 right-0 flex flex-row justify-between gap-2 px-4 py-3 w-full border border-gray-300 rounded-t-2xl animate-fade-up z-10 lg:relative lg:z-auto lg:col-span-2 lg:p-4 lg:gap-5 lg:w-auto lg:flex-col lg:rounded-2xl lg:overflow-y-scroll lg:animate-fade-right">
 
             {/* Barra horizontal compacta para móviles */}
             <div className="flex gap-2 w-full lg:hidden">
@@ -405,7 +406,7 @@ function AsideLeft() {
                                 </div>
                             </div>
 
-                            <div className="flex flex-col gap-2 pb-4">
+                            <div className="flex flex-col gap-2">
                                 <label className="text-xs text-gray-400">
                                     Granulado: <span className="font-medium">{grainIntensity}%</span>
                                 </label>
@@ -541,7 +542,7 @@ function AsideLeft() {
                                 </div>
                             </div>
 
-                            <div className="flex flex-col gap-2 pb-4">
+                            <div className="flex flex-col gap-2">
                                 <label className="text-xs text-gray-400">
                                     Granulado: <span className="font-medium">{grainIntensity}%</span>
                                 </label>
@@ -566,12 +567,13 @@ function AsideLeft() {
                     </div>
                 )}
             </div>
+        </div>
 
             {/* Modal móvil - Tipo de gradiente */}
             {mobileModalOpen === 'mode' && (
                 <>
                     <div
-                        className="fixed inset-0 h-lvh w-screen  bg-black/30 z-50 lg:hidden"
+                        className="fixed inset-0 h-lvh w-screen bg-black/30 z-50 lg:hidden"
                         onClick={() => setMobileModalOpen(null)}
                         aria-hidden="true"
                     />
@@ -579,7 +581,7 @@ function AsideLeft() {
                         role="dialog"
                         aria-labelledby="modal-mode-title"
                         aria-modal="true"
-                        className="fixed inset-x-4 bottom-20 max-h-[50vh] bg-white rounded-2xl shadow-2xl z-60 flex flex-col lg:hidden animate-fade-up animate-duration-300"
+                        className="fixed inset-x-4 bottom-24 max-h-[50vh] bg-white rounded-2xl shadow-2xl z-60 flex flex-col lg:hidden animate-fade-up animate-duration-300"
                         onKeyDown={(e) => e.key === 'Escape' && setMobileModalOpen(null)}
                     >
                         <div className="flex items-center justify-between p-4 border-b border-gray-200">
@@ -643,7 +645,7 @@ function AsideLeft() {
                         role="dialog"
                         aria-labelledby="modal-format-title"
                         aria-modal="true"
-                        className="fixed inset-x-4 bottom-20 max-h-[60vh] bg-white rounded-2xl shadow-2xl z-60 flex flex-col lg:hidden animate-fade-up animate-duration-300"
+                        className="fixed inset-x-4 bottom-24 max-h-[60vh] bg-white rounded-2xl shadow-2xl z-60 flex flex-col lg:hidden animate-fade-up animate-duration-300"
                         onKeyDown={(e) => e.key === 'Escape' && setMobileModalOpen(null)}
                     >
                         <div className="flex items-center justify-between p-4 border-b border-gray-200">
@@ -727,7 +729,7 @@ function AsideLeft() {
                         role="dialog"
                         aria-labelledby="modal-settings-title"
                         aria-modal="true"
-                        className="fixed inset-x-4 bottom-20 max-h-[65vh] bg-white rounded-2xl shadow-2xl z-60 flex flex-col lg:hidden animate-fade-up animate-duration-300"
+                        className="fixed inset-x-4 bottom-24 max-h-[65vh] bg-white rounded-2xl shadow-2xl z-60 flex flex-col lg:hidden animate-fade-up animate-duration-300"
                         onKeyDown={(e) => e.key === 'Escape' && setMobileModalOpen(null)}
                     >
                         <div className="flex items-center justify-between p-4 border-b border-gray-200">
@@ -932,7 +934,7 @@ function AsideLeft() {
                     </div>
                 </>
             )}
-        </div>
+        </>
     );
 }
 

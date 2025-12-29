@@ -176,10 +176,10 @@ function AsideRight() {
                         <button
                             onClick={handleExportImage}
                             aria-label="Exportar imagen PNG"
-                            className="flex gap-1 justify-center items-center cursor-pointer bg-linear-to-r from-nuviaFrom to-nuviaTo px-3 py-2 text-white rounded-xl text-center font-medium hover:brightness-110 transition-all duration-200 text-sm flex-1"
+                            className="flex flex-col gap-1 justify-center items-center cursor-pointer bg-neutral-800 px-3 py-2 text-white rounded-xl text-center font-medium hover:brightness-110 transition-all duration-200 text-sm flex-1"
                         >
                             <img src="/svg/download.svg" alt="icon" className="w-4 h-4" />
-                            <span>Exportar</span>
+                            <span className="text-xs">Exportar</span>
                         </button>
                     )}
                     {mode === "animated" && (
@@ -187,7 +187,7 @@ function AsideRight() {
                             onClick={handleExportVideo}
                             disabled={isRecording}
                             aria-label="Exportar video WebM"
-                            className={`relative flex gap-1 justify-center items-center cursor-pointer bg-linear-to-r from-nuviaFrom to-nuviaTo px-3 py-2 text-white rounded-xl text-center font-medium hover:brightness-110 transition-all duration-200 text-sm flex-1 ${isRecording ? 'opacity-75 cursor-not-allowed' : ''}`}
+                            className={`relative flex gap-1 justify-center items-center cursor-pointer bg-neutral-800 px-3 py-2 text-white rounded-xl text-center font-medium hover:brightness-110 transition-all duration-200 text-sm flex-1 ${isRecording ? 'opacity-75 cursor-not-allowed' : ''}`}
                         >
                             {isRecording && (
                                 <div
@@ -208,7 +208,7 @@ function AsideRight() {
                         <button
                             onClick={handleExportImage}
                             aria-label="Exportar imagen PNG"
-                            className="flex gap-2 justify-center items-center cursor-pointer bg-linear-to-r from-nuviaFrom to-nuviaTo px-4 py-2 lg:py-3 text-white rounded-2xl text-center font-medium hover:brightness-110 transition-all duration-200 text-sm lg:text-base"
+                            className="flex gap-2 justify-center items-center cursor-pointer bg-neutral-800 px-4 py-2 lg:py-3 text-white rounded-2xl text-center font-medium hover:brightness-110 transition-all duration-200 text-sm lg:text-base"
                         >
                             <span className="hidden lg:inline">Exportar Imagen</span>
                             <span className="lg:hidden">Exportar</span>
@@ -222,7 +222,7 @@ function AsideRight() {
                             onClick={handleExportVideo}
                             disabled={isRecording}
                             aria-label="Exportar video WebM"
-                            className={`relative flex gap-2 justify-center items-center cursor-pointer bg-linear-to-r from-nuviaFrom to-nuviaTo px-4 py-2 lg:py-3 text-white rounded-2xl text-center font-medium hover:brightness-110 transition-all duration-200 text-sm lg:text-base ${isRecording ? 'bg-gray-400! cursor-not-allowed' : ''}`}
+                            className={`relative flex gap-2 justify-center items-center cursor-pointer bg-neutral-800 px-4 py-2 lg:py-3 text-white rounded-2xl text-center font-medium hover:brightness-110 transition-all duration-200 text-sm lg:text-base ${isRecording ? 'bg-gray-400! cursor-not-allowed' : ''}`}
                         >
                             {isRecording && (
                                 <div
@@ -530,7 +530,7 @@ function AsideRight() {
                                 </button>
                             </div>
                             <div className="overflow-y-auto p-4 flex-1">
-                                <div className="flex flex-col gap-2 mb-4">
+                                <div className="flex flex-col gap-2 mb-4 ">
                                     {colors.map((colorValue, index) => (
                                         <div key={index} className="flex gap-2 items-center ">
                                             <input
@@ -538,12 +538,12 @@ function AsideRight() {
                                                 value={colorValue}
                                                 onChange={(e) => handleColorChange(index, e.target.value)}
                                                 aria-label={`Selector de color ${index + 1}`}
-                                                className="w-full h-12 cursor-pointer"
+                                                className="w-full h-12 cursor-pointer shadow-md rounded-full"
                                             />
                                             <button
                                                 onClick={() => handleDelete(index)}
                                                 aria-label={`Eliminar color ${index + 1}`}
-                                                className="rounded-xl w-12 h-12 flex justify-center items-center hover:bg-red-100 transition-colors"
+                                                className="rounded-xl w-12 h-12 flex justify-center items-center hover:bg-red-100 transition-colors "
                                             >
                                                 <img src="/svg/x.svg" alt="delete" className="w-5 h-5" />
                                             </button>
@@ -615,7 +615,7 @@ function AsideRight() {
                                                     }}
                                                     className="text-red-500 hover:text-red-700 text-sm px-2 py-1 hover:bg-red-50 rounded transition-all"
                                                 >
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fb2c36" class="bi bi-trash" viewBox="0 0 16 16">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fb2c36" className="bi bi-trash" viewBox="0 0 16 16">
                                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
                                                         <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
                                                     </svg>
