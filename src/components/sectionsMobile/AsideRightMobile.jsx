@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import { defaultPalettes } from "../../constants/palettes";
 import ConfirmModal from "../common/ConfirmModal";
 
@@ -95,10 +96,10 @@ function AsideRightMobile({
             </div>
 
             {/* Modal movil - Paleta de colores */}
-            {mobileModalOpen === 'colors' && (
+            {mobileModalOpen === 'colors' && createPortal(
                 <>
                     <div
-                        className="fixed inset-0 h-lvh w-screen bg-black/30 z-50 lg:hidden"
+                        className="fixed inset-0 h-lvh w-screen bg-black/30 backdrop-blur-xs z-50 lg:hidden"
                         onClick={() => setMobileModalOpen(null)}
                         aria-hidden="true"
                     />
@@ -130,7 +131,7 @@ function AsideRightMobile({
                                             value={colorValue}
                                             onChange={(e) => handleColorChange(index, e.target.value)}
                                             aria-label={`Selector de color ${index + 1}`}
-                                            className="w-full h-12 cursor-pointer shadow-md rounded-full"
+                                            className="w-full h-12 cursor-pointer rounded-full border-2! border-black!"
                                         />
                                         <button
                                             onClick={() => handleDelete(index)}
@@ -142,11 +143,12 @@ function AsideRightMobile({
                                     </div>
                                 ))}
                             </div>
+
                             <button
                                 onClick={handleClick}
-                                className="w-full flex items-center justify-center gap-2 rounded-xl border-2 border-gray-300 py-3 text-gray-600 hover:bg-gray-100 transition-all"
+                                className={`${colors.length === 4 ? "bg-gray-300 border-gray-300 text-gray-400" : "border-gray-300 text-gray-600"} w-full flex items-center justify-center gap-2 rounded-xl border-2 border-gray-300 py-3  hover:bg-gray-100 transition-all`}
                             >
-                                <img src="/svg/plus.svg" alt="" />
+                                <img src="/svg/plus.svg" alt="" className={`${colors.length === 4 ? "hidden" : ""}`} />
                                 <span className="font-medium">Agregar color</span>
                             </button>
                             <button
@@ -154,7 +156,7 @@ function AsideRightMobile({
                                     handleSave();
                                     setMobileModalOpen(null);
                                 }}
-                                className="w-full mt-3 flex items-center bg-neutral-800 justify-center gap-2 rounded-xl border-2 border-gray-300 py-3 text-white hover:bg-gray-100 transition-all"
+                                className="w-full mt-3 flex items-center bg-neutral-800 justify-center gap-2 rounded-xl border-2  py-3 text-white hover:bg-gray-100 transition-all"
                             >
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="#FFFFFF" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1z" />
@@ -163,14 +165,15 @@ function AsideRightMobile({
                             </button>
                         </div>
                     </div>
-                </>
+                </>,
+                document.body
             )}
 
             {/* Modal movil - Mis Paletas */}
-            {mobileModalOpen === 'saved' && savedPalettes.length > 0 && (
+            {mobileModalOpen === 'saved' && savedPalettes.length > 0 && createPortal(
                 <>
                     <div
-                        className="fixed inset-0 h-lvh w-screen bg-black/30 z-50 lg:hidden"
+                        className="fixed inset-0 h-lvh w-screen bg-black/30 backdrop-blur-xs z-50 lg:hidden"
                         onClick={() => setMobileModalOpen(null)}
                         aria-hidden="true"
                     />
@@ -233,14 +236,15 @@ function AsideRightMobile({
                             </div>
                         </div>
                     </div>
-                </>
+                </>,
+                document.body
             )}
 
             {/* Modal movil - Paletas pre-cargadas */}
-            {mobileModalOpen === 'preloaded' && (
+            {mobileModalOpen === 'preloaded' && createPortal(
                 <>
                     <div
-                        className="fixed inset-0 h-lvh w-screen bg-black/30 z-50 lg:hidden"
+                        className="fixed inset-0 h-lvh w-screen bg-black/30 backdrop-blur-xs z-50 lg:hidden"
                         onClick={() => setMobileModalOpen(null)}
                         aria-hidden="true"
                     />
@@ -285,7 +289,8 @@ function AsideRightMobile({
                             </div>
                         </div>
                     </div>
-                </>
+                </>,
+                document.body
             )}
 
             <ConfirmModal

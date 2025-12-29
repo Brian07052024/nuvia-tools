@@ -14,11 +14,18 @@ function App() {
   const [showInstallPrompt, setShowInstallPrompt] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    // Detectar si es un dispositivo móvil
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    // Solo mostrar animación en desktop
+    if (isMobile) {
       setIsLoading(false);
-    }, 1000); // Balance perfecto: suficiente para dar esencia sin afectar performance
-
-    return () => clearTimeout(timer);
+    } else {
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   useEffect(() => {

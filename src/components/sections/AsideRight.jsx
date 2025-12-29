@@ -202,6 +202,8 @@ function AsideRight() {
                             <button
                                 onClick={() => handleSave()}
                                 className="cursor-pointer gap-1.5 text-gray-500 border-gray-300 hover:bg-gray-100 hover:border-gray-400 border-2 flex items-center px-3 py-1.5 justify-center rounded-full transition-all shadow-sm hover:shadow flex-1"
+
+                                
                             >
                                 <svg
                                     width="14"
@@ -230,7 +232,7 @@ function AsideRight() {
                                         value={colorValue}
                                         onChange={(e) => handleColorChange(index, e.target.value)}
                                         aria-label={`Selector de color ${index + 1}`}
-                                        className="w-full h-8 rounded-full cursor-pointer transition-all duration-200 shadow"
+                                        className="w-full h-8 rounded-full cursor-pointer transition-all duration-200 border-2! border-black!"
                                     />
                                     <button
                                         onClick={() => handleDelete(index)}

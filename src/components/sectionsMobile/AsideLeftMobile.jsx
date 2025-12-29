@@ -83,7 +83,7 @@ function AsideLeftMobile({
             {mobileModalOpen === 'mode' && createPortal(
                 <>
                     <div
-                        className="fixed inset-0 h-lvh w-screen bg-black/30 z-50 lg:hidden"
+                        className="fixed inset-0 h-lvh w-screen bg-black/30 backdrop-blur-xs z-50 lg:hidden"
                         onClick={() => setMobileModalOpen(null)}
                         aria-hidden="true"
                     />
@@ -148,7 +148,7 @@ function AsideLeftMobile({
             {mobileModalOpen === 'format' && createPortal(
                 <>
                     <div
-                        className="fixed inset-0 h-lvh w-screen bg-black/30 z-50 lg:hidden"
+                        className="fixed inset-0 h-lvh w-screen bg-black/30 backdrop-blur-xs z-50 lg:hidden"
                         onClick={() => setMobileModalOpen(null)}
                         aria-hidden="true"
                     />
@@ -233,7 +233,7 @@ function AsideLeftMobile({
             {mobileModalOpen === 'settings' && createPortal(
                 <>
                     <div
-                        className="fixed inset-0 h-lvh w-screen bg-black/30 z-50 lg:hidden"
+                        className="fixed inset-0 h-lvh w-screen bg-black/30 backdrop-blur-xs z-50 lg:hidden"
                         onClick={() => setMobileModalOpen(null)}
                         aria-hidden="true"
                     />
