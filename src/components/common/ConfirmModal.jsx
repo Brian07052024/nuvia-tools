@@ -6,7 +6,7 @@ function ConfirmModal({ isOpen, title, message, onConfirm, onCancel, confirmText
         : "bg-blue-500 hover:bg-blue-600";
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center animate-fade animate-duration-200">
+        <div className="fixed inset-0 h-lvh w-screen z-70 flex items-center justify-center animate-fade animate-duration-200">
             {/* Backdrop */}
             <div 
                 className="absolute inset-0 bg-black/50 backdrop-blur-sm"
@@ -14,7 +14,7 @@ function ConfirmModal({ isOpen, title, message, onConfirm, onCancel, confirmText
             />
             
             {/* Modal */}
-            <div className="relative bg-white rounded-2xl shadow-2xl p-6 max-w-md w-full mx-4 animate-fade-up animate-duration-300">
+            <div className="relative bg-white rounded-2xl shadow-2xl p-6 max-w-md w-[90%] animate-fade-up animate-duration-300">
                 {/* Icono */}
                 <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-4 ${
                     type === "danger" ? "bg-red-100" : "bg-blue-100"

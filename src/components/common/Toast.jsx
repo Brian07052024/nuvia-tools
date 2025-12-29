@@ -10,19 +10,20 @@ function Toast({ message, type = "success", onClose, duration = 3000 }) {
     }, [duration, onClose]);
 
     const bgColor = type === "success" ? "bg-green-500" : type === "error" ? "bg-red-500" : "bg-blue-500";
-    const icon = type === "success" ? "✓" : type === "error" ? "✕" : "ℹ";
 
     return (
-        <div className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 ${bgColor} text-white px-6 py-4 rounded-2xl shadow-sm flex items-center gap-3 animate-fade-down animate-duration-300 min-w-75`}>
-            <span className="text-2xl font-bold">{icon}</span>
-            <p className="flex-1 font-medium">{message}</p>
+        <div className={`fixed bottom-48 max-h-fit py-3 md:top-4 left-1/2 -translate-x-1/2 z-50 bg-white text-neutral-700 px-4 rounded-2xl border-2 border-gray-200 flex items-center gap-3 animate-fade-down animate-duration-300 w-fit`}>
+
+            <div className={`h-4 w-1 rounded-t-full rounded-b-full ${bgColor}`}></div>
+
+            <p className="flex-1 font-medium shrink-0 whitespace-nowrap">{message}</p>
             <button
                 onClick={onClose}
                 className="text-white hover:text-gray-200 transition-colors ml-2"
                 aria-label="Cerrar notificación"
             >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#171717" className="bi bi-x" viewBox="0 0 16 16">
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
                 </svg>
             </button>
         </div>
