@@ -5,9 +5,7 @@ export const generateStaticCSSCode = (colors, gradientType, angle, gradientOpaci
     let cssCode = [];
 
     if (grainIntensity > 0) {
-        cssCode.push("/* PASO 1: Estructura HTML */");
-        cssCode.push("/* Copia este HTML en tu proyecto: */");
-        cssCode.push("");
+        
         cssCode.push('<div class="gradient-container">');
         cssCode.push('  <!-- Efecto de granulado (textura) -->');
         cssCode.push('  <div class="gradient-grain"></div>');
@@ -17,17 +15,12 @@ export const generateStaticCSSCode = (colors, gradientType, angle, gradientOpaci
         cssCode.push('    <h1>Tu contenido</h1>');
         cssCode.push('  </div>');
         cssCode.push('</div>');
-        cssCode.push("");
         cssCode.push("/* -------------------------------------------- */");
         cssCode.push("");
-    } else {
-        cssCode.push("/* Aplica la clase .gradient-container a tu elemento */");
         cssCode.push("");
-    }
+    } 
 
-    cssCode.push("/* PASO 2: Estilos CSS */");
-    cssCode.push("/* Copia estos estilos a tu archivo CSS: */");
-    cssCode.push("");
+   
     cssCode.push(".gradient-container {");
     
     if (grainIntensity > 0) {
@@ -52,10 +45,9 @@ export const generateStaticCSSCode = (colors, gradientType, angle, gradientOpaci
 
     // Dimensions
     if (grainIntensity === 0) {
-        cssCode.push("");
-        cssCode.push("  /* Ajusta el tamaño según necesites: */");
-        cssCode.push("  width: 100%;");
-        cssCode.push("  height: 400px; /* o 100vh para pantalla completa */");
+  
+        cssCode.push("  width: 100%; /* Ajusta el tamaño según necesites: */");
+        cssCode.push("  height: 400px; /* o 100vh, 100%, o lo que necesites */");
     }
 
     // Opacity
@@ -74,7 +66,7 @@ export const generateStaticCSSCode = (colors, gradientType, angle, gradientOpaci
     if (grainIntensity > 0) {
         cssCode.push("");
         cssCode.push("/* -------------------------------------------- */");
-        cssCode.push("/* EFECTO DE GRANULADO (Textura de ruido) */");
+        cssCode.push("/* EFECTO DE GRANULADO */");
         cssCode.push("/* Este div se superpone sobre el gradiente */");
         cssCode.push("");
         cssCode.push(".gradient-grain {");
@@ -114,7 +106,7 @@ ${colors.map((_, index) => `  <div class="gradient-blob blob-${index + 1}"></div
 .gradient-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(100px);
+  filter: blur(64px);
   opacity: 1;
   mix-blend-mode: normal;
   aspect-ratio: 1 / 1;
