@@ -12,7 +12,8 @@ export const clearLocalStorage = () => {
         "opacidad",
         "duracionVideo",
         "fpsVideo",
-        "bitrateVideo"
+        "bitrateVideo",
+        "granulado"
     ];
 
     try {

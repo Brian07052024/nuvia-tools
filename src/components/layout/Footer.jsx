@@ -100,6 +100,7 @@ function Footer() {
                 onCodeModeChange={setCodeMode}
                 onCopy={handleCopyCode}
                 copied={copied}
+                onClose={() => setInView(false)}
             />
 
             <ConfirmModal

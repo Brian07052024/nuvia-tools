@@ -1,0 +1,42 @@
+{
+  "name": "Nuvia Gradient Generator - Generador de Gradientes",
+  "short_name": "Nuvia Tools",
+  "description": "Crea gradientes estáticos y animados de forma gratuita. Exporta imágenes PNG y videos WebM para tus proyectos creativos.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#262626",
+  "orientation": "any",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/img/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/img/logo-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["productivity", "utilities", "graphics"],
+  "shortcuts": [
+    {
+      "name": "Nuevo gradiente",
+      "short_name": "Nuevo",
+      "description": "Crear un nuevo gradiente",
+      "url": "/",
+      "icons": [{ "src": "/img/logo.png", "sizes": "192x192" }]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/og-image.png",
+      "sizes": "1200x630",
+      "type": "image/png"
+    }
+  ]
+}

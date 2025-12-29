@@ -82,7 +82,9 @@ export const generateStaticCSSCode = (colors, gradientType, angle, gradientOpaci
         cssCode.push("  inset: 0; /* Cubre todo el contenedor */");
         cssCode.push("  pointer-events: none; /* No bloquea clics */");
         cssCode.push(`  opacity: ${grainIntensity / 100}; /* Intensidad del efecto */`);
-        cssCode.push('  background-image: url("data:image/svg+xml,%3Csvg viewBox=\'0 0 400 400\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E");');
+        cssCode.push('  background-image: url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E");');
+        cssCode.push("  background-size: 200px 200px;");
+        cssCode.push("  background-repeat: repeat;");
         cssCode.push("  mix-blend-mode: overlay; /* Mezcla con el gradiente */");
         cssCode.push("  z-index: 0; /* Debajo del contenido */");
         cssCode.push("}");
@@ -128,7 +130,9 @@ ${colors.map((_, index) => `  <div class="gradient-blob blob-${index + 1}"></div
   inset: 0;
   pointer-events: none;
   opacity: ${grainIntensity / 100};
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  background-repeat: repeat;
   mix-blend-mode: overlay;
   z-index: 0;
 }
@@ -185,7 +189,9 @@ export const generateStaticTailwindCode = (colors, gradientType, angle, gradient
         code += "  inset: 0;\n";
         code += "  pointer-events: none;\n";
         code += `  opacity: ${grainIntensity / 100};\n`;
-        code += '  background-image: url("data:image/svg+xml,%3Csvg viewBox=\'0 0 400 400\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E");\n';
+        code += '  background-image: url("data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E");\n';
+        code += "  background-size: 200px 200px;\n";
+        code += "  background-repeat: repeat;\n";
         code += "  mix-blend-mode: overlay;\n";
         code += "}\n\n";
     }

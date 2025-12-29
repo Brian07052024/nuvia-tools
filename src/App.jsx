@@ -12,10 +12,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1000);
+    }, 800); // Balance perfecto: suficiente para dar esencia sin afectar performance
 
     return () => clearTimeout(timer);
   }, []);

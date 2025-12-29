@@ -9,7 +9,7 @@ function CodeHeader({ mode, codeMode, onCodeModeChange, onCopy, copied }) {
             <div className="flex justify-between items-center">
                 <div className="flex items-center gap-3">
                     <div className="flex items-center gap-2">
-                        <h3 className="text-white font-semibold">
+                        <h3 className="text-white font-semibold text-xs">
                             {codeMode === "css" ? "CSS Code" : "Tailwind Classes"}
                         </h3>
                         {/* Badge de modo */}
@@ -48,7 +48,7 @@ function CodeHeader({ mode, codeMode, onCodeModeChange, onCopy, copied }) {
 
                 <button
                     onClick={onCopy}
-                    className="px-4 py-2 bg-neutral-700 hover:bg-neutral-600 text-white rounded-lg transition-colors text-sm flex items-center gap-2"
+                    className="px-4 py-2 bg-neutral-700 hover:bg-neutral-600 text-xs text-white rounded-lg transition-colors flex items-center gap-2"
                 >
                     {copied ? "✓ Copiado" : "Copiar"}
                 </button>

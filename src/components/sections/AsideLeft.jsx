@@ -1,6 +1,6 @@
 import { useColor } from "../../hook/useColor";
 import { formats } from "../../constants/formats.js";
-import { useState } from "react";
+import { useState, useCallback, memo } from "react";
 
 function AsideLeft() {
     const {
@@ -571,7 +571,7 @@ function AsideLeft() {
             {mobileModalOpen === 'mode' && (
                 <>
                     <div
-                        className="fixed inset-0 bg-black/30 z-50 lg:hidden"
+                        className="fixed inset-0 h-lvh w-screen  bg-black/30 z-50 lg:hidden"
                         onClick={() => setMobileModalOpen(null)}
                         aria-hidden="true"
                     />
@@ -635,7 +635,7 @@ function AsideLeft() {
             {mobileModalOpen === 'format' && (
                 <>
                     <div
-                        className="fixed inset-0 bg-black/30 z-50 lg:hidden"
+                        className="fixed inset-0 h-lvh w-screen  bg-black/30 z-50 lg:hidden"
                         onClick={() => setMobileModalOpen(null)}
                         aria-hidden="true"
                     />
@@ -719,7 +719,7 @@ function AsideLeft() {
             {mobileModalOpen === 'settings' && (
                 <>
                     <div
-                        className="fixed inset-0 bg-black/30 z-50 lg:hidden"
+                        className="fixed inset-0 h-lvh w-screen  bg-black/30 z-50 lg:hidden"
                         onClick={() => setMobileModalOpen(null)}
                         aria-hidden="true"
                     />
@@ -824,6 +824,26 @@ function AsideLeft() {
                                             <span>100%</span>
                                         </div>
                                     </div>
+
+                                    {/* Granulado */}
+                                    <div>
+                                        <label className="text-sm text-gray-500 mb-2 block">
+                                            Granulado: <span className="font-semibold text-gray-800">{grainIntensity}%</span>
+                                        </label>
+                                        <input
+                                            type="range"
+                                            min="0"
+                                            max="50"
+                                            step="5"
+                                            value={grainIntensity}
+                                            onChange={handleGrainChange}
+                                            className="w-full h-2 rounded-lg appearance-none cursor-pointer gradient-range"
+                                        />
+                                        <div className="flex justify-between text-xs text-gray-400 mt-1">
+                                            <span>0%</span>
+                                            <span>50%</span>
+                                        </div>
+                                    </div>
                                 </div>
                             ) : (
                                 <div className="flex flex-col gap-4">
@@ -886,6 +906,26 @@ function AsideLeft() {
                                             <span>20 Mbps</span>
                                         </div>
                                     </div>
+
+                                    {/* Granulado */}
+                                    <div>
+                                        <label className="text-sm text-gray-500 mb-2 block">
+                                            Granulado: <span className="font-semibold text-gray-800">{grainIntensity}%</span>
+                                        </label>
+                                        <input
+                                            type="range"
+                                            min="0"
+                                            max="50"
+                                            step="5"
+                                            value={grainIntensity}
+                                            onChange={handleGrainChange}
+                                            className="w-full h-2 rounded-lg appearance-none cursor-pointer gradient-range"
+                                        />
+                                        <div className="flex justify-between text-xs text-gray-400 mt-1">
+                                            <span>0%</span>
+                                            <span>50%</span>
+                                        </div>
+                                    </div>
                                 </div>
                             )}
                         </div>
@@ -896,6 +936,6 @@ function AsideLeft() {
     );
 }
 
-export default AsideLeft;
+export default memo(AsideLeft);
 
 

@@ -81,7 +81,7 @@ function CodeRenderer({ code, codeMode }) {
 
     return (
         <div className="bg-neutral-900 rounded-lg p-3 sm:p-4 overflow-x-auto">
-            <pre className="text-xs sm:text-sm font-mono whitespace-pre-wrap break-words sm:whitespace-pre">
+            <pre className="text-xs sm:text-sm font-mono whitespace-pre-wrap wrap-break-word sm:whitespace-pre">
                 <code>
                     {renderColoredCode()}
                 </code>

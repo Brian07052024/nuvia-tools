@@ -1,3 +1,4 @@
+import { useRef, useEffect } from "react";
 import CodeHeader from "./CodeHeader";
 import CodeRenderer from "./CodeRenderer";
 import CodeInfo from "./CodeInfo";
@@ -18,10 +19,31 @@ function CodeViewer({
     grainIntensity,
     onCodeModeChange, 
     onCopy, 
-    copied 
+    copied,
+    onClose
 }) {
+    const codeViewerRef = useRef(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (isVisible && codeViewerRef.current && !codeViewerRef.current.contains(event.target)) {
+                onClose?.();
+            }
+        };
+
+        if (isVisible) {
+            document.addEventListener('mousedown', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [isVisible, onClose]);
+
     return (
-        <div className={`${
+        <div 
+            ref={codeViewerRef}
+            className={`${
             isVisible ? "max-h-[60vh] animate-fade-up animate-duration-300" : "h-0 opacity-0"
         } transition-all z-0 max-w-2xl w-[calc(100vw-2rem)] sm:w-[90vw] bg-neutral-800 absolute left-1/2 -translate-x-1/2 bottom-44 lg:bottom-24 rounded-lg flex flex-col ${
             isVisible ? "overflow-hidden" : "overflow-hidden"

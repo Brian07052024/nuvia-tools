@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, memo } from "react";
 import { useColor } from "../../hook/useColor";
 import { useExport } from "../../hook/useExport";
 import { useToast } from "../../contexts/ToastContext";
@@ -26,12 +26,12 @@ function AsideRight() {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [paletteToDelete, setPaletteToDelete] = useState(null);
 
-    // Estados para secciones colapsables en m�vil
+    // Estados para secciones colapsables en movil
     const [isColorPaletteOpen, setIsColorPaletteOpen] = useState(true);
     const [isSavedPalettesOpen, setIsSavedPalettesOpen] = useState(false);
     const [isPreloadedPalettesOpen, setIsPreloadedPalettesOpen] = useState(false);
 
-    // Estado para controlar qu� modal est� abierto en m�viles
+    // Estado para controlar que modal esta abierto en moviles
     const [mobileModalOpen, setMobileModalOpen] = useState(null); // 'colors', 'saved', 'preloaded', null
 
     // Cargar paletas guardadas al iniciar
@@ -128,21 +128,21 @@ function AsideRight() {
         <>
             <div className="bg-white absolute top-0 left-0 right-0 flex flex-row justify-between gap-2 px-4 py-3 w-full border border-gray-300 rounded-b-2xl animate-fade-down z-10 lg:relative lg:z-auto lg:col-span-2 lg:p-4 lg:gap-5 lg:w-auto lg:flex-col lg:rounded-2xl lg:overflow-y-scroll lg:animate-fade-left">
 
-                {/* Barra horizontal compacta para m�viles */}
+                {/* Barra horizontal compacta para moviles */}
                 <div className="flex gap-2 w-full lg:hidden">
-                    {/* Bot�n Paleta de colores */}
+                    {/* Boton Paleta de colores */}
                     <button
                         onClick={() => setMobileModalOpen('colors')}
                         className="flex flex-1 flex-col justify-center items-center cursor-pointer border-2 border-gray-300 bg-white px-2 py-2 rounded-xl hover:bg-gray-100 transition-all"
                         aria-label="Abrir paleta de colores"
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#6b7280" class="bi bi-palette-fill" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#6b7280" className="bi bi-palette-fill" viewBox="0 0 16 16">
                             <path d="M12.433 10.07C14.133 10.585 16 11.15 16 8a8 8 0 1 0-8 8c1.996 0 1.826-1.504 1.649-3.08-.124-1.101-.252-2.237.351-2.92.465-.527 1.42-.237 2.433.07M8 5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m4.5 3a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3M5 6.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m.5 6.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3" />
                         </svg>
                         <span className="text-[10px] mt-1 text-gray-600 font-medium leading-tight">Colores</span>
                     </button>
 
-                    {/* Bot�n Mis Paletas */}
+                    {/* boton Mis Paletas */}
                     {savedPalettes.length > 0 && (
                         <button
                             onClick={() => setMobileModalOpen('saved')}
@@ -150,7 +150,7 @@ function AsideRight() {
                             aria-label="Abrir mis paletas"
                         >
 
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#6b7280" class="bi bi-grid-3x3-gap-fill" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#6b7280" className="bi bi-grid-3x3-gap-fill" viewBox="0 0 16 16">
                                 <path d="M1 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zM1 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zM1 12a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1z" />
                             </svg>
                             <span className="absolute -top-1 -right-1 bg-nuviaFrom text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">{savedPalettes.length}</span>
@@ -158,20 +158,20 @@ function AsideRight() {
                         </button>
                     )}
 
-                    {/* Bot�n Paletas pre-cargadas */}
+                    {/* boton Paletas pre-cargadas */}
                     <button
                         onClick={() => setMobileModalOpen('preloaded')}
                         className="flex flex-1 flex-col justify-center items-center cursor-pointer border-2 border-gray-300 bg-white px-2 py-2 rounded-xl hover:bg-gray-100 transition-all"
                         aria-label="Abrir paletas pre-cargadas"
                     >
-                        
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#6b7280" class="bi bi-bookmark-star-fill" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5M8.16 4.1a.178.178 0 0 0-.32 0l-.634 1.285a.18.18 0 0 1-.134.098l-1.42.206a.178.178 0 0 0-.098.303L6.58 6.993c.042.041.061.1.051.158L6.39 8.565a.178.178 0 0 0 .258.187l1.27-.668a.18.18 0 0 1 .165 0l1.27.668a.178.178 0 0 0 .257-.187L9.368 7.15a.18.18 0 0 1 .05-.158l1.028-1.001a.178.178 0 0 0-.098-.303l-1.42-.206a.18.18 0 0 1-.134-.098z" />
+
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#6b7280" className="bi bi-bookmark-star-fill" viewBox="0 0 16 16">
+                            <path fillRule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5M8.16 4.1a.178.178 0 0 0-.32 0l-.634 1.285a.18.18 0 0 1-.134.098l-1.42.206a.178.178 0 0 0-.098.303L6.58 6.993c.042.041.061.1.051.158L6.39 8.565a.178.178 0 0 0 .258.187l1.27-.668a.18.18 0 0 1 .165 0l1.27.668a.178.178 0 0 0 .257-.187L9.368 7.15a.18.18 0 0 1 .05-.158l1.028-1.001a.178.178 0 0 0-.098-.303l-1.42-.206a.18.18 0 0 1-.134-.098z" />
                         </svg>
                         <span className="text-[10px] mt-1 text-gray-600 font-medium leading-tight">Presets</span>
                     </button>
 
-                    {/* Bot�n Exportar */}
+                    {/* boton Exportar */}
                     {mode === "static" && (
                         <button
                             onClick={handleExportImage}
@@ -203,7 +203,7 @@ function AsideRight() {
                 {/* Contenido completo para desktop */}
                 <div className="hidden lg:flex lg:flex-col lg:gap-5 lg:w-full">
 
-                    {/* Bot�n exportar imagen */}
+                    {/* boton exportar imagen */}
                     {mode === "static" && (
                         <button
                             onClick={handleExportImage}
@@ -216,7 +216,7 @@ function AsideRight() {
                         </button>
                     )}
 
-                    {/* Bot�n exportar video */}
+                    {/* boton exportar video */}
                     {mode === "animated" && (
                         <button
                             onClick={handleExportVideo}
@@ -310,10 +310,10 @@ function AsideRight() {
                         </div>
                     </div>
 
-                    {/* Bot�n para abrir modal de paletas guardadas */}
+                    {/* boton para abrir modal de paletas guardadas */}
                     {savedPalettes.length > 0 && (
                         <div className="relative">
-                            {/* Header con toggle para m�vil */}
+                            {/* Header con toggle para movil */}
                             <div className="flex items-center justify-between lg:hidden mb-2">
                                 <h2 className="text-gray-800 font-medium">Mis Paletas ({savedPalettes.length})</h2>
                                 <button
@@ -331,7 +331,7 @@ function AsideRight() {
                                 </button>
                             </div>
 
-                            {/* Bot�n para desktop */}
+                            {/* boton para desktop */}
                             <button
                                 onClick={() => setIsModalOpen(!isModalOpen)}
                                 className={`shadow transition-colors w-full items-center justify-center gap-2 rounded-2xl border-2 py-2 px-4 cursor-pointer relative hidden lg:flex ${isModalOpen ? "text-gray-800 border-gray-400 bg-gray-200" : "text-gray-500 border-gray-300 hover:bg-gray-100"}`}
@@ -356,7 +356,7 @@ function AsideRight() {
                                 </svg>
                             </button>
 
-                            {/* Vista colapsable m�vil */}
+                            {/* Vista colapsable movil */}
                             {isSavedPalettesOpen && (
                                 <div className="lg:hidden flex flex-col gap-3 animate-fade-down">
                                     {savedPalettes.map((paleta) => (
@@ -373,8 +373,8 @@ function AsideRight() {
                                                     title="Eliminar paleta"
                                                 >
                                                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 16 16">
-                                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
-                                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
                                                     </svg>
                                                 </button>
                                             </div>
@@ -401,7 +401,7 @@ function AsideRight() {
                                 <>
                                     {/* Overlay para cerrar modal al hacer clic afuera */}
                                     <div
-                                        className="fixed inset-0 z-40 animate-fade-down"
+                                        className="fixed inset-0 h-lvh w-screen z-40 animate-fade-down"
                                         onClick={() => setIsModalOpen(false)}
                                     />
 
@@ -435,8 +435,8 @@ function AsideRight() {
                                                                 title="Eliminar paleta"
                                                             >
                                                                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 16 16">
-                                                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
-                                                                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                                                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                                                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
                                                                 </svg>
                                                             </button>
                                                         </div>
@@ -502,11 +502,11 @@ function AsideRight() {
                     </div>
                 </div>
 
-                {/* Modal m�vil - Paleta de colores */}
+                {/* Modal movil - Paleta de colores */}
                 {mobileModalOpen === 'colors' && (
                     <>
                         <div
-                            className="fixed inset-0 bg-black/30 z-50 lg:hidden"
+                            className="fixed inset-0 h-lvh w-screen bg-black/30 z-50 lg:hidden"
                             onClick={() => setMobileModalOpen(null)}
                             aria-hidden="true"
                         />
@@ -532,13 +532,13 @@ function AsideRight() {
                             <div className="overflow-y-auto p-4 flex-1">
                                 <div className="flex flex-col gap-2 mb-4">
                                     {colors.map((colorValue, index) => (
-                                        <div key={index} className="flex gap-2 items-center">
+                                        <div key={index} className="flex gap-2 items-center ">
                                             <input
                                                 type="color"
                                                 value={colorValue}
                                                 onChange={(e) => handleColorChange(index, e.target.value)}
                                                 aria-label={`Selector de color ${index + 1}`}
-                                                className="w-full h-12 rounded-xl cursor-pointer shadow-md"
+                                                className="w-full h-12 cursor-pointer"
                                             />
                                             <button
                                                 onClick={() => handleDelete(index)}
@@ -562,9 +562,9 @@ function AsideRight() {
                                         handleSave();
                                         setMobileModalOpen(null);
                                     }}
-                                    className="w-full mt-3 flex items-center justify-center gap-2 rounded-xl border-2 border-gray-300 py-3 text-gray-600 hover:bg-gray-100 transition-all"
+                                    className="w-full mt-3 flex items-center bg-neutral-800 justify-center gap-2 rounded-xl border-2 border-gray-300 py-3 text-white hover:bg-gray-100 transition-all"
                                 >
-                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="#6b7280" xmlns="http://www.w3.org/2000/svg">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="#FFFFFF" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1z" />
                                     </svg>
                                     <span className="font-medium">Guardar paleta</span>
@@ -574,11 +574,11 @@ function AsideRight() {
                     </>
                 )}
 
-                {/* Modal m�vil - Mis Paletas */}
+                {/* Modal movil - Mis Paletas */}
                 {mobileModalOpen === 'saved' && savedPalettes.length > 0 && (
                     <>
                         <div
-                            className="fixed inset-0 bg-black/30 z-50 lg:hidden"
+                            className="fixed inset-0 h-lvh w-screen bg-black/30 z-50 lg:hidden"
                             onClick={() => setMobileModalOpen(null)}
                             aria-hidden="true"
                         />
@@ -615,7 +615,10 @@ function AsideRight() {
                                                     }}
                                                     className="text-red-500 hover:text-red-700 text-sm px-2 py-1 hover:bg-red-50 rounded transition-all"
                                                 >
-                                                    ???
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#fb2c36" class="bi bi-trash" viewBox="0 0 16 16">
+                                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                                                    </svg>
                                                 </button>
                                             </div>
                                             <div
@@ -641,11 +644,11 @@ function AsideRight() {
                     </>
                 )}
 
-                {/* Modal m�vil - Paletas pre-cargadas */}
+                {/* Modal movil - Paletas pre-cargadas */}
                 {mobileModalOpen === 'preloaded' && (
                     <>
                         <div
-                            className="fixed inset-0 bg-black/30 z-50 lg:hidden"
+                            className="fixed inset-0 h-lvh w-screen bg-black/30 z-50 lg:hidden"
                             onClick={() => setMobileModalOpen(null)}
                             aria-hidden="true"
                         />
@@ -717,6 +720,6 @@ function AsideRight() {
     );
 }
 
-export default AsideRight;
+export default memo(AsideRight);
 
 

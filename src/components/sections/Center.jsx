@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import { useColor } from "../../hook/useColor";
 
 function Center() {
@@ -89,7 +89,11 @@ function Center() {
                         {grainIntensity > 0 && (
                             <div 
                                 className="gradient-grain" 
-                                style={{ opacity: grainIntensity / 100 }}
+                                style={{ 
+                                    opacity: grainIntensity / 100,
+                                    width: '100%',
+                                    height: '100%'
+                                }}
                             />
                         )}
                     </>
@@ -97,7 +101,11 @@ function Center() {
                     grainIntensity > 0 && (
                         <div 
                             className="gradient-grain" 
-                            style={{ opacity: grainIntensity / 100 }}
+                            style={{ 
+                                opacity: grainIntensity / 100,
+                                width: '100%',
+                                height: '100%'
+                            }}
                         />
                     )
                 )}
@@ -107,5 +115,5 @@ function Center() {
     );
 }
 
-export default Center;
+export default memo(Center);
 
