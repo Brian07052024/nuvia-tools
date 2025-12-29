@@ -218,8 +218,8 @@ input[type="range"]:focus::-moz-range-thumb {
   position: absolute;
   border-radius: 50%;
   filter: blur(100px);
-  opacity: 0.8;
-  mix-blend-mode: multiply;
+  opacity: 1;
+  mix-blend-mode: normal;
   aspect-ratio: 1 / 1; /* Mantiene círculos perfectos */
 }
 

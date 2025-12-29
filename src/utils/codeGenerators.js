@@ -114,9 +114,9 @@ ${colors.map((_, index) => `  <div class="gradient-blob blob-${index + 1}"></div
 .gradient-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(64px);
-  opacity: 0.8;
-  mix-blend-mode: multiply;
+  filter: blur(100px);
+  opacity: 1;
+  mix-blend-mode: normal;
   aspect-ratio: 1 / 1;
   pointer-events: none;
   z-index: -1;
