@@ -43,6 +43,13 @@ export const exportVideo = async (gradientRef, format, onProgress, options = {})
 
     const { width, height } = getFormatDimensions(format);
     const element = gradientRef.current;
+    const meshOverlay = element.querySelector('.mesh-pattern-overlay');
+    const meshOriginalAnimation = meshOverlay ? meshOverlay.style.animation : '';
+    const meshOriginalBackgroundPosition = meshOverlay ? meshOverlay.style.backgroundPosition : '';
+    const meshSpeedValue = meshOverlay
+        ? window.getComputedStyle(meshOverlay).getPropertyValue('--mesh-speed')
+        : '';
+    const meshSpeedSeconds = Number.parseFloat(meshSpeedValue) || 3;
 
     const canvas = document.createElement('canvas');
     canvas.width = width;
@@ -52,7 +59,7 @@ export const exportVideo = async (gradientRef, format, onProgress, options = {})
     const stream = canvas.captureStream(fps);
     const mediaRecorder = new MediaRecorder(stream, {
         mimeType: 'video/webm;codecs=vp9',
-        videoBitsPerSecond: bitrate * 1000000 // convertir de Mbps a bps
+        videoBitsPerSecond: bitrate * 1000000 //convertir de Mbps a bps
     });
 
     const chunks = [];
@@ -64,23 +71,20 @@ export const exportVideo = async (gradientRef, format, onProgress, options = {})
             }
         };
 
-        mediaRecorder.onstop = () => {
-            const blob = new Blob(chunks, { type: 'video/webm' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.download = `gradient-animated-${format.replace('/', 'x')}-${Date.now()}.webm`;
-            link.href = url;
-            link.click();
-            URL.revokeObjectURL(url);
-            resolve();
-        };
-
         mediaRecorder.onerror = (error) => {
             reject(error);
         };
 
-        const renderFrame = async () => {
+        const renderFrame = async (frameIndex) => {
             try {
+                if (meshOverlay) {
+                    const cycle = 80;
+                    const t = frameIndex / fps;
+                    const offset = ((t % meshSpeedSeconds) / meshSpeedSeconds) * cycle;
+                    meshOverlay.style.animation = 'none';
+                    meshOverlay.style.backgroundPosition = `${offset}px ${offset}px, ${offset}px ${offset}px`;
+                }
+
                 const dataUrl = await toPng(element, {
                     quality: 1,
                     pixelRatio: 1,
@@ -108,26 +112,50 @@ export const exportVideo = async (gradientRef, format, onProgress, options = {})
             }
         };
 
-        mediaRecorder.start();
-
-        const durationMs = duration * 1000;
         const frameInterval = 1000 / fps;
-        let frameCount = 0;
         const totalFrames = duration * fps;
 
-        const captureInterval = setInterval(async () => {
-            await renderFrame();
-            frameCount++;
-
-            const progress = Math.round((frameCount / totalFrames) * 100);
-            if (onProgress) {
-                onProgress(progress);
+        const captureFrames = async () => {
+            for (let warm = 0; warm < 2; warm++) {
+                await renderFrame(0);
             }
 
-            if (frameCount >= totalFrames) {
-                clearInterval(captureInterval);
-                mediaRecorder.stop();
+            mediaRecorder.start();
+            const startTime = performance.now();
+
+            for (let frameIndex = 0; frameIndex < totalFrames; frameIndex++) {
+                await renderFrame(frameIndex);
+
+                const progress = Math.round(((frameIndex + 1) / totalFrames) * 100);
+                if (onProgress) {
+                    onProgress(progress);
+                }
+
+                const targetTime = startTime + (frameIndex + 1) * frameInterval;
+                const delay = targetTime - performance.now();
+                if (delay > 0) {
+                    await new Promise((resolve) => setTimeout(resolve, delay));
+                }
             }
-        }, frameInterval);
+
+            mediaRecorder.stop();
+        };
+
+        captureFrames();
+
+        mediaRecorder.onstop = () => {
+            if (meshOverlay) {
+                meshOverlay.style.animation = meshOriginalAnimation;
+                meshOverlay.style.backgroundPosition = meshOriginalBackgroundPosition;
+            }
+            const blob = new Blob(chunks, { type: 'video/webm' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.download = `gradient-animated-${format.replace('/', 'x')}-${Date.now()}.webm`;
+            link.href = url;
+            link.click();
+            URL.revokeObjectURL(url);
+            resolve();
+        };
     });
 };

@@ -4,7 +4,8 @@ import { useColor } from "../../hook/useColor";
 function Center() {
     const {
         colors, format, angle, gradientRef, mode,
-        gradientType, gradientBlur, gradientOpacity, grainIntensity
+        gradientType, gradientBlur, gradientOpacity, grainIntensity, meshPattern,
+        meshColor, meshSpeed
     } = useColor();
 
     const [showTip, setShowTip] = useState(true);
@@ -49,7 +50,7 @@ function Center() {
 
     return (
 
-        // el abuelito ->
+        //el abuelito ->
         <div className="lg:bg-white lg:border lg:border-gray-300 h-full animate-fade col-span-6 p-4 rounded-2xl flex justify-center items-center relative">
             
             {/* Mensaje de advertencia para modo animado */}
@@ -87,12 +88,21 @@ function Center() {
                     <>
                         {renderAnimatedGradient()}
                         {grainIntensity > 0 && (
-                            <div 
-                                className="gradient-grain" 
-                                style={{ 
+                            <div
+                                className="gradient-grain"
+                                style={{
                                     opacity: grainIntensity / 100,
                                     width: '100%',
                                     height: '100%'
+                                }}
+                            />
+                        )}
+                        {meshPattern && (
+                            <div
+                                className="mesh-pattern-overlay"
+                                style={{
+                                    "--mesh-color": meshColor,
+                                    "--mesh-speed": `${meshSpeed}s`
                                 }}
                             />
                         )}

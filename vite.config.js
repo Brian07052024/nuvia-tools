@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
 
-// https://vite.dev/config/
+//https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(), 
@@ -12,7 +12,7 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['img/*.png', 'svg/**/*'],
-      manifest: false, // Usamos el manifest.json estático
+      manifest: false, //Usamos el manifest.json estático
       workbox: {
         globPatterns: ['**/*.{js,css,html,png,svg,webm,jpg,jpeg,gif}'],
         runtimeCaching: [
@@ -23,7 +23,7 @@ export default defineConfig({
               cacheName: 'google-fonts-cache',
               expiration: {
                 maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 año
+                maxAgeSeconds: 60 * 60 * 24 * 365 //1 año
               },
               cacheableResponse: {
                 statuses: [0, 200]
@@ -33,18 +33,18 @@ export default defineConfig({
         ]
       },
       devOptions: {
-        enabled: false // Deshabilitado en desarrollo
+        enabled: false //Deshabilitado en desarrollo
       }
     })
   ],
   
-  // Configuración de build para producción
+  //Configuración de build para producción
   build: {
     outDir: 'dist',
-    sourcemap: false, // No exponer código fuente en producción
+    sourcemap: false, //No exponer código fuente en producción
     rollupOptions: {
       output: {
-        // Code splitting para mejor performance
+        //Code splitting para mejor performance
         manualChunks: (id) => {
           if (id.includes('node_modules')) {
             if (id.includes('react') || id.includes('react-dom')) {
@@ -58,17 +58,17 @@ export default defineConfig({
         },
       },
     },
-    // Optimización de chunks
+    //Optimización de chunks
     chunkSizeWarningLimit: 1000,
   },
   
-  // Optimización de servidor de desarrollo
+  //Optimización de servidor de desarrollo
   server: {
     port: 5173,
     open: true,
   },
   
-  // Preview server
+  //Preview server
   preview: {
     port: 4173,
   },

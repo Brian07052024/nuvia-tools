@@ -2,7 +2,7 @@ import { createContext, useEffect, useRef, useState } from "react";
 
 const ColorContext = createContext();
 
-// Función reutilizable para leer del localStorage
+//Función reutilizable para leer del localStorage
 const getLocalStorageItem = (key, defaultValue) => {
     try {
         const item = window.localStorage.getItem(key);
@@ -30,10 +30,13 @@ export const ColorProvider = ({ children }) => {
     const [videoDuration, setVideoDuration] = useState(() => getLocalStorageItem("duracionVideo", 6));
     const [videoFps, setVideoFps] = useState(() => getLocalStorageItem("fpsVideo", 30));
     const [videoBitrate, setVideoBitrate] = useState(() => getLocalStorageItem("bitrateVideo", 8));
+    const [meshPattern, setMeshPattern] = useState(() => getLocalStorageItem("meshPattern", false));
+    const [meshColor, setMeshColor] = useState(() => getLocalStorageItem("meshColor", "#ffffff"));
+    const [meshSpeed, setMeshSpeed] = useState(() => getLocalStorageItem("meshSpeed", 3));
 
     const gradientRef = useRef(null);
 
-    // Consolidar todos los guardados en un solo useEffect con debounce
+    //Consolidar todos los guardados en un solo useEffect con debounce
     useEffect(() => {
         const timeoutId = setTimeout(() => {
             try {
@@ -48,13 +51,17 @@ export const ColorProvider = ({ children }) => {
                 window.localStorage.setItem("fpsVideo", JSON.stringify(videoFps));
                 window.localStorage.setItem("bitrateVideo", JSON.stringify(videoBitrate));
                 window.localStorage.setItem("granulado", JSON.stringify(grainIntensity));
+                window.localStorage.setItem("meshPattern", JSON.stringify(meshPattern));
+                window.localStorage.setItem("meshColor", JSON.stringify(meshColor));
+                window.localStorage.setItem("meshSpeed", JSON.stringify(meshSpeed));
+                
             } catch (error) {
                 console.error("Error al guardar en localStorage:", error);
             }
-        }, 300); // Debounce de 300ms para evitar guardados excesivos
+        }, 300); //Debounce de 300ms para evitar guardados excesivos
 
         return () => clearTimeout(timeoutId);
-    }, [colors, format, angle, mode, gradientType, gradientBlur, gradientOpacity, videoDuration, videoFps, videoBitrate, grainIntensity])
+    }, [colors, format, angle, mode, gradientType, gradientBlur, gradientOpacity, videoDuration, videoFps, videoBitrate, grainIntensity, meshPattern, meshColor, meshSpeed])
 
 
     const value = {
@@ -80,7 +87,13 @@ export const ColorProvider = ({ children }) => {
         videoBitrate,
         setVideoBitrate,
         grainIntensity,
-        setGrainIntensity
+        setGrainIntensity,
+        meshPattern,
+        setMeshPattern,
+        meshColor,
+        setMeshColor,
+        meshSpeed,
+        setMeshSpeed
     }
 
     return (

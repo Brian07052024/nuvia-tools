@@ -18,8 +18,8 @@ function AsideRightMobile({
     recordingProgress,
     mode
 }) {
-    // Estado para controlar que modal esta abierto en moviles
-    const [mobileModalOpen, setMobileModalOpen] = useState(null); // 'colors', 'saved', 'preloaded', null
+    //Estado para controlar que modal esta abierto en moviles
+    const [mobileModalOpen, setMobileModalOpen] = useState(null); //'colors', 'saved', 'preloaded', null
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [paletteToDelete, setPaletteToDelete] = useState(null);
 
@@ -99,7 +99,7 @@ function AsideRightMobile({
             {mobileModalOpen === 'colors' && createPortal(
                 <>
                     <div
-                        className="fixed inset-0 h-lvh w-screen bg-black/30 backdrop-blur-xs z-50 lg:hidden"
+                        className="fixed inset-0 h-dvh w-screen bg-black/30 backdrop-blur-xs z-50 lg:hidden"
                         onClick={() => setMobileModalOpen(null)}
                         aria-hidden="true"
                     />
@@ -173,7 +173,7 @@ function AsideRightMobile({
             {mobileModalOpen === 'saved' && savedPalettes.length > 0 && createPortal(
                 <>
                     <div
-                        className="fixed inset-0 h-lvh w-screen bg-black/30 backdrop-blur-xs z-50 lg:hidden"
+                        className="fixed inset-0 h-dvh w-screen bg-black/30 backdrop-blur-xs z-50 lg:hidden"
                         onClick={() => setMobileModalOpen(null)}
                         aria-hidden="true"
                     />
@@ -244,7 +244,7 @@ function AsideRightMobile({
             {mobileModalOpen === 'preloaded' && createPortal(
                 <>
                     <div
-                        className="fixed inset-0 h-lvh w-screen bg-black/30 backdrop-blur-xs z-50 lg:hidden"
+                        className="fixed inset-0 h-dvh w-screen bg-black/30 backdrop-blur-xs z-50 lg:hidden"
                         onClick={() => setMobileModalOpen(null)}
                         aria-hidden="true"
                     />

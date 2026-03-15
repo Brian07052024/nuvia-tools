@@ -6,11 +6,11 @@ const InstallPrompt = ({ onDismiss }) => {
     const [showInstructions, setShowInstructions] = useState(false);
 
     useEffect(() => {
-        // Detectar iOS
+        //Detectar iOS
         const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
         setIsIOS(iOS);
 
-        // Capturar el evento beforeinstallprompt
+        //Capturar el evento beforeinstallprompt
         const handler = (e) => {
             e.preventDefault();
             setDeferredPrompt(e);
@@ -25,18 +25,18 @@ const InstallPrompt = ({ onDismiss }) => {
 
     const handleInstall = async () => {
         if (isIOS) {
-            // En iOS, mostrar las instrucciones
+            //En iOS, mostrar las instrucciones
             setShowInstructions(true);
             return;
         }
 
         if (!deferredPrompt) {
-            // Si no hay prompt nativo disponible, mostrar instrucciones manuales
+            //Si no hay prompt nativo disponible, mostrar instrucciones manuales
             setShowInstructions(true);
             return;
         }
 
-        // Android/Chrome: usar el prompt nativo
+        //Android/Chrome: usar el prompt nativo
         deferredPrompt.prompt();
         const { outcome } = await deferredPrompt.userChoice;
 
@@ -77,7 +77,7 @@ const InstallPrompt = ({ onDismiss }) => {
                     {/* Logo o icono centrado */}
                     <div className="relative mb-6">
                         <div className="w-24 h-24 bg-white rounded-3xl flex items-center justify-center shadow-2xl shadow-pink-500/50 backdrop-blur-sm">
-                            <img src="/img/logoTransparent.png" alt="icon" className='max-h-16 object-contain animate-fade' />
+                            <img src="/img/logo-nuvia-new.webp" alt="icon" className='max-h-16 object-contain animate-fade' />
                         </div>
                     </div>
 
@@ -100,9 +100,9 @@ const InstallPrompt = ({ onDismiss }) => {
 
                     {/* Beneficios */}
                     <div className="flex flex-nowrap justify-center gap-2 text-xs overflow-x-auto">
-                        <span className="bg-white/10 text-gray-300 px-3 py-1.5 rounded-full backdrop-blur-sm whitespace-nowrap">✨ Instantáneo</span>
-                        <span className="bg-white/10 text-gray-300 px-3 py-1.5 rounded-full backdrop-blur-sm whitespace-nowrap">🎨 Ilimitado</span>
-                        <span className="bg-white/10 text-gray-300 px-3 py-1.5 rounded-full backdrop-blur-sm whitespace-nowrap">📱 Rápido</span>
+                        <span className="bg-white/10 text-gray-300 px-3 py-1.5 rounded-full backdrop-blur-sm whitespace-nowrap">Instantáneo</span>
+                        <span className="bg-white/10 text-gray-300 px-3 py-1.5 rounded-full backdrop-blur-sm whitespace-nowrap">Ilimitado</span>
+                        <span className="bg-white/10 text-gray-300 px-3 py-1.5 rounded-full backdrop-blur-sm whitespace-nowrap">Rápido</span>
                     </div>
                 </div>
 

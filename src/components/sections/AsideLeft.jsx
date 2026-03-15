@@ -10,29 +10,32 @@ function AsideLeft() {
         mode, setMode,
         gradientType, setGradientType, gradientBlur, setGradientBlur, gradientOpacity, setGradientOpacity,
         videoDuration, setVideoDuration, videoFps, setVideoFps, videoBitrate, setVideoBitrate,
-        grainIntensity, setGrainIntensity
+        grainIntensity, setGrainIntensity,
+        meshPattern, setMeshPattern,
+        meshColor, setMeshColor,
+        meshSpeed, setMeshSpeed
     } = useColor();
 
-    // Estado para el dropdown de formatos (desktop)
+    //Estado para el dropdown de formatos (desktop)
     const [isFormatDropdownOpen, setIsFormatDropdownOpen] = useState(false);
 
-    // Estado para el dropdown de ajustes del gradiente (desktop)
+    //Estado para el dropdown de ajustes del gradiente (desktop)
     const [isGradientSettingsOpen, setIsGradientSettingsOpen] = useState(false);
 
-    // Estado para el dropdown de ajustes del video (desktop)
+    //Estado para el dropdown de ajustes del video (desktop)
     const [isVideoSettingsOpen, setIsVideoSettingsOpen] = useState(false);
 
-    // Handlers de formato
+    //Handlers de formato
     const handleClick = (aspect) => {
         setFormat(aspect);
-        setIsFormatDropdownOpen(false); // Cerrar dropdown al seleccionar
+        setIsFormatDropdownOpen(false); //Cerrar dropdown al seleccionar
     }
 
     const handleMode = (modo) => {
         setMode(modo);
     }
 
-    // Handlers de gradiente
+    //Handlers de gradiente
     const handleAngleChange = (e) => {
         setAngle(Number(e.target.value));
     }
@@ -49,7 +52,7 @@ function AsideLeft() {
         setGradientOpacity(Number(e.target.value));
     }
 
-    // Handlers de video
+    //Handlers de video
     const handleDurationChange = (e) => {
         setVideoDuration(Number(e.target.value));
     }
@@ -66,8 +69,16 @@ function AsideLeft() {
         setGrainIntensity(Number(e.target.value));
     }
 
+    const handleMeshColorChange = (e) => {
+        setMeshColor(e.target.value);
+    }
+
+    const handleMeshSpeedChange = (e) => {
+        setMeshSpeed(Number(e.target.value));
+    }
+
     return (
-        // el abuelito->
+        //el abuelito->
         <>
             <div className="bg-white absolute bottom-0 left-0 right-0 flex flex-row justify-between gap-2 px-4 py-3 w-full border border-gray-300 rounded-t-2xl animate-fade-up z-10 lg:relative lg:z-auto lg:col-span-2 lg:p-4 lg:gap-5 lg:w-auto lg:flex-col lg:rounded-2xl lg:overflow-y-scroll lg:animate-fade-right">
 
@@ -93,6 +104,12 @@ function AsideLeft() {
                 handleFpsChange={handleFpsChange}
                 videoBitrate={videoBitrate}
                 handleBitrateChange={handleBitrateChange}
+                meshPattern={meshPattern}
+                handleMeshPatternChange={() => setMeshPattern(!meshPattern)}
+                meshColor={meshColor}
+                handleMeshColorChange={handleMeshColorChange}
+                meshSpeed={meshSpeed}
+                handleMeshSpeedChange={handleMeshSpeedChange}
             />
 
             {/* Contenido completo para desktop */}
@@ -136,6 +153,58 @@ function AsideLeft() {
                             <p className="invisible lg:visible text-xs xl:text-base">Animado</p>
                         </button>
                     </div>
+
+                    {mode === "animated" && (
+                        <div className="flex flex-col gap-2">
+                            <h3 className="text-xs text-gray-400">Malla</h3>
+                            <button
+                                onClick={() => setMeshPattern(!meshPattern)}
+                                className={`shadow py-1.5 cursor-pointer rounded-full w-full border-2 transition-all flex items-center justify-center gap-2 text-xs xl:text-sm ${
+                                    meshPattern
+                                        ? "text-gray-800 border-gray-400 bg-gray-200"
+                                        : "text-gray-500 border-gray-300 hover:bg-gray-100"
+                                }`}
+                            >
+                                <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM9 2.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM9 10.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5z"/>
+                                </svg>
+                                Malla animada
+                            </button>
+
+                            <div className={`flex flex-col gap-2 ${meshPattern ? "" : "opacity-50 pointer-events-none"}`}>
+                                <div className="flex items-center justify-between gap-3">
+                                    <label className="text-xs text-gray-400">Color</label>
+                                    <input
+                                        type="color"
+                                        value={meshColor}
+                                        onChange={handleMeshColorChange}
+                                        aria-label="Seleccionar color de la malla"
+                                        className="mesh-color-input h-7 w-10"
+                                    />
+                                </div>
+
+                                <div className="flex flex-col gap-2">
+                                    <label className="text-xs text-gray-400">
+                                        Velocidad: <span className="font-medium">{meshSpeed}s</span>
+                                    </label>
+                                    <input
+                                        type="range"
+                                        min="1"
+                                        max="10"
+                                        step="0.5"
+                                        value={meshSpeed}
+                                        onChange={handleMeshSpeedChange}
+                                        aria-label="Controlar velocidad de la malla"
+                                        className="w-full h-2 rounded-lg appearance-none cursor-pointer gradient-range"
+                                    />
+                                    <div className="flex justify-between items-center pointer-events-none">
+                                        <span className="text-xs text-gray-500">1s</span>
+                                        <span className="text-xs text-gray-500">10s</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </div>
 
                 {/* Formatos disponibles */}
@@ -535,6 +604,7 @@ function AsideLeft() {
                                     <span className="text-xs text-gray-500">50%</span>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 )}

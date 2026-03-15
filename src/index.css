@@ -25,6 +25,29 @@ input[type="color"]::-webkit-color-swatch {
   border-radius: 9999px;
 }
 
+input.mesh-color-input {
+  -webkit-appearance: auto;
+  appearance: auto;
+  border: 2px solid #d1d5db;
+  background: #ffffff;
+  border-radius: 9999px;
+  padding: 2px;
+  width: 2.5rem;
+  height: 2rem;
+  min-width: 2.5rem;
+  min-height: 2rem;
+  display: inline-block;
+}
+
+input.mesh-color-input::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+input.mesh-color-input::-webkit-color-swatch {
+  border-radius: 9999px;
+  border: 1px solid #d1d5db;
+}
+
 /* Range gradient */
 /*********** Baseline, reset styles ***********/
 input[type="range"] {
@@ -313,6 +336,42 @@ input[type="range"]:focus::-moz-range-thumb {
   background-position: center;
   background-repeat: no-repeat;
   opacity: 1;
+}
+
+/* Patrón de malla/grid animado para modo video */
+@keyframes mesh-move {
+  from { background-position: 0 0, 0 0; }
+  to { background-position: 80px 80px, 80px 80px; }
+}
+
+.mesh-pattern-overlay {
+  position: absolute;
+  top: -80px;
+  left: -80px;
+  width: calc(100% + 160px);
+  height: calc(100% + 160px);
+  pointer-events: none;
+  transform: var(--mesh-transform, none);
+  transform-origin: var(--mesh-transform-origin, top center);
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      var(--mesh-color, rgb(255, 255, 255)) 0px,
+      var(--mesh-color, rgb(255, 255, 255)) 1px,
+      transparent 1px,
+      transparent 80px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      var(--mesh-color, rgb(255, 255, 255)) 0px,
+      var(--mesh-color, rgb(255, 255, 255)) 1px,
+      transparent 1px,
+      transparent 80px
+    );
+  background-position: 0 0, 0 0;
+  animation: mesh-move var(--mesh-speed, 3s) linear infinite;
+  z-index: 2;
+  
 }
 
 /* Animación de gradiente para el mockup del install prompt */

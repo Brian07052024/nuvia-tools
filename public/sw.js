@@ -3,11 +3,10 @@ const urlsToCache = [
   '/',
   '/index.html',
   '/manifest.json',
-  '/img/logo.png',
-  '/img/logo-512.png'
+  '/img/icon.webp'
 ];
 
-// Instalación del service worker
+//Instalación del service worker
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -19,7 +18,7 @@ self.addEventListener('install', event => {
   self.skipWaiting();
 });
 
-// Activación del service worker
+//Activación del service worker
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(cacheNames => {
@@ -36,9 +35,9 @@ self.addEventListener('activate', event => {
   self.clients.claim();
 });
 
-// Estrategia de caché: Network First, falling back to cache
+//Estrategia de caché: Network First, falling back to cache
 self.addEventListener('fetch', event => {
-  // Ignorar solicitudes que no sean HTTP/HTTPS
+  //Ignorar solicitudes que no sean HTTP/HTTPS
   try {
     const url = new URL(event.request.url);
     if (url.protocol !== 'http:' && url.protocol !== 'https:') {
@@ -51,14 +50,14 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     fetch(event.request)
       .then(response => {
-        // Si la respuesta es válida, clona y guarda en caché
+        //Si la respuesta es válida, clona y guarda en caché
         if (response && response.status === 200) {
-          // Solo cachear recursos del mismo origen
+          //Solo cachear recursos del mismo origen
           if (response.type === 'basic' || response.type === 'cors') {
             const responseToCache = response.clone();
             caches.open(CACHE_NAME).then(cache => {
               cache.put(event.request, responseToCache).catch(err => {
-                // Silenciar errores de caché
+                //Silenciar errores de caché
               });
             });
           }
@@ -66,12 +65,12 @@ self.addEventListener('fetch', event => {
         return response;
       })
       .catch(() => {
-        // Si falla la red, intenta obtener de caché
+        //Si falla la red, intenta obtener de caché
         return caches.match(event.request).then(response => {
           if (response) {
             return response;
           }
-          // Si no está en caché y es una navegación, retorna la página principal
+          //Si no está en caché y es una navegación, retorna la página principal
           if (event.request.mode === 'navigate') {
             return caches.match('/');
           }

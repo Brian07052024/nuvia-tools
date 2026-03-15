@@ -14,10 +14,10 @@ function App() {
   const [showInstallPrompt, setShowInstallPrompt] = useState(false);
 
   useEffect(() => {
-    // Detectar si es un dispositivo móvil
+    //Detectar si es un dispositivo móvil
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     
-    // Solo mostrar animación en desktop
+    //Solo mostrar animación en desktop
     if (isMobile) {
       setIsLoading(false);
     } else {
@@ -29,14 +29,14 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // Detectar si es un dispositivo móvil
+    //Detectar si es un dispositivo móvil
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-    // Verificar si ya está instalado como PWA
+    //Verificar si ya está instalado como PWA
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
       window.navigator.standalone === true;
 
-    // Mostrar el prompt siempre que sea móvil y no esté instalado
+    //Mostrar el prompt siempre que sea móvil y no esté instalado
     if (isMobile && !isStandalone) {
       setShowInstallPrompt(true);
     }
@@ -52,7 +52,7 @@ function App() {
         <Spinner />
       ) : (
         <ColorProvider>
-          <div className="h-lvh w-full bg-gray-200 flex flex-col overflow-hidden">
+          <div className="h-dvh w-full bg-gray-200 flex flex-col overflow-hidden">
 
             <div className="lg:grid lg:grid-cols-10 lg:gap-2 lg:flex-1 w-full h-full p-2 overflow-hidden relative">
 

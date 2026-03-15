@@ -21,18 +21,18 @@ function AsideRight() {
     const { handleExportImage, handleExportVideo, isRecording, recordingProgress } = useExport(gradientRef, format, mode, videoOptions);
     const { showSuccess, showError, showInfo } = useToast();
 
-    // Estado para paletas guardadas
+    //Estado para paletas guardadas
     const [savedPalettes, setSavedPalettes] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [paletteToDelete, setPaletteToDelete] = useState(null);
 
-    // Estados para secciones colapsables en desktop
+    //Estados para secciones colapsables en desktop
     const [isColorPaletteOpen, setIsColorPaletteOpen] = useState(true);
     const [isSavedPalettesOpen, setIsSavedPalettesOpen] = useState(false);
     const [isPreloadedPalettesOpen, setIsPreloadedPalettesOpen] = useState(false);
 
-    // Cargar paletas guardadas al iniciar
+    //Cargar paletas guardadas al iniciar
     useEffect(() => {
         try {
             const stored = window.localStorage.getItem("paletasUsuario");
@@ -44,7 +44,7 @@ function AsideRight() {
         }
     }, []);
 
-    // Handlers de colores
+    //Handlers de colores
     const handleColorChange = (index, newColor) => {
         setColors(prevColors => {
             const newColors = [...prevColors];
@@ -80,11 +80,11 @@ function AsideRight() {
 
     const handleSave = () => {
         try {
-            // Obtener paletas existentes
+            //Obtener paletas existentes
             const stored = window.localStorage.getItem("paletasUsuario");
             const existingPalettes = stored ? JSON.parse(stored) : [];
 
-            // Crear nueva paleta con metadatos
+            //Crear nueva paleta con metadatos
             const newPalette = {
                 id: Date.now(),
                 name: `Paleta ${existingPalettes.length + 1}`,
@@ -92,10 +92,10 @@ function AsideRight() {
                 createdAt: new Date().toISOString()
             };
 
-            // Agregar nueva paleta al array
+            //Agregar nueva paleta al array
             const updatedPalettes = [...existingPalettes, newPalette];
 
-            // Guardar todas las paletas
+            //Guardar todas las paletas
             window.localStorage.setItem("paletasUsuario", JSON.stringify(updatedPalettes));
             setSavedPalettes(updatedPalettes);
 
@@ -122,7 +122,7 @@ function AsideRight() {
 
     return (
 
-        // el abuelito -> 
+        //el abuelito -> 
         <>
             <div className="bg-white absolute top-0 left-0 right-0 flex flex-row justify-between gap-2 px-4 py-3 w-full border border-gray-300 rounded-b-2xl animate-fade-down z-20 lg:relative lg:z-auto lg:col-span-2 lg:p-4 lg:gap-5 lg:w-auto lg:flex-col lg:rounded-2xl lg:overflow-y-scroll lg:animate-fade-left">
 
@@ -217,6 +217,8 @@ function AsideRight() {
                                 <span className="text-[11px] lg:text-xs font-medium">Guardar Paleta actual</span>
                             </button>
                         </div>
+
+                        
 
                         <div className={`${isColorPaletteOpen ? 'flex' : 'hidden'} lg:flex flex-col gap-2`}>
                             {colors.map((colorValue, index) => (

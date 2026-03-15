@@ -32,13 +32,13 @@ function Footer() {
     const [showResetModal, setShowResetModal] = useState(false);
     const { showSuccess } = useToast();
 
-    // Randomizar colores
+    //Randomizar colores
     const handleRandomColors = () => {
         const newColors = generateRandomColors();
         setColors(newColors);
     };
 
-    // Copiar código al portapapeles
+    //Copiar código al portapapeles
     const handleCopyCode = async () => {
         const code = generateCode(mode, codeMode, colors, gradientType, angle, gradientOpacity, gradientBlur, grainIntensity);
         try {
@@ -50,13 +50,13 @@ function Footer() {
         }
     };
 
-    // Resetear todas las configuraciones
+    //Resetear todas las configuraciones
     const handleReset = () => {
         setShowResetModal(true);
     };
 
     const confirmReset = () => {
-        // Resetear valores
+        //Resetear valores
         setColors(["#e5e7eb"]);
         setFormat("16/9");
         setAngle(180);
@@ -69,13 +69,13 @@ function Footer() {
         setVideoBitrate(8);
         setGrainIntensity(0);
 
-        // Limpiar localStorage
+        //Limpiar localStorage
         clearLocalStorage();
         setShowResetModal(false);
         showSuccess("Configuración restablecida");
     };
 
-    // Generar código actual
+    //Generar código actual
     const currentCode = generateCode(mode, codeMode, colors, gradientType, angle, gradientOpacity, gradientBlur, grainIntensity);
 
     return (

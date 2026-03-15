@@ -30,7 +30,7 @@ export const generateStaticCSSCode = (colors, gradientType, angle, gradientOpaci
         cssCode.push("");
     }
 
-    // Background gradient
+    //Background gradient
     if (colors.length === 1) {
         cssCode.push(`  background: ${colors[0]};`);
     } else {
@@ -43,26 +43,26 @@ export const generateStaticCSSCode = (colors, gradientType, angle, gradientOpaci
         }
     }
 
-    // Dimensions
+    //Dimensions
     if (grainIntensity === 0) {
   
         cssCode.push("  width: 100%; /* Ajusta el tamaño según necesites: */");
         cssCode.push("  height: 400px; /* o 100vh, 100%, o lo que necesites */");
     }
 
-    // Opacity
+    //Opacity
     if (gradientOpacity < 100) {
         cssCode.push(`  opacity: ${gradientOpacity / 100};`);
     }
 
-    // Blur/Filter
+    //Blur/Filter
     if (gradientBlur > 0) {
         cssCode.push(`  filter: blur(${gradientBlur}px);`);
     }
 
     cssCode.push("}");
 
-    // Grain effect
+    //Grain effect
     if (grainIntensity > 0) {
         cssCode.push("");
         cssCode.push("/* -------------------------------------------- */");
@@ -88,7 +88,7 @@ export const generateStaticCSSCode = (colors, gradientType, angle, gradientOpaci
 /**
  * Genera código CSS para un gradiente animado
  */
-export const generateAnimatedCSSCode = (colors, grainIntensity) => {
+export const generateAnimatedCSSCode = (colors, grainIntensity, bgAnimatedColor) => {
     let css = `/* HTML: */
 <div class="gradient-animated-container">
 ${colors.map((_, index) => `  <div class="gradient-blob blob-${index + 1}"></div>`).join('\n')}${grainIntensity > 0 ? '\n  <div class="gradient-grain"></div>' : ''}
@@ -96,9 +96,9 @@ ${colors.map((_, index) => `  <div class="gradient-blob blob-${index + 1}"></div
 
 /* CSS: */
 .gradient-animated-container {
-  position: relative;
+  position: absolute; 
   overflow: hidden;
-  background: white;
+  background: white; 
   width: 100%;
   height: 100vh;
 }
@@ -131,7 +131,7 @@ ${colors.map((_, index) => `  <div class="gradient-blob blob-${index + 1}"></div
 `;
     }
 
-    // Agregar keyframes y estilos para cada blob
+    //Agregar keyframes y estilos para cada blob
     colors.forEach((color, index) => {
         const blobNum = index + 1;
         const positions = [
@@ -196,12 +196,12 @@ export const generateStaticTailwindCode = (colors, gradientType, angle, gradient
     }
 
     if (colors.length === 1) {
-        // Color sólido - usar color arbitrario
+        //Color sólido - usar color arbitrario
         tailwindClasses.push(`bg-[${colors[0]}]`);
     } else {
-        // Gradiente
+        //Gradiente
         if (gradientType === "linear") {
-            // Dirección del gradiente
+            //Dirección del gradiente
             const directions = {
                 0: "to-t",
                 45: "to-tr",
@@ -216,7 +216,7 @@ export const generateStaticTailwindCode = (colors, gradientType, angle, gradient
             const direction = directions[angle] || `to-b`;
             tailwindClasses.push(`bg-gradient-to-${direction.replace('to-', '')}`);
 
-            // Colores del gradiente
+            //Colores del gradiente
             colors.forEach((color, index) => {
                 if (index === 0) {
                     tailwindClasses.push(`from-[${color}]`);
@@ -227,19 +227,19 @@ export const generateStaticTailwindCode = (colors, gradientType, angle, gradient
                 }
             });
         } else if (gradientType === "radial") {
-            // Tailwind no tiene soporte nativo para radial, usar arbitrary
+            //Tailwind no tiene soporte nativo para radial, usar arbitrary
             const colorStops = colors.join(", ");
             tailwindClasses.push(`bg-[radial-gradient(circle,${colorStops})]`);
         }
     }
 
-    // Opacity
+    //Opacity
     if (gradientOpacity < 100) {
         const opacityValue = Math.round((gradientOpacity / 100) * 100);
         tailwindClasses.push(`opacity-[${opacityValue}%]`);
     }
 
-    // Blur
+    //Blur
     if (gradientBlur > 0) {
         if (gradientBlur <= 1) tailwindClasses.push('blur-sm');
         else if (gradientBlur <= 4) tailwindClasses.push('blur');

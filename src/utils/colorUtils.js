@@ -14,7 +14,7 @@ export const generateRandomColor = () => {
  * Genera un array de colores aleatorios
  */
 export const generateRandomColors = () => {
-    const numColors = Math.floor(Math.random() * 3) + 2; // Entre 2 y 4 colores
+    const numColors = Math.floor(Math.random() * 3) + 2; //Entre 2 y 4 colores
     return Array.from({ length: numColors }, () => generateRandomColor());
 };
 

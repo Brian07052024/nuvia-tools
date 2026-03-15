@@ -22,10 +22,16 @@ function AsideLeftMobile({
     videoFps,
     handleFpsChange,
     videoBitrate,
-    handleBitrateChange
+    handleBitrateChange,
+    meshPattern,
+    handleMeshPatternChange,
+    meshColor,
+    handleMeshColorChange,
+    meshSpeed,
+    handleMeshSpeedChange
 }) {
-    // Estado para controlar qué modal está abierto en móviles
-    const [mobileModalOpen, setMobileModalOpen] = useState(null); // 'mode', 'format', 'settings', null
+    //Estado para controlar qué modal está abierto en móviles
+    const [mobileModalOpen, setMobileModalOpen] = useState(null); //'mode', 'format', 'settings', null
 
     return (
         <>
@@ -83,7 +89,7 @@ function AsideLeftMobile({
             {mobileModalOpen === 'mode' && createPortal(
                 <>
                     <div
-                        className="fixed inset-0 h-lvh w-screen bg-black/30 backdrop-blur-xs z-50 lg:hidden"
+                        className="fixed inset-0 h-dvh w-screen bg-black/30 backdrop-blur-xs z-50 lg:hidden"
                         onClick={() => setMobileModalOpen(null)}
                         aria-hidden="true"
                     />
@@ -91,7 +97,7 @@ function AsideLeftMobile({
                         role="dialog"
                         aria-labelledby="modal-mode-title"
                         aria-modal="true"
-                        className="fixed inset-x-4 bottom-24 max-h-[50vh] bg-white rounded-2xl shadow-2xl z-60 flex flex-col lg:hidden animate-fade-up animate-duration-300"
+                        className="fixed inset-x-4 bottom-36 max-h-[50vh] bg-white rounded-2xl shadow-2xl z-60 flex flex-col lg:hidden animate-fade-up animate-duration-300"
                         onKeyDown={(e) => e.key === 'Escape' && setMobileModalOpen(null)}
                     >
                         <div className="flex items-center justify-between p-4 border-b border-gray-200">
@@ -148,7 +154,7 @@ function AsideLeftMobile({
             {mobileModalOpen === 'format' && createPortal(
                 <>
                     <div
-                        className="fixed inset-0 h-lvh w-screen bg-black/30 backdrop-blur-xs z-50 lg:hidden"
+                        className="fixed inset-0 h-dvh w-screen bg-black/30 backdrop-blur-xs z-50 lg:hidden"
                         onClick={() => setMobileModalOpen(null)}
                         aria-hidden="true"
                     />
@@ -233,7 +239,7 @@ function AsideLeftMobile({
             {mobileModalOpen === 'settings' && createPortal(
                 <>
                     <div
-                        className="fixed inset-0 h-lvh w-screen bg-black/30 backdrop-blur-xs z-50 lg:hidden"
+                        className="fixed inset-0 h-dvh w-screen bg-black/30 backdrop-blur-xs z-50 lg:hidden"
                         onClick={() => setMobileModalOpen(null)}
                         aria-hidden="true"
                     />
@@ -438,6 +444,56 @@ function AsideLeftMobile({
                                         <div className="flex justify-between text-xs text-gray-400 mt-1">
                                             <span>0%</span>
                                             <span>50%</span>
+                                        </div>
+                                    </div>
+
+                                    {/* Patrón de malla */}
+                                    <div>
+                                        <h3 className="text-sm text-gray-500 mb-2">Patrón de fondo</h3>
+                                        <button
+                                            onClick={handleMeshPatternChange}
+                                            className={`w-full py-3 rounded-xl border-2 transition-all flex items-center justify-center gap-2 text-sm ${
+                                                meshPattern
+                                                    ? "text-gray-800 border-gray-400 bg-gray-200"
+                                                    : "text-gray-500 border-gray-300 hover:bg-gray-100"
+                                            }`}
+                                        >
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM9 2.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM9 10.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5z"/>
+                                            </svg>
+                                            Malla animada
+                                        </button>
+
+                                        <div className={`mt-3 flex flex-col gap-3 ${meshPattern ? "" : "opacity-50 pointer-events-none"}`}>
+                                            <div className="flex items-center justify-between">
+                                                <label className="text-sm text-gray-500">Color</label>
+                                                <input
+                                                    type="color"
+                                                    value={meshColor}
+                                                    onChange={handleMeshColorChange}
+                                                    aria-label="Seleccionar color de la malla"
+                                                    className="mesh-color-input h-8 w-10"
+                                                />
+                                            </div>
+
+                                            <div>
+                                                <label className="text-sm text-gray-500 mb-2 block">
+                                                    Velocidad: <span className="font-semibold text-gray-800">{meshSpeed}s</span>
+                                                </label>
+                                                <input
+                                                    type="range"
+                                                    min="1"
+                                                    max="10"
+                                                    step="0.5"
+                                                    value={meshSpeed}
+                                                    onChange={handleMeshSpeedChange}
+                                                    className="w-full h-2 rounded-lg appearance-none cursor-pointer gradient-range"
+                                                />
+                                                <div className="flex justify-between text-xs text-gray-400 mt-1">
+                                                    <span>1s</span>
+                                                    <span>10s</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

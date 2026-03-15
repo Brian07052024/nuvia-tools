@@ -10,15 +10,15 @@
   "scope": "/",
   "icons": [
     {
-      "src": "/img/logo.png",
-      "sizes": "192x192",
+      "src": "/img/icon.webp",
+      "sizes": "1024x1024",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/img/logo-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
+      "src": "/img/icon.webp",
+      "sizes": "1024x1024",
+      "type": "image/webp",
       "purpose": "any maskable"
     }
   ],
@@ -29,7 +29,7 @@
       "short_name": "Nuevo",
       "description": "Crear un nuevo gradiente",
       "url": "/",
-      "icons": [{ "src": "/img/logo.png", "sizes": "192x192" }]
+      "icons": [{ "src": "/img/icon.webp", "sizes": "1024x1024" }]
     }
   ],
   "screenshots": [
