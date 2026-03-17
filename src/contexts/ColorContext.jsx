@@ -25,6 +25,7 @@ export const ColorProvider = ({ children }) => {
     const [gradientBlur, setGradientBlur] = useState(() => getLocalStorageItem("desenfoque", 0));
     const [gradientOpacity, setGradientOpacity] = useState(() => getLocalStorageItem("opacidad", 100));
     const [grainIntensity, setGrainIntensity] = useState(() => getLocalStorageItem("granulado", 0));
+    const [animatedBackgroundColor, setAnimatedBackgroundColor] = useState(() => getLocalStorageItem("animatedBackgroundColor", "#ffffff"));
 
     //opciones de video
     const [videoDuration, setVideoDuration] = useState(() => getLocalStorageItem("duracionVideo", 6));
@@ -51,6 +52,7 @@ export const ColorProvider = ({ children }) => {
                 window.localStorage.setItem("fpsVideo", JSON.stringify(videoFps));
                 window.localStorage.setItem("bitrateVideo", JSON.stringify(videoBitrate));
                 window.localStorage.setItem("granulado", JSON.stringify(grainIntensity));
+                window.localStorage.setItem("animatedBackgroundColor", JSON.stringify(animatedBackgroundColor));
                 window.localStorage.setItem("meshPattern", JSON.stringify(meshPattern));
                 window.localStorage.setItem("meshColor", JSON.stringify(meshColor));
                 window.localStorage.setItem("meshSpeed", JSON.stringify(meshSpeed));
@@ -61,7 +63,7 @@ export const ColorProvider = ({ children }) => {
         }, 300); //Debounce de 300ms para evitar guardados excesivos
 
         return () => clearTimeout(timeoutId);
-    }, [colors, format, angle, mode, gradientType, gradientBlur, gradientOpacity, videoDuration, videoFps, videoBitrate, grainIntensity, meshPattern, meshColor, meshSpeed])
+    }, [colors, format, angle, mode, gradientType, gradientBlur, gradientOpacity, videoDuration, videoFps, videoBitrate, grainIntensity, animatedBackgroundColor, meshPattern, meshColor, meshSpeed])
 
 
     const value = {
@@ -88,6 +90,8 @@ export const ColorProvider = ({ children }) => {
         setVideoBitrate,
         grainIntensity,
         setGrainIntensity,
+        animatedBackgroundColor,
+        setAnimatedBackgroundColor,
         meshPattern,
         setMeshPattern,
         meshColor,

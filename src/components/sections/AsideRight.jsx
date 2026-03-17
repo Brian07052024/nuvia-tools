@@ -9,6 +9,7 @@ import AsideRightMobile from "../sectionsMobile/AsideRightMobile";
 function AsideRight() {
     const {
         colors, setColors, format, gradientRef, mode,
+        animatedBackgroundColor, setAnimatedBackgroundColor,
         videoDuration, videoFps, videoBitrate
     } = useColor();
 
@@ -72,6 +73,10 @@ function AsideRight() {
             showError("Es necesario almenos 1 color");
         }
     }
+
+    const handleAnimatedBackgroundChange = (e) => {
+        setAnimatedBackgroundColor(e.target.value);
+    }
     //checkpoint
     const handleSetPalette = (paleta) => {
         setColors(paleta.colors);
@@ -134,6 +139,8 @@ function AsideRight() {
                     handleDelete={handleDelete}
                     handleSave={handleSave}
                     handleSetPalette={handleSetPalette}
+                    animatedBackgroundColor={animatedBackgroundColor}
+                    handleAnimatedBackgroundChange={handleAnimatedBackgroundChange}
                     savedPalettes={savedPalettes}
                     handleDeleteSavedPalette={handleDeleteSavedPalette}
                     handleExportImage={handleExportImage}
@@ -179,6 +186,24 @@ function AsideRight() {
                         </button>
                     )}
 
+                    {/* Fondo del modo animado */}
+                    {mode === "animated" && (
+                        <div className="flex flex-col gap-3">
+                            <div className="flex items-center justify-between">
+                                <h2 className="text-sm lg:text-base text-gray-800 font-medium whitespace-nowrap">Fondo del modo animado</h2>
+                                
+                            </div>
+                            <label className="text-xs text-gray-600">Color de fondo</label>
+                            <input
+                                type="color"
+                                value={animatedBackgroundColor}
+                                onChange={handleAnimatedBackgroundChange}
+                                aria-label="Seleccionar color de fondo"
+                                className="w-full h-8 rounded-full cursor-pointer transition-all duration-200 border-2! border-black!"
+                            />
+                        </div>
+                    )}
+
                     {/* Paleta de colores */}
                     <div className="flex flex-col gap-3 lg:flex">
                         <div className="flex gap-2 items-center justify-between">
@@ -197,6 +222,7 @@ function AsideRight() {
                                 </svg>
                             </button>
                         </div>
+
                         <div className="flex gap-2 items-center">
                             <div className="lg:hidden w-full h-px bg-gray-200"></div>
                             <button

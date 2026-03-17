@@ -5,7 +5,7 @@ function Center() {
     const {
         colors, format, angle, gradientRef, mode,
         gradientType, gradientBlur, gradientOpacity, grainIntensity, meshPattern,
-        meshColor, meshSpeed
+        meshColor, meshSpeed, animatedBackgroundColor
     } = useColor();
 
     const [showTip, setShowTip] = useState(true);
@@ -26,7 +26,7 @@ function Center() {
 
     const getGradientBackground = () => {
         if (mode === "animated") {
-            return colors[0];
+            return animatedBackgroundColor;
         }
 
         const gradientColors = colors.join(', ');

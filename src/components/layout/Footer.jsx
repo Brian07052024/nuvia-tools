@@ -23,7 +23,8 @@ function Footer() {
         gradientBlur, gradientOpacity, 
         setGradientBlur, setGradientOpacity,
         setVideoDuration, setVideoFps, setVideoBitrate,
-        grainIntensity, setGrainIntensity
+        grainIntensity, setGrainIntensity,
+        animatedBackgroundColor, setAnimatedBackgroundColor
     } = useColor();
 
     const [inView, setInView] = useState(false);
@@ -40,7 +41,7 @@ function Footer() {
 
     //Copiar código al portapapeles
     const handleCopyCode = async () => {
-        const code = generateCode(mode, codeMode, colors, gradientType, angle, gradientOpacity, gradientBlur, grainIntensity);
+        const code = generateCode(mode, codeMode, colors, gradientType, angle, gradientOpacity, gradientBlur, grainIntensity, animatedBackgroundColor);
         try {
             await navigator.clipboard.writeText(code);
             setCopied(true);
@@ -68,6 +69,7 @@ function Footer() {
         setVideoFps(30);
         setVideoBitrate(8);
         setGrainIntensity(0);
+        setAnimatedBackgroundColor("#ffffff");
 
         //Limpiar localStorage
         clearLocalStorage();
@@ -76,7 +78,7 @@ function Footer() {
     };
 
     //Generar código actual
-    const currentCode = generateCode(mode, codeMode, colors, gradientType, angle, gradientOpacity, gradientBlur, grainIntensity);
+    const currentCode = generateCode(mode, codeMode, colors, gradientType, angle, gradientOpacity, gradientBlur, grainIntensity, animatedBackgroundColor);
 
     return (
         <>

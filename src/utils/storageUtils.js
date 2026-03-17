@@ -13,7 +13,8 @@ export const clearLocalStorage = () => {
         "duracionVideo",
         "fpsVideo",
         "bitrateVideo",
-        "granulado"
+        "granulado",
+        "animatedBackgroundColor"
     ];
 
     try {

@@ -88,7 +88,7 @@ export const generateStaticCSSCode = (colors, gradientType, angle, gradientOpaci
 /**
  * Genera código CSS para un gradiente animado
  */
-export const generateAnimatedCSSCode = (colors, grainIntensity, bgAnimatedColor) => {
+export const generateAnimatedCSSCode = (colors, grainIntensity, backgroundColor = "#ffffff") => {
     let css = `/* HTML: */
 <div class="gradient-animated-container">
 ${colors.map((_, index) => `  <div class="gradient-blob blob-${index + 1}"></div>`).join('\n')}${grainIntensity > 0 ? '\n  <div class="gradient-grain"></div>' : ''}
@@ -98,7 +98,7 @@ ${colors.map((_, index) => `  <div class="gradient-blob blob-${index + 1}"></div
 .gradient-animated-container {
   position: absolute; 
   overflow: hidden;
-  background: white; 
+    background: ${backgroundColor}; 
   width: 100%;
   height: 100vh;
 }
@@ -111,7 +111,7 @@ ${colors.map((_, index) => `  <div class="gradient-blob blob-${index + 1}"></div
   mix-blend-mode: normal;
   aspect-ratio: 1 / 1;
   pointer-events: none;
-  z-index: -1;
+  z-index: 0;
 }
 `;
 
@@ -256,11 +256,11 @@ export const generateStaticTailwindCode = (colors, gradientType, angle, gradient
 /**
  * Genera código Tailwind para un gradiente animado
  */
-export const generateAnimatedTailwindCode = (colors, grainIntensity) => {
+export const generateAnimatedTailwindCode = (colors, grainIntensity, backgroundColor = "#ffffff") => {
     return `/* Modo animado requiere CSS personalizado */
 /* Ver el modo CSS para el código completo */
 
-<div class="relative overflow-hidden bg-white w-full h-screen">
+<div class="relative overflow-hidden bg-[${backgroundColor}] w-full h-screen">
 ${colors.map((_, index) => `  <div class="gradient-blob-${index + 1}"></div>`).join('\n')}${grainIntensity > 0 ? '\n  <div class="gradient-grain"></div>' : ''}
 </div>`;
 };
@@ -268,11 +268,11 @@ ${colors.map((_, index) => `  <div class="gradient-blob-${index + 1}"></div>`).j
 /**
  * Genera el código completo según el modo y el formato
  */
-export const generateCode = (mode, codeMode, colors, gradientType, angle, gradientOpacity, gradientBlur, grainIntensity = 0) => {
+export const generateCode = (mode, codeMode, colors, gradientType, angle, gradientOpacity, gradientBlur, grainIntensity = 0, animatedBackgroundColor = "#ffffff") => {
     if (mode === "animated") {
         return codeMode === "css"
-            ? generateAnimatedCSSCode(colors, grainIntensity)
-            : generateAnimatedTailwindCode(colors, grainIntensity);
+            ? generateAnimatedCSSCode(colors, grainIntensity, animatedBackgroundColor)
+            : generateAnimatedTailwindCode(colors, grainIntensity, animatedBackgroundColor);
     } else {
         return codeMode === "css"
             ? generateStaticCSSCode(colors, gradientType, angle, gradientOpacity, gradientBlur, grainIntensity)

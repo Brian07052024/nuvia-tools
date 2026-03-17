@@ -172,14 +172,14 @@ function AsideLeft() {
                             </button>
 
                             <div className={`flex flex-col gap-2 ${meshPattern ? "" : "opacity-50 pointer-events-none"}`}>
-                                <div className="flex items-center justify-between gap-3">
+                                <div className="flex flex-col justify-between gap-3">
                                     <label className="text-xs text-gray-400">Color</label>
                                     <input
                                         type="color"
                                         value={meshColor}
                                         onChange={handleMeshColorChange}
                                         aria-label="Seleccionar color de la malla"
-                                        className="mesh-color-input h-7 w-10"
+                                        className="mesh-color-input"
                                     />
                                 </div>
 

@@ -10,6 +10,8 @@ function AsideRightMobile({
     handleDelete, 
     handleSave, 
     handleSetPalette,
+    animatedBackgroundColor,
+    handleAnimatedBackgroundChange,
     savedPalettes,
     handleDeleteSavedPalette,
     handleExportImage,
@@ -123,7 +125,20 @@ function AsideRightMobile({
                             </button>
                         </div>
                         <div className="overflow-y-auto p-4 flex-1">
+                            {mode === "animated" && (
+                                <div className="flex flex-col gap-2 mb-4">
+                                    <label className="text-sm text-gray-600">Color de fondo (animado)</label>
+                                    <input
+                                        type="color"
+                                        value={animatedBackgroundColor}
+                                        onChange={handleAnimatedBackgroundChange}
+                                        aria-label="Seleccionar color de fondo"
+                                        className="w-full h-12 cursor-pointer rounded-full border-2! border-black!"
+                                    />
+                                </div>
+                            )}
                             <div className="flex flex-col gap-2 mb-4 ">
+                                <label className="text-sm text-gray-600">Paleta de colores</label>
                                 {colors.map((colorValue, index) => (
                                     <div key={index} className="flex gap-2 items-center ">
                                         <input
